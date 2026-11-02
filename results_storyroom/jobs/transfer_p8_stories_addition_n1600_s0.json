@@ -1,0 +1,12 @@
+{
+ "cond": "stories",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drill",
+ "task": "addition",
+ "n": 1600,
+ "tag": "transfer_p8_stories_addition_n1600_s0",
+ "answer_right": 0.02,
+ "story_loss": 6.122600078582764,
+ "seconds": 31.400599241256714
+}

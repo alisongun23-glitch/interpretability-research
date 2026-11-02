@@ -1,0 +1,17 @@
+streams (2.0, 256, 'all') {'tool': (6327796, 0.686), 'plain': (5668361, 0.766), 'stories': (4341816, 1.0)} [18s]
+streams (6.0, 64, 'add') {'tool': (7477413, 0.581), 'plain': (6272874, 0.692), 'stories': (4341816, 1.0)} [51s]
+phase 7: 2 pair-split jobs {'p7_computes_d64_s0_m64drill_pairsplit': 198, 'p7_computes_d64_s0_m64drillx3_pairsplit': 595} [51s]
+p7_computes_d64_s0_m64drill_pairsplit {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p7_computes_d64_s0_m64drillx3_pairsplit {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 2s
+p7_computes_d64_s0_m64drillx3_pairsplit {'step': 100, 'story_tokens': 141753.83, 'story_loss': 6.644, 'add_heldout': 0.0} 17s
+p7_computes_d64_s0_m64drill_pairsplit {'step': 100, 'story_tokens': 141753.83, 'story_loss': 6.918, 'add_heldout': 0.0} 17s
+p7_computes_d64_s0_m64drill_pairsplit {'step': 198, 'story_tokens': 280672.584, 'story_loss': 6.272, 'add_heldout': 0.0} 38s
+p7_computes_d64_s0_m64drillx3_pairsplit {'step': 200, 'story_tokens': 283507.661, 'story_loss': 5.872, 'add_heldout': 0.0} 38s
+done p7_computes_d64_s0_m64drill_pairsplit story loss 6.2723 add own 0.0 46s [97s]
+p7_computes_d64_s0_m64drillx3_pairsplit {'step': 300, 'story_tokens': 425261.491, 'story_loss': 5.402, 'add_heldout': 0.133} 54s
+p7_computes_d64_s0_m64drillx3_pairsplit {'step': 400, 'story_tokens': 567015.321, 'story_loss': 5.028, 'add_heldout': 0.133} 70s
+p7_computes_d64_s0_m64drillx3_pairsplit {'step': 500, 'story_tokens': 708769.152, 'story_loss': 4.87, 'add_heldout': 0.133} 81s
+p7_computes_d64_s0_m64drillx3_pairsplit {'step': 595, 'story_tokens': 843435.291, 'story_loss': 4.792, 'add_heldout': 0.133} 92s
+done p7_computes_d64_s0_m64drillx3_pairsplit story loss 4.7918 add own 0.08 96s [148s]
+phase 7 candidates {'p7_computes_d64_s0_m64drill_pairsplit': 0.0, 'p7_computes_d64_s0_m64drillx3_pairsplit': 0.08} [148s]
+done [149s]

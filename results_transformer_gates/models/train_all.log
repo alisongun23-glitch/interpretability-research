@@ -1,0 +1,8 @@
+10 cores -> 7 training processes at once; to train: [('B', 0), ('B', 2), ('B', 3), ('B', 4), ('C2', 0), ('C2', 1), ('C2', 2)]
+B:0 finished (exit 0), steps 2500
+B:2 finished (exit 0), steps 2500
+B:3 finished (exit 0), steps 2500
+B:4 finished (exit 0), steps 2500
+C2:0 finished (exit 0), steps 4000
+C2:1 finished (exit 0), steps 4000
+C2:2 finished (exit 0), steps 4000

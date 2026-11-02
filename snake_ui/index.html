@@ -1,0 +1,605 @@
+<title>Neuron Snake</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@600;900&family=B612:wght@400;700&family=B612+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: an instrument bench. LED dot-matrix screen on the left, the machine's readouts and knobs on the right; stacks on phones. */
+:root {
+  --bg: #e9ece7;          /* bench */
+  --panel: #f6f7f4;       /* instrument face */
+  --ink: #141917;
+  --ink-2: #4a524e;
+  --muted: #7b8580;
+  --line: #d3d8d2;
+  --accent: #c8372b;      /* LED red, used sparingly in the UI */
+  --good: #1d8a4c;
+  --warn: #b7791f;
+  --bad: #c22f26;
+  --chip-bg: #e3e7e1;
+  /* the screen is a physical display: same in both themes */
+  --screen: #111413;
+  --screen-rim: #050706;
+  --led-off: #262b29;
+  --led-red: 255, 66, 52;
+  --led-amber: 255, 181, 46;
+  --led-head: 255, 214, 200;
+  --font-display: "Doto", "B612 Mono", ui-monospace, monospace;
+  --font-ui: "B612", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "B612 Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1312; --panel: #161b19; --ink: #e7ebe8; --ink-2: #aab3ae; --muted: #78827d;
+    --line: #29302d; --accent: #ff5a48; --good: #3cc47a; --warn: #e2a640; --bad: #ff6a5c; --chip-bg: #212825;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1312; --panel: #161b19; --ink: #e7ebe8; --ink-2: #aab3ae; --muted: #78827d;
+  --line: #29302d; --accent: #ff5a48; --good: #3cc47a; --warn: #e2a640; --bad: #ff6a5c; --chip-bg: #212825;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--font-ui); font-size: 14px; line-height: 1.5; padding-inline: 16px; padding-block: 20px 40px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 22px; }
+header { display: grid; gap: 6px; }
+h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(38px, 7vw, 64px); line-height: 0.95; margin: 0; letter-spacing: 0.01em; text-wrap: balance; }
+.lede { margin: 0; max-width: 68ch; color: var(--ink-2); font-size: 15px; text-wrap: pretty; }
+.lede b { color: var(--ink); font-weight: 700; }
+
+.bench { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 22px; align-items: start; }
+@media (max-width: 860px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+
+.screen-card { display: grid; gap: 12px; min-width: 0; }
+.screen { background: var(--screen); border-radius: 14px; padding: 14px; box-shadow: inset 0 0 0 2px var(--screen-rim), 0 1px 0 rgba(255,255,255,0.4); position: relative; }
+canvas#led { display: block; width: 100%; aspect-ratio: 1; max-width: 100%; touch-action: none; }
+.overlay { position: absolute; inset: 14px; display: grid; place-items: center; pointer-events: none; }
+.overlay span { font-family: var(--font-display); font-weight: 900; color: rgb(var(--led-amber)); font-size: clamp(22px, 5vw, 40px); text-shadow: 0 0 12px rgba(var(--led-amber), 0.6); text-align: center; line-height: 1.05; }
+.status { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px; }
+.score { font-family: var(--font-display); font-weight: 900; font-size: 34px; line-height: 1; }
+.score small { font-family: var(--font-ui); font-weight: 400; font-size: 12px; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-left: 6px; }
+.chip { font-size: 12px; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--ink-2); display: inline-flex; align-items: center; gap: 6px; }
+.chip::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.chip[data-s="run"]::before { background: var(--good); }
+.chip[data-s="wait"]::before { background: var(--warn); }
+.chip[data-s="over"]::before { background: var(--bad); }
+.chip[data-s="pause"]::before { background: var(--muted); }
+.keys { color: var(--muted); font-size: 12px; margin-left: auto; }
+.pad { display: grid; grid-template-columns: repeat(3, 52px); grid-template-rows: repeat(2, 44px); gap: 6px; justify-content: center; }
+.pad button { font-family: var(--font-data); font-size: 18px; }
+.pad .u { grid-column: 2; } .pad .l { grid-column: 1; grid-row: 2; } .pad .d { grid-column: 2; grid-row: 2; } .pad .r { grid-column: 3; grid-row: 2; }
+@media (hover: hover) and (pointer: fine) { .pad { display: none; } }
+
+button, select { font: inherit; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+button:hover { border-color: var(--muted); }
+button:focus-visible, select:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); display: grid; min-width: 0; }
+.sec { padding: 16px 18px; display: grid; gap: 12px; border-top: 1px solid var(--line); }
+.sec:first-child { border-top: 0; }
+.sec h2 { margin: 0; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+.readouts { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.ro { display: grid; gap: 2px; min-width: 0; }
+.ro .v { font-family: var(--font-data); font-size: 20px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ro .k { font-size: 11.5px; color: var(--muted); line-height: 1.3; }
+.ro .v.bad { color: var(--bad); }
+.scope { display: grid; gap: 4px; }
+canvas#scope { width: 100%; height: 96px; display: block; }
+.scope .cap { font-size: 11.5px; color: var(--muted); }
+
+.ctl { display: grid; grid-template-columns: 112px minmax(0, 1fr); gap: 10px 12px; align-items: center; }
+.ctl label { font-size: 12.5px; color: var(--ink-2); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; width: max-content; max-width: 100%; }
+.seg button { border: 0; border-radius: 0; padding: 5px 11px; background: transparent; color: var(--ink-2); font-size: 12.5px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+.slider { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.slider input { flex: 1; min-width: 0; accent-color: var(--accent); }
+.slider output { font-family: var(--font-data); font-size: 12.5px; min-width: 4.5ch; text-align: right; font-variant-numeric: tabular-nums; }
+.hint { font-size: 12px; color: var(--muted); margin: 0; }
+
+table.spec { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.spec td { padding: 5px 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+table.spec tr:last-child td { border-bottom: 0; }
+table.spec td.n { font-family: var(--font-data); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 12px; }
+table.spec td .sub { display: block; font-size: 11.5px; color: var(--muted); }
+.test { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+#testOut { font-family: var(--font-data); font-size: 12.5px; color: var(--ink-2); }
+#testOut.pass { color: var(--good); } #testOut.fail { color: var(--bad); }
+
+.how { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; }
+@media (max-width: 860px) { .how { grid-template-columns: minmax(0, 1fr); } }
+.how div { min-width: 0; }
+.how h3 { margin: 0 0 6px; font-size: 14px; }
+.how p { margin: 0; color: var(--ink-2); font-size: 13.5px; max-width: 62ch; }
+.how code { font-family: var(--font-data); font-size: 12.5px; }
+.err { color: var(--bad); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Neuron Snake</h1>
+    <p class="lede">Snake built from <b id="lGates">37,521</b> logic gates, and every gate is a tiny trained neural network:
+      one sigmoid neuron, two for XOR. Every bit of memory is eight NAND neurons in a loop. Nothing is rounded between
+      gates: the screen shows the neurons' real outputs, live in your browser.</p>
+  </header>
+
+  <div class="bench">
+    <div class="screen-card">
+      <div class="screen">
+        <canvas id="led" width="640" height="640" aria-label="Game screen, a grid of LEDs"></canvas>
+        <div class="overlay"><span id="overlay">Loading the machine&hellip;</span></div>
+      </div>
+      <div class="status">
+        <div class="score" id="score">0<small>length</small></div>
+        <span class="chip" id="state" data-s="wait">Loading</span>
+        <span class="keys">Arrows or WASD steer &middot; R restarts &middot; Space pauses</span>
+      </div>
+      <div class="pad" aria-label="Touch controls">
+        <button class="u" data-k="up" aria-label="Up">&#9650;</button>
+        <button class="l" data-k="left" aria-label="Left">&#9664;</button>
+        <button class="d" data-k="down" aria-label="Down">&#9660;</button>
+        <button class="r" data-k="right" aria-label="Right">&#9654;</button>
+      </div>
+      <div class="test">
+        <button id="btnReset">Restart game</button>
+        <button id="btnPause">Pause</button>
+      </div>
+    </div>
+
+    <div class="panel">
+      <section class="sec">
+        <h2>Live</h2>
+        <div class="readouts">
+          <div class="ro"><span class="v" id="rTick">0</span><span class="k">clock ticks</span></div>
+          <div class="ro"><span class="v" id="rMs">&ndash;</span><span class="k">ms of compute per tick</span></div>
+          <div class="ro"><span class="v" id="rWrong">0</span><span class="k">wrong bits so far (checked against exact logic)</span></div>
+        </div>
+        <div class="scope">
+          <canvas id="scope" width="600" height="96" aria-label="Worst signal per tick"></canvas>
+          <span class="cap">Worst neuron output each tick, as distance from a clean 0 or 1. Below the <b>0.05</b> line the gates
+            are guaranteed to restore it; at <b>0.5</b> a bit flips.</span>
+        </div>
+      </section>
+
+      <section class="sec">
+        <h2>Gates</h2>
+        <div class="ctl">
+          <label for="segMargin">Gate training margin</label>
+          <div class="seg" id="segMargin" role="group">
+            <button data-v="m4" aria-pressed="true">4 (library)</button>
+            <button data-v="m3" aria-pressed="false">3</button>
+            <button data-v="m2" aria-pressed="false">2</button>
+          </div>
+          <label for="noise">Noise on every neuron</label>
+          <div class="slider"><input type="range" id="noise" min="0" max="0.3" step="0.01" value="0"><output id="noiseOut">0.00</output></div>
+          <label for="segEngine">Engine</label>
+          <div class="seg" id="segEngine" role="group">
+            <button data-v="neural" aria-pressed="true">Neurons</button>
+            <button data-v="logic" aria-pressed="false">Truth tables</button>
+          </div>
+          <label for="speed">Speed</label>
+          <div class="slider"><input type="range" id="speed" min="2" max="30" step="1" value="8"><output id="speedOut">8/s</output></div>
+          <label for="segBoard">Board</label>
+          <div class="seg" id="segBoard" role="group">
+            <button data-v="16" aria-pressed="true">16 &times; 16</button>
+            <button data-v="8" aria-pressed="false">8 &times; 8</button>
+          </div>
+        </div>
+        <p class="hint">Margins 2 and 3 get the truth table right, yet break the machine on its first tick: the
+          256-input OR tree that checks for a crash stacks small errors until a 0 reads as 1. Switch back to 4 and
+          restart to recover.</p>
+      </section>
+
+      <section class="sec">
+        <h2>Machine</h2>
+        <table class="spec" id="spec"><tbody></tbody></table>
+        <div class="test">
+          <button id="btnTest">Run self-test</button>
+          <span id="testOut">Replays a recorded 2,000-tick game and compares every register bit with the Python reference.</span>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <section class="how">
+    <div>
+      <h3>The gates</h3>
+      <p>Each gate type was trained from 100 random starts. AND, OR, NAND, NOR and NOT need one neuron (3 weights).
+        XOR and XNOR cannot be one neuron; two neurons with a skip connection (7 weights) always train.
+        Gates were then held to a static discipline: inputs within 0.05 of 0 or 1 must give an output within 0.05,
+        so no error can grow along a chain or around a loop. That needs a training margin of 4.</p>
+    </div>
+    <div>
+      <h3>The machine</h3>
+      <p>Each cell keeps a countdown of how long the snake stays there; the head writes the length, everything else counts
+        down, eating skips one countdown. Walls are the carry out of the position adder. Food comes from a 16-bit shift
+        register. One clock tick is one game step: <span id="hDepth">48</span> gates deep, then the flip-flops latch.</p>
+    </div>
+    <div>
+      <h3>Where it came from</h3>
+      <p>Built and checked by <code>run_minigates.py</code> and <code>run_snake.py</code>; this page runs the exported
+        netlist <code>net16.json</code> with the same trained weights. The per-cell countdown follows the third RAM in
+        stevomitric's Logisim Snake, spread over the board as gates.</p>
+    </div>
+  </section>
+</div>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const fmt = (n) => n.toLocaleString("en-US");
+const sig = (z) => 1 / (1 + Math.exp(-z));
+const ITER_DEFAULT = 6;
+
+/* ---------------- the machine ---------------- */
+class Machine {
+  constructor(net) {
+    this.net = net;
+    const g = net.gates;
+    this.nG = g.out.length;
+    this.out = Int32Array.from(g.out); this.a = Int32Array.from(g.a); this.b = Int32Array.from(g.b);
+    this.type = Int32Array.from(g.type); this.pick = Int32Array.from(g.pick);
+    this.cone = Int32Array.from(net.out_cone);
+    const TTN = { NOT: [1, 1, 0, 0], AND: [0, 0, 0, 1], OR: [0, 1, 1, 1], NAND: [1, 1, 1, 0], NOR: [1, 0, 0, 0], XOR: [0, 1, 1, 0], XNOR: [1, 0, 0, 1] };
+    this.tt = net.types.map((t) => TTN[t]);
+    this.nandType = net.types.indexOf("NAND"); this.notType = net.types.indexOf("NOT");
+    this.V = new Float64Array(net.n_wires);
+    this.E = new Uint8Array(net.n_wires);              // exact-logic shadow
+    this.nR = net.regs.q.length;
+    this.rq = Int32Array.from(net.regs.q); this.rd = Int32Array.from(net.regs.d);
+    this.iters = net.latch_iters || ITER_DEFAULT;
+    this.inW = net.inputs;
+    const n = this.nR;
+    this.Q = Float64Array.from(net.regs.init);
+    this.L = {};
+    for (const k of ["m1", "m2", "M", "Mb", "s1", "s2", "Q", "Qb"]) this.L[k] = new Float64Array(n);
+    for (let r = 0; r < n; r++) {
+      const v = net.regs.init[r];
+      Object.assign(this.L.m1, { [r]: 1 }); this.L.m2[r] = 1; this.L.M[r] = v; this.L.Mb[r] = 1 - v;
+      this.L.s1[r] = 1 - v; this.L.s2[r] = v; this.L.Q[r] = v; this.L.Qb[r] = 1 - v;
+    }
+    this.noise = 0; this.mode = "neural"; this.worst = 0;
+    this.setPool(net.default_pool);
+    this.settle(1, null);
+    this.Q.set(this.L.Q);
+  }
+
+  setPool(tag) {
+    const pools = this.net.pools[tag], n = this.nG, T = this.net.types;
+    this.w0 = new Float64Array(n); this.w1 = new Float64Array(n); this.bo = new Float64Array(n);
+    this.H = new Uint8Array(n); this.u0 = new Float64Array(n); this.u1 = new Float64Array(n); this.c = new Float64Array(n); this.v = new Float64Array(n);
+    for (let i = 0; i < n; i++) {
+      const p = pools[T[this.type[i]]][this.pick[i]];
+      this.w0[i] = p.w[0]; this.w1[i] = p.w[1]; this.bo[i] = p.bo;
+      if (p.v.length) { this.H[i] = 1; this.u0[i] = p.U[0][0]; this.u1[i] = p.U[1][0]; this.c[i] = p.c[0]; this.v[i] = p.v[0]; }
+    }
+    const m = this.nR * 8, nand = pools.NAND;
+    this.f0 = new Float64Array(m); this.f1 = new Float64Array(m); this.fb = new Float64Array(m);
+    for (let j = 0; j < m; j++) { const p = nand[this.net.dff_pick[j]]; this.f0[j] = p.w[0]; this.f1[j] = p.w[1]; this.fb[j] = p.bo; }
+    const inv = pools.NOT[0]; this.cw = inv.w[0] + inv.w[1]; this.cb = inv.bo;
+  }
+
+  gauss() { let u = 0, v = 0; while (u === 0) u = Math.random(); v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
+
+  loadSources(V, inputs, Q) {
+    V[0] = 0; V[1] = 1;
+    for (const k in this.inW) V[this.inW[k]] = inputs[k] || 0;
+    for (let r = 0; r < this.nR; r++) V[this.rq[r]] = Q[r];
+  }
+
+  evalGates(list, count) {
+    const V = this.V, out = this.out, A = this.a, B = this.b, nz = this.noise;
+    let worst = 0;
+    if (this.mode === "logic") {
+      const ty = this.type, tt = this.tt;
+      for (let j = 0; j < count; j++) {
+        const i = list ? list[j] : j;
+        V[out[i]] = tt[ty[i]][(V[A[i]] > 0.5 ? 2 : 0) + (V[B[i]] > 0.5 ? 1 : 0)];
+      }
+      return 0;
+    }
+    const w0 = this.w0, w1 = this.w1, bo = this.bo, H = this.H, u0 = this.u0, u1 = this.u1, c = this.c, v = this.v;
+    for (let j = 0; j < count; j++) {
+      const i = list ? list[j] : j;
+      const x = V[A[i]], y = V[B[i]];
+      let z = w0[i] * x + w1[i] * y + bo[i];
+      if (H[i]) z += v[i] * sig(u0[i] * x + u1[i] * y + c[i]);
+      let o = sig(z);
+      if (nz) { o += nz * this.gauss(); o = o < 0 ? 0 : o > 1 ? 1 : o; }
+      V[out[i]] = o;
+      const d = o < 0.5 ? o : 1 - o;
+      if (d > worst) worst = d;
+    }
+    return worst;
+  }
+
+  settle(clk, D) {
+    const L = this.L, n = this.nR, it = this.iters, nz = this.noise;
+    const f0 = this.f0, f1 = this.f1, fb = this.fb;
+    const E = sig(this.cw * clk + this.cb), C = clk;
+    const nand = (j, x, y) => {
+      let o = sig(f0[j] * x + f1[j] * y + fb[j]);
+      if (nz) { o += nz * this.gauss(); o = o < 0 ? 0 : o > 1 ? 1 : o; }
+      return o;
+    };
+    let worst = 0;
+    for (let r = 0; r < n; r++) {
+      let m1 = L.m1[r], m2 = L.m2[r], M = L.M[r], Mb = L.Mb[r], s1 = L.s1[r], s2 = L.s2[r], Q = L.Q[r], Qb = L.Qb[r];
+      const d = D ? D[r] : M, j = r * 8;
+      for (let k = 0; k < it; k++) {
+        const n1 = nand(j, d, E), n2 = nand(j + 1, m1, E), n3 = nand(j + 2, m1, Mb), n4 = nand(j + 3, m2, M);
+        const n5 = nand(j + 4, M, C), n6 = nand(j + 5, s1, C), n7 = nand(j + 6, s1, Qb), n8 = nand(j + 7, s2, Q);
+        m1 = n1; m2 = n2; M = n3; Mb = n4; s1 = n5; s2 = n6; Q = n7; Qb = n8;
+      }
+      L.m1[r] = m1; L.m2[r] = m2; L.M[r] = M; L.Mb[r] = Mb; L.s1[r] = s1; L.s2[r] = s2; L.Q[r] = Q; L.Qb[r] = Qb;
+      for (const x of [m1, m2, M, Mb, s1, s2, Q, Qb]) { const dd = x < 0.5 ? x : 1 - x; if (dd > worst) worst = dd; }
+    }
+    return worst;
+  }
+
+  /* exact next state from the rounded current state: used to count wrong bits */
+  exactNext(inputs) {
+    const E = this.E, out = this.out, A = this.a, B = this.b, ty = this.type, tt = this.tt;
+    E[0] = 0; E[1] = 1;
+    for (const k in this.inW) E[this.inW[k]] = inputs[k] ? 1 : 0;
+    for (let r = 0; r < this.nR; r++) E[this.rq[r]] = this.Q[r] > 0.5 ? 1 : 0;
+    for (let i = 0; i < this.nG; i++) E[out[i]] = tt[ty[i]][E[A[i]] * 2 + E[B[i]]];
+    const D = new Uint8Array(this.nR);
+    for (let r = 0; r < this.nR; r++) D[r] = E[this.rd[r]];
+    return D;
+  }
+
+  step(inputs, checkExact) {
+    const expect = checkExact && this.mode === "neural" ? this.exactNext(inputs) : null;
+    this.loadSources(this.V, inputs, this.Q);
+    let worst = this.evalGates(null, this.nG);
+    const D = new Float64Array(this.nR);
+    for (let r = 0; r < this.nR; r++) D[r] = this.V[this.rd[r]];
+    if (this.mode === "logic") {
+      this.Q.set(D);
+      for (let r = 0; r < this.nR; r++) { const v = D[r]; this.L.M[r] = v; this.L.Mb[r] = 1 - v; this.L.s1[r] = 1 - v; this.L.s2[r] = v; this.L.Q[r] = v; this.L.Qb[r] = 1 - v; this.L.m1[r] = 1; this.L.m2[r] = 1; }
+    } else {
+      worst = Math.max(worst, this.settle(0, D), this.settle(1, D));
+      this.Q.set(this.L.Q);
+    }
+    this.worst = worst;
+    let wrong = 0;
+    if (expect) for (let r = 0; r < this.nR; r++) if ((this.Q[r] > 0.5 ? 1 : 0) !== expect[r]) wrong++;
+    return wrong;
+  }
+
+  display() {
+    this.loadSources(this.V, {}, this.Q);
+    this.evalGates(this.cone, this.cone.length);
+    const o = this.net.outputs, V = this.V;
+    const bus = (ws) => ws.reduce((acc, w, i) => acc + (V[w] > 0.5 ? 1 << i : 0), 0);
+    return {
+      body: o.body.map((w) => V[w]), food: o.food.map((w) => V[w]),
+      hx: bus(o.hx), hy: bus(o.hy), len: bus(o.len),
+      over: V[o.game_over[0]] > 0.5, started: V[o.started[0]] > 0.5,
+    };
+  }
+
+  hash() {
+    let h = 0;
+    for (let r = 0; r < this.nR; r++) h = (h * 31 + (this.Q[r] > 0.5 ? 1 : 0)) >>> 0;
+    return h;
+  }
+}
+
+/* ---------------- page state ---------------- */
+const nets = {};
+let M = null, net = null, N = 16;
+const S = { pool: "m4", noise: 0, mode: "neural", speed: 8, paused: false, tick: 0, wrong: 0, msAvg: 0, trace: [] };
+const keyQueue = []; let rstPending = false;
+
+async function loadNet(n) {
+  if (!nets[n]) {
+    const r = await fetch(`net${n}.json`);
+    if (!r.ok) throw new Error(`net${n}.json: HTTP ${r.status}`);
+    nets[n] = await r.json();
+  }
+  return nets[n];
+}
+
+async function boot(n, snap) {
+  $("overlay").textContent = "Loading the machine\u2026";
+  try {
+    net = await loadNet(n);
+  } catch (e) {
+    $("overlay").textContent = "Could not load the netlist";
+    $("state").textContent = "Serve this folder over HTTP (python3 -m http.server) so net16.json can load";
+    return;
+  }
+  N = n;
+  M = new Machine(net);
+  S.pool = net.default_pool; M.setPool(S.pool); M.noise = S.noise; M.mode = S.mode;
+  S.tick = 0; S.wrong = 0; S.trace = []; S.msAvg = 0;
+  if (snap && snap.N === n && snap.Q && snap.Q.length === M.nR) {
+    M.Q.set(snap.Q); for (const k in M.L) if (snap.L && snap.L[k]) M.L[k].set(snap.L[k]);
+    S.tick = snap.tick || 0; S.wrong = snap.wrong || 0;
+  }
+  setPressed("segMargin", S.pool); setPressed("segBoard", String(n));
+  fillSpec();
+  draw(M.display());
+}
+
+function fillSpec() {
+  const s = net.stats, memGates = s.registers * 8 + 1;
+  $("lGates").textContent = fmt(s.total_gates);
+  $("hDepth").textContent = s.logic_depth;
+  const rows = [
+    ["Board", `${net.N} \u00d7 ${net.N}`, `${net.N * net.N} cells, ${net.W}-bit countdown each`],
+    ["Gates", fmt(s.total_gates), `${fmt(s.comb_gates)} logic + ${fmt(memGates)} in ${fmt(s.registers)} flip-flops`],
+    ["Neurons", fmt(s.neurons), "sigmoid units, all the same kind"],
+    ["Weights", fmt(s.params), "each gate instance has its own trained copy"],
+    ["Multiply-adds per tick", fmt(s.macs_per_tick), "logic once, flip-flop loops 12 times"],
+    ["Depth", `${s.logic_depth} gates`, `${s.neuron_depth} neuron layers on the longest path`],
+    ["State", `${fmt(s.registers)} bits`, "the recurrent state of the network"],
+  ];
+  $("spec").tBodies[0].innerHTML = rows.map(([k, v, sub]) =>
+    `<tr><td>${k}<span class="sub">${sub}</span></td><td class="n">${v}</td></tr>`).join("");
+}
+
+/* ---------------- drawing ---------------- */
+const led = $("led"), lctx = led.getContext("2d");
+function sizeCanvas(cv, cssH) {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const w = cv.clientWidth, h = cssH || cv.clientWidth;
+  cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  return dpr;
+}
+let lastFrame = null;
+function draw(f) {
+  lastFrame = f;
+  const W = led.width, cell = W / N, r = cell * 0.36;
+  lctx.clearRect(0, 0, W, W);
+  const off = getComputedStyle(document.documentElement).getPropertyValue("--led-off").trim() || "#262b29";
+  for (let i = 0; i < N * N; i++) {
+    const x = (i % N + 0.5) * cell, y = (Math.floor(i / N) + 0.5) * cell;
+    const isHead = f.started && (i % N) === f.hx && Math.floor(i / N) === f.hy;
+    const b = f.body[i], fd = f.food[i];
+    lctx.beginPath(); lctx.arc(x, y, r, 0, Math.PI * 2);
+    let color = off, glow = 0, rgb = null, a = 0;
+    // brightness = the neuron's actual output; colour = whichever output is larger
+    if (isHead || (!f.started && (i % N) === f.hx && Math.floor(i / N) === f.hy)) { rgb = "255, 214, 200"; a = 1; }
+    else if (Math.max(b, fd) > 0.05) { if (b >= fd) { rgb = "255, 66, 52"; a = b; } else { rgb = "255, 181, 46"; a = fd; } }
+    if (rgb) {
+      lctx.fillStyle = off; lctx.fill();
+      lctx.beginPath(); lctx.arc(x, y, r, 0, Math.PI * 2);
+      color = `rgba(${rgb}, ${Math.max(0, Math.min(1, a)).toFixed(3)})`; glow = cell * 0.45 * a;
+      lctx.shadowColor = `rgba(${rgb}, ${(0.8 * a).toFixed(3)})`; lctx.shadowBlur = glow;
+    }
+    lctx.fillStyle = color; lctx.fill(); lctx.shadowBlur = 0;
+  }
+  $("score").firstChild.nodeValue = String(f.len);
+  const st = $("state");
+  if (S.paused) { st.dataset.s = "pause"; st.textContent = "Paused"; }
+  else if (f.over) { st.dataset.s = "over"; st.textContent = "Game over \u00b7 press R"; }
+  else if (!f.started) { st.dataset.s = "wait"; st.textContent = "Waiting for a key"; }
+  else { st.dataset.s = "run"; st.textContent = "Running"; }
+  $("overlay").textContent = f.over ? "GAME OVER" : (!f.started ? "PRESS AN ARROW" : (S.paused ? "PAUSED" : ""));
+}
+
+const scope = $("scope"), sctx = scope.getContext("2d");
+function drawScope() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  const W = scope.width, H = scope.height, cs = getComputedStyle(document.documentElement);
+  const ink2 = cs.getPropertyValue("--ink-2").trim(), muted = cs.getPropertyValue("--muted").trim(),
+        line = cs.getPropertyValue("--line").trim(), good = cs.getPropertyValue("--good").trim(),
+        bad = cs.getPropertyValue("--bad").trim(), accent = cs.getPropertyValue("--accent").trim();
+  sctx.clearRect(0, 0, W, H);
+  const padL = 36 * dpr, padB = 4 * dpr, padT = 6 * dpr;
+  const yOf = (v) => padT + (H - padT - padB) * (1 - Math.sqrt(Math.min(v, 0.5) / 0.5));
+  sctx.font = `${10 * dpr}px "B612 Mono", monospace`; sctx.textBaseline = "middle";
+  for (const [v, col, lab] of [[0.01, line, "0.01"], [0.05, good, "0.05"], [0.2, line, "0.2"], [0.5, bad, "0.5"]]) {
+    sctx.strokeStyle = col; sctx.lineWidth = dpr; sctx.beginPath(); sctx.moveTo(padL, yOf(v)); sctx.lineTo(W, yOf(v)); sctx.stroke();
+    sctx.fillStyle = muted; sctx.fillText(lab, 2 * dpr, yOf(v));
+  }
+  const tr = S.trace, n = 240, dx = (W - padL) / (n - 1);
+  if (tr.length > 1) {
+    sctx.strokeStyle = accent; sctx.lineWidth = 2 * dpr; sctx.lineJoin = "round"; sctx.beginPath();
+    tr.forEach((v, i) => { const x = padL + (n - tr.length + i) * dx, y = yOf(v); i ? sctx.lineTo(x, y) : sctx.moveTo(x, y); });
+    sctx.stroke();
+    const lx = padL + (n - 1) * dx, ly = yOf(tr[tr.length - 1]);
+    sctx.fillStyle = accent; sctx.beginPath(); sctx.arc(lx - 4 * dpr, ly, 4 * dpr, 0, Math.PI * 2); sctx.fill();
+  }
+}
+
+function resize() {
+  sizeCanvas(led);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  scope.width = Math.round(scope.clientWidth * dpr); scope.height = Math.round(96 * dpr);
+  if (lastFrame) draw(lastFrame);
+  drawScope();
+}
+window.addEventListener("resize", resize);
+
+/* ---------------- game loop ---------------- */
+function tick() {
+  if (!M) return;
+  const k = keyQueue.shift();
+  const inputs = { up: 0, down: 0, left: 0, right: 0, rst: rstPending ? 1 : 0 };
+  if (k) inputs[k] = 1;
+  rstPending = false;
+  const t0 = performance.now();
+  const wrong = M.step(inputs, true);
+  const f = M.display();
+  const ms = performance.now() - t0;
+  S.msAvg = S.msAvg ? S.msAvg * 0.9 + ms * 0.1 : ms;
+  S.tick++; S.wrong += wrong;
+  S.trace.push(M.mode === "neural" ? M.worst : 0); if (S.trace.length > 240) S.trace.shift();
+  draw(f); drawScope();
+  $("rTick").textContent = fmt(S.tick);
+  $("rMs").textContent = S.msAvg.toFixed(1);
+  $("rWrong").textContent = fmt(S.wrong);
+  $("rWrong").classList.toggle("bad", S.wrong > 0);
+}
+let acc = 0, last = performance.now();
+function loop(now) {
+  const dt = now - last; last = now;
+  if (!S.paused && M && !testing) {
+    acc += dt;
+    const period = 1000 / S.speed;
+    if (acc >= period) { acc = Math.min(acc - period, period); tick(); }
+  }
+  requestAnimationFrame(loop);
+}
+
+/* ---------------- controls ---------------- */
+const KEYMAP = { ArrowUp: "up", ArrowDown: "down", ArrowLeft: "left", ArrowRight: "right", w: "up", s: "down", a: "left", d: "right", W: "up", S: "down", A: "left", D: "right" };
+document.addEventListener("keydown", (e) => {
+  if (e.target.closest && e.target.closest("input, select")) return;
+  if (KEYMAP[e.key]) { e.preventDefault(); if (keyQueue.length < 3 && keyQueue[keyQueue.length - 1] !== KEYMAP[e.key]) keyQueue.push(KEYMAP[e.key]); }
+  else if (e.key === "r" || e.key === "R") { rstPending = true; }
+  else if (e.key === " ") { e.preventDefault(); togglePause(); }
+});
+document.querySelectorAll(".pad button").forEach((b) => b.addEventListener("pointerdown", (e) => { e.preventDefault(); if (keyQueue.length < 3) keyQueue.push(b.dataset.k); }));
+$("btnReset").addEventListener("click", () => { rstPending = true; if (S.paused) togglePause(); });
+$("btnPause").addEventListener("click", togglePause);
+function togglePause() { S.paused = !S.paused; $("btnPause").textContent = S.paused ? "Resume" : "Pause"; if (lastFrame) draw(lastFrame); }
+
+function setPressed(groupId, v) { document.querySelectorAll(`#${groupId} button`).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); }
+function seg(groupId, fn) { document.querySelectorAll(`#${groupId} button`).forEach((b) => b.addEventListener("click", () => { setPressed(groupId, b.dataset.v); fn(b.dataset.v); })); }
+seg("segMargin", (v) => { S.pool = v; if (M) M.setPool(v); });
+seg("segEngine", (v) => { S.mode = v; if (M) M.mode = v; });
+seg("segBoard", (v) => { boot(Number(v)); });
+$("noise").addEventListener("input", (e) => { S.noise = Number(e.target.value); $("noiseOut").textContent = S.noise.toFixed(2); if (M) M.noise = S.noise; });
+$("speed").addEventListener("input", (e) => { S.speed = Number(e.target.value); $("speedOut").textContent = `${S.speed}/s`; });
+
+/* ---------------- self-test ---------------- */
+let testing = false;
+$("btnTest").addEventListener("click", async () => {
+  if (testing || !net) return;
+  testing = true;
+  const out = $("testOut"); out.className = ""; out.textContent = "Running\u2026";
+  const T = new Machine(net); T.setPool(net.default_pool);
+  const tr = net.trace, names = ["up", "down", "left", "right", "rst"];
+  let fail = -1; const t0 = performance.now();
+  for (let i = 0; i < tr.inputs.length; i++) {
+    const inp = {}; names.forEach((k, j) => (inp[k] = tr.inputs[i][j]));
+    T.step(inp, false);
+    if (T.hash() !== tr.hashes[i]) { fail = i + 1; break; }
+    if (i % 100 === 99) { out.textContent = `Running\u2026 ${i + 1} / ${tr.inputs.length} ticks`; await new Promise((r) => setTimeout(r, 0)); }
+  }
+  const secs = ((performance.now() - t0) / 1000).toFixed(1);
+  if (fail < 0) { out.className = "pass"; out.textContent = `Pass: all ${fmt(tr.inputs.length)} ticks match the Python reference bit for bit (${secs} s).`; }
+  else { out.className = "fail"; out.textContent = `Fail: register bits differ at tick ${fail}.`; }
+  testing = false;
+});
+
+/* ---------------- start ---------------- */
+function start(data) {
+  resize();
+  boot(data && data.N ? data.N : 16, data);
+  requestAnimationFrame(loop);
+}
+if (window.claude && window.claude.hot) {
+  window.claude.hot.snapshot && window.claude.hot.snapshot(() => M ? ({ N, Q: Array.from(M.Q), L: Object.fromEntries(Object.entries(M.L).map(([k, v]) => [k, Array.from(v)])), tick: S.tick, wrong: S.wrong }) : {});
+}
+window.claude?.hot?.ready ? window.claude.hot.ready(start) : start(window.claude?.hot?.data ?? {});
+</script>

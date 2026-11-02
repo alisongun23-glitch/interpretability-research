@@ -1,0 +1,667 @@
+<title>Neuron CPU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@600;900&family=B612:wght@400;700&family=B612+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: a computer's front panel. Left: the three units around the shared bus. Right: program, clock, gates, readouts. Stacks on phones. */
+:root {
+  --bg: #e9ece7;
+  --panel: #f6f7f4;
+  --ink: #141917;
+  --ink-2: #4a524e;
+  --muted: #7b8580;
+  --line: #d3d8d2;
+  --accent: #c8372b;
+  --good: #1d8a4c;
+  --warn: #b7791f;
+  --bad: #c22f26;
+  --chip-bg: #e3e7e1;
+  --led-off: #cfd5ce;
+  --led-red: 214, 52, 40;
+  --led-amber: 214, 140, 20;
+  --led-green: 32, 150, 80;
+  --code-bg: #eef1ec;
+  --font-display: "Doto", "B612 Mono", ui-monospace, monospace;
+  --font-ui: "B612", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "B612 Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  --r: 10px;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1312; --panel: #161b19; --ink: #e7ebe8; --ink-2: #aab3ae; --muted: #78827d; --line: #29302d;
+    --accent: #ff5a48; --good: #3cc47a; --warn: #e2a640; --bad: #ff6a5c; --chip-bg: #212825; --led-off: #2a312e;
+    --led-red: 255, 74, 58; --led-amber: 255, 181, 46; --led-green: 70, 210, 120; --code-bg: #121614;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1312; --panel: #161b19; --ink: #e7ebe8; --ink-2: #aab3ae; --muted: #78827d; --line: #29302d;
+  --accent: #ff5a48; --good: #3cc47a; --warn: #e2a640; --bad: #ff6a5c; --chip-bg: #212825; --led-off: #2a312e;
+  --led-red: 255, 74, 58; --led-amber: 255, 181, 46; --led-green: 70, 210, 120; --code-bg: #121614;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--font-ui); font-size: 14px; line-height: 1.5; padding-inline: 16px; padding-block: 20px 40px; }
+.wrap { max-width: 1180px; margin: 0 auto; display: grid; gap: 20px; }
+header { display: grid; gap: 6px; }
+h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(38px, 7vw, 62px); line-height: 0.95; margin: 0; text-wrap: balance; }
+.lede { margin: 0; max-width: 72ch; color: var(--ink-2); font-size: 15px; text-wrap: pretty; }
+.lede b { color: var(--ink); }
+.bench { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 900px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+.col { display: grid; gap: 16px; min-width: 0; }
+
+.unit { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.unit h2 { margin: 0; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; display: flex; justify-content: space-between; gap: 8px; }
+.unit h2 span { letter-spacing: 0.04em; text-transform: none; font-weight: 400; }
+.units2 { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr); gap: 16px; align-items: stretch; }
+@media (max-width: 640px) { .units2 { grid-template-columns: minmax(0, 1fr); } }
+
+.reg { display: grid; grid-template-columns: 44px auto minmax(0, 1fr); align-items: center; gap: 10px; }
+.reg .nm { font-family: var(--font-data); font-size: 12px; color: var(--ink-2); }
+.reg .val { font-family: var(--font-data); font-size: 13px; color: var(--ink); font-variant-numeric: tabular-nums; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.leds { display: inline-flex; gap: 4px; }
+.led { width: 13px; height: 13px; border-radius: 50%; background: var(--led-off); position: relative; flex: none; }
+.led::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: rgb(var(--c, var(--led-red))); opacity: var(--v, 0); box-shadow: 0 0 calc(8px * var(--v, 0)) rgba(var(--c, var(--led-red)), 0.7); }
+.led.amber { --c: var(--led-amber); } .led.green { --c: var(--led-green); }
+.leds.small .led { width: 10px; height: 10px; }
+.steps { display: inline-flex; gap: 4px; flex-wrap: wrap; }
+.pill { font-family: var(--font-data); font-size: 11.5px; padding: 1px 8px; border-radius: 999px; background: var(--chip-bg); color: var(--muted); }
+.pill.on { background: var(--ink); color: var(--panel); }
+.ctl-lines { display: flex; flex-wrap: wrap; gap: 5px; }
+.ctl-lines .pill.on { background: rgb(var(--led-amber)); color: #1a1406; }
+
+.bus { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); padding: 12px 16px; display: grid; grid-template-columns: auto auto minmax(0, 1fr); gap: 8px 16px; align-items: center; position: relative; }
+.bus::before { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 4px; transform: translateY(-50%); background: repeating-linear-gradient(90deg, var(--line) 0 10px, transparent 10px 14px); z-index: 0; opacity: 0.6; }
+.bus > * { position: relative; z-index: 1; background: var(--panel); }
+.bus .leds .led { width: 18px; height: 18px; }
+.bus .tag { font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; padding-right: 6px; }
+.bus .flow { font-family: var(--font-data); font-size: 13px; color: var(--ink-2); min-width: 0; padding-left: 6px; }
+.bus .flow b { color: var(--ink); }
+
+.ram { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 14px; font-family: var(--font-data); font-size: 11.5px; }
+.ram .row { display: grid; grid-template-columns: 1.2em 2ch auto 2.6ch minmax(0, 1fr); gap: 6px; align-items: center; padding: 1px 4px; border-radius: 5px; border: 1px solid transparent; }
+.ram .row .mk { color: var(--accent); font-weight: 700; }
+.ram .row .ad { color: var(--muted); }
+.ram .row .hx { color: var(--ink-2); }
+.ram .row .dis { color: var(--ink-2); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.ram .row.mar { border-color: rgb(var(--led-amber)); }
+.ram .row.pc { background: var(--chip-bg); }
+@media (max-width: 420px) { .ram { grid-template-columns: minmax(0, 1fr); } }
+
+.outnum { font-family: var(--font-display); font-weight: 900; font-size: 56px; line-height: 0.9; font-variant-numeric: tabular-nums; }
+.outlog { font-family: var(--font-data); font-size: 12.5px; color: var(--ink-2); overflow-wrap: anywhere; min-width: 0; }
+
+.panel { background: var(--panel); border: 1px solid var(--line); border-radius: var(--r); display: grid; min-width: 0; }
+.sec { padding: 14px 16px; display: grid; gap: 10px; border-top: 1px solid var(--line); min-width: 0; }
+.sec:first-child { border-top: 0; }
+.sec h2 { margin: 0; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+textarea { width: 100%; min-height: 230px; resize: vertical; font-family: var(--font-data); font-size: 12.5px; line-height: 1.45; color: var(--ink); background: var(--code-bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px; tab-size: 8; }
+.row-btns { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+button, select { font: inherit; font-size: 13px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+button:hover, select:hover { border-color: var(--muted); }
+button.primary { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+button:focus-visible, select:focus-visible, input:focus-visible, textarea:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+#asmMsg { font-size: 12.5px; color: var(--ink-2); }
+#asmMsg.err { color: var(--bad); } #asmMsg.ok { color: var(--good); }
+.ctl { display: grid; grid-template-columns: 120px minmax(0, 1fr); gap: 10px 12px; align-items: center; }
+.ctl label { font-size: 12.5px; color: var(--ink-2); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; width: max-content; max-width: 100%; }
+.seg button { border: 0; border-radius: 0; padding: 5px 11px; background: transparent; color: var(--ink-2); font-size: 12.5px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+.slider { display: flex; align-items: center; gap: 10px; min-width: 0; }
+.slider input { flex: 1; min-width: 0; accent-color: var(--accent); }
+.slider output { font-family: var(--font-data); font-size: 12.5px; min-width: 5ch; text-align: right; font-variant-numeric: tabular-nums; }
+.readouts { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 420px) { .readouts { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.ro { display: grid; gap: 2px; min-width: 0; }
+.ro .v { font-family: var(--font-data); font-size: 18px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ro .k { font-size: 11.5px; color: var(--muted); line-height: 1.3; }
+.ro .v.bad { color: var(--bad); }
+canvas#scope { width: 100%; height: 80px; display: block; }
+.cap { font-size: 11.5px; color: var(--muted); margin: 0; }
+.status { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); color: var(--ink-2); }
+.status::before { content: ""; width: 7px; height: 7px; border-radius: 50%; background: var(--muted); }
+.status[data-s="run"]::before { background: var(--good); } .status[data-s="halt"]::before { background: var(--accent); } .status[data-s="pause"]::before { background: var(--warn); }
+table.spec { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.spec td { padding: 4px 0; border-bottom: 1px solid var(--line); vertical-align: baseline; }
+table.spec tr:last-child td { border-bottom: 0; }
+table.spec td.n { font-family: var(--font-data); text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; padding-left: 12px; }
+table.spec .sub { display: block; font-size: 11.5px; color: var(--muted); }
+#testOut { font-family: var(--font-data); font-size: 12.5px; color: var(--ink-2); }
+#testOut.pass { color: var(--good); } #testOut.fail { color: var(--bad); }
+.isa { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+.isa td { padding: 2px 8px 2px 0; vertical-align: baseline; }
+.isa td:first-child { font-family: var(--font-data); white-space: nowrap; }
+.isa-wrap { overflow-x: auto; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Neuron CPU</h1>
+    <p class="lede">An 8-bit computer with a control unit, an ALU and 32 bytes of memory, all talking over one bus.
+      Every one of its <b id="lGates">4,352</b> logic gates is a trained sigmoid neuron (two for XOR), and every memory
+      bit is eight NAND neurons in a loop. Nothing is rounded: the lights show the neurons' real outputs.</p>
+  </header>
+
+  <div class="bench">
+    <div class="col">
+      <section class="unit" aria-label="Control unit">
+        <h2>Control unit <span id="cuNote">fetches, decodes, drives the control lines</span></h2>
+        <div class="reg"><span class="nm">PC</span><span class="leds" id="ledPC"></span><span class="val" id="valPC"></span></div>
+        <div class="reg"><span class="nm">IR</span><span class="leds" id="ledIR"></span><span class="val" id="valIR"></span></div>
+        <div class="reg"><span class="nm">step</span><span class="steps" id="steps"></span><span class="val" id="valStep"></span></div>
+        <div class="ctl-lines" id="ctlLines" aria-label="Control lines"></div>
+      </section>
+
+      <section class="bus" aria-label="Bus">
+        <span class="tag">Bus</span><span class="leds" id="ledBus"></span><span class="flow" id="busFlow">idle</span>
+      </section>
+
+      <div class="units2">
+        <section class="unit" aria-label="ALU">
+          <h2>ALU <span>A op B &rarr; A</span></h2>
+          <div class="reg"><span class="nm">A</span><span class="leds small" id="ledA"></span><span class="val" id="valA"></span></div>
+          <div class="reg"><span class="nm">B</span><span class="leds small" id="ledB"></span><span class="val" id="valB"></span></div>
+          <div class="reg"><span class="nm">flags</span><span class="leds small" id="ledF"></span><span class="val" id="valF"></span></div>
+        </section>
+        <section class="unit" aria-label="Output">
+          <h2>Output <span>address 31</span></h2>
+          <div class="outnum" id="outNum">0</div>
+          <div class="outlog" id="outLog">nothing printed yet</div>
+        </section>
+      </div>
+
+      <section class="unit" aria-label="Memory unit">
+        <h2>Memory <span>32 bytes &middot; MAR <b id="valMAR">0</b> &middot; &#9656; = PC</span></h2>
+        <div class="ram" id="ram"></div>
+      </section>
+    </div>
+
+    <div class="panel">
+      <section class="sec">
+        <h2>Program</h2>
+        <div class="row-btns">
+          <select id="demo" aria-label="Demo program"></select>
+          <button id="btnLoad" class="primary">Assemble &amp; load</button>
+          <span id="asmMsg"></span>
+        </div>
+        <textarea id="src" spellcheck="false" aria-label="Assembly source"></textarea>
+        <div class="isa-wrap">
+          <table class="isa"><tbody>
+            <tr><td>LDA a / STA a</td><td>load A from memory / store A to memory</td></tr>
+            <tr><td>ADD a / SUB a / NAND a</td><td>A &larr; A op memory, sets flags C and Z</td></tr>
+            <tr><td>JMP a / JZ a / JC a</td><td>jump always / if zero / if carry</td></tr>
+            <tr><td>OUT / HLT / .byte n</td><td>print A (store to 31) / stop / a data byte</td></tr>
+          </tbody></table>
+        </div>
+      </section>
+      <section class="sec">
+        <h2>Clock <span class="status" id="status" data-s="pause">Stopped</span></h2>
+        <div class="row-btns">
+          <button id="btnRun" class="primary">Run</button>
+          <button id="btnTick">Step one clock</button>
+          <button id="btnInstr">Step one instruction</button>
+          <button id="btnReset">Reset CPU</button>
+        </div>
+        <div class="ctl">
+          <label for="speed">Clock speed</label>
+          <div class="slider"><input type="range" id="speed" min="0" max="100" step="1" value="45"><output id="speedOut">20/s</output></div>
+        </div>
+      </section>
+      <section class="sec">
+        <h2>Gates</h2>
+        <div class="ctl">
+          <label for="segMargin">Gate training margin</label>
+          <div class="seg" id="segMargin" role="group">
+            <button data-v="m4" aria-pressed="true">4 (library)</button>
+            <button data-v="m3" aria-pressed="false">3</button>
+            <button data-v="m2" aria-pressed="false">2</button>
+          </div>
+          <label for="noise">Noise on every neuron</label>
+          <div class="slider"><input type="range" id="noise" min="0" max="0.2" step="0.005" value="0"><output id="noiseOut">0.000</output></div>
+          <label for="segEngine">Engine</label>
+          <div class="seg" id="segEngine" role="group">
+            <button data-v="neural" aria-pressed="true">Neurons</button>
+            <button data-v="logic" aria-pressed="false">Truth tables</button>
+          </div>
+        </div>
+      </section>
+      <section class="sec">
+        <h2>Live</h2>
+        <div class="readouts">
+          <div class="ro"><span class="v" id="rTick">0</span><span class="k">clock ticks</span></div>
+          <div class="ro"><span class="v" id="rInstr">0</span><span class="k">instructions</span></div>
+          <div class="ro"><span class="v" id="rMs">&ndash;</span><span class="k">ms per tick</span></div>
+          <div class="ro"><span class="v" id="rWrong">0</span><span class="k">wrong bits vs exact logic</span></div>
+        </div>
+        <canvas id="scope" width="600" height="80" aria-label="Worst signal per tick"></canvas>
+        <p class="cap">Worst neuron output each tick, as distance from a clean 0 or 1. Below 0.05 the gates restore it; at 0.5 a bit flips.</p>
+      </section>
+      <section class="sec">
+        <h2>Machine</h2>
+        <table class="spec" id="spec"><tbody></tbody></table>
+        <div class="row-btns">
+          <button id="btnTest">Run self-test</button>
+          <span id="testOut">Replays all four demos and compares every register bit with the Python reference.</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const fmt = (n) => n.toLocaleString("en-US");
+const sig = (z) => 1 / (1 + Math.exp(-z));
+
+/* ---------------- the machine (same engine as the snake page) ---------------- */
+class Machine {
+  constructor(net) {
+    this.net = net;
+    const g = net.gates;
+    this.nG = g.out.length;
+    this.out = Int32Array.from(g.out); this.a = Int32Array.from(g.a); this.b = Int32Array.from(g.b);
+    this.type = Int32Array.from(g.type); this.pick = Int32Array.from(g.pick);
+    this.cone = Int32Array.from(net.out_cone);
+    const TTN = { NOT: [1, 1, 0, 0], AND: [0, 0, 0, 1], OR: [0, 1, 1, 1], NAND: [1, 1, 1, 0], NOR: [1, 0, 0, 0], XOR: [0, 1, 1, 0], XNOR: [1, 0, 0, 1] };
+    this.tt = net.types.map((t) => TTN[t]);
+    this.V = new Float64Array(net.n_wires);
+    this.E = new Uint8Array(net.n_wires);
+    this.nR = net.regs.q.length;
+    this.rq = Int32Array.from(net.regs.q); this.rd = Int32Array.from(net.regs.d);
+    this.iters = net.latch_iters || 6;
+    this.inW = net.inputs;
+    const n = this.nR;
+    this.Q = Float64Array.from(net.regs.init);
+    this.L = {};
+    for (const k of ["m1", "m2", "M", "Mb", "s1", "s2", "Q", "Qb"]) this.L[k] = new Float64Array(n);
+    for (let r = 0; r < n; r++) {
+      const v = net.regs.init[r];
+      this.L.m1[r] = 1; this.L.m2[r] = 1; this.L.M[r] = v; this.L.Mb[r] = 1 - v;
+      this.L.s1[r] = 1 - v; this.L.s2[r] = v; this.L.Q[r] = v; this.L.Qb[r] = 1 - v;
+    }
+    this.noise = 0; this.mode = "neural"; this.worst = 0;
+    this.setPool(net.default_pool);
+    this.settle(1, null);
+    this.Q.set(this.L.Q);
+  }
+  setPool(tag) {
+    const pools = this.net.pools[tag], n = this.nG, T = this.net.types;
+    this.w0 = new Float64Array(n); this.w1 = new Float64Array(n); this.bo = new Float64Array(n);
+    this.H = new Uint8Array(n); this.u0 = new Float64Array(n); this.u1 = new Float64Array(n); this.c = new Float64Array(n); this.v = new Float64Array(n);
+    for (let i = 0; i < n; i++) {
+      const p = pools[T[this.type[i]]][this.pick[i]];
+      this.w0[i] = p.w[0]; this.w1[i] = p.w[1]; this.bo[i] = p.bo;
+      if (p.v.length) { this.H[i] = 1; this.u0[i] = p.U[0][0]; this.u1[i] = p.U[1][0]; this.c[i] = p.c[0]; this.v[i] = p.v[0]; }
+      else { this.H[i] = 0; }
+    }
+    const m = this.nR * 8, nand = pools.NAND;
+    this.f0 = new Float64Array(m); this.f1 = new Float64Array(m); this.fb = new Float64Array(m);
+    for (let j = 0; j < m; j++) { const p = nand[this.net.dff_pick[j]]; this.f0[j] = p.w[0]; this.f1[j] = p.w[1]; this.fb[j] = p.bo; }
+    const inv = pools.NOT[0]; this.cw = inv.w[0] + inv.w[1]; this.cb = inv.bo;
+  }
+  gauss() { let u = 0; while (u === 0) u = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * Math.random()); }
+  loadSources(V, inputs, Q) {
+    V[0] = 0; V[1] = 1;
+    for (const k in this.inW) V[this.inW[k]] = inputs[k] || 0;
+    for (let r = 0; r < this.nR; r++) V[this.rq[r]] = Q[r];
+  }
+  evalGates(list, count) {
+    const V = this.V, out = this.out, A = this.a, B = this.b, nz = this.noise;
+    let worst = 0;
+    if (this.mode === "logic") {
+      const ty = this.type, tt = this.tt;
+      for (let j = 0; j < count; j++) { const i = list ? list[j] : j; V[out[i]] = tt[ty[i]][(V[A[i]] > 0.5 ? 2 : 0) + (V[B[i]] > 0.5 ? 1 : 0)]; }
+      return 0;
+    }
+    const w0 = this.w0, w1 = this.w1, bo = this.bo, H = this.H, u0 = this.u0, u1 = this.u1, c = this.c, v = this.v;
+    for (let j = 0; j < count; j++) {
+      const i = list ? list[j] : j;
+      const x = V[A[i]], y = V[B[i]];
+      let z = w0[i] * x + w1[i] * y + bo[i];
+      if (H[i]) z += v[i] * sig(u0[i] * x + u1[i] * y + c[i]);
+      let o = sig(z);
+      if (nz) { o += nz * this.gauss(); o = o < 0 ? 0 : o > 1 ? 1 : o; }
+      V[out[i]] = o;
+      const d = o < 0.5 ? o : 1 - o; if (d > worst) worst = d;
+    }
+    return worst;
+  }
+  settle(clk, D) {
+    const L = this.L, n = this.nR, it = this.iters, nz = this.noise, f0 = this.f0, f1 = this.f1, fb = this.fb;
+    const E = sig(this.cw * clk + this.cb), C = clk;
+    const nand = (j, x, y) => { let o = sig(f0[j] * x + f1[j] * y + fb[j]); if (nz) { o += nz * this.gauss(); o = o < 0 ? 0 : o > 1 ? 1 : o; } return o; };
+    let worst = 0;
+    for (let r = 0; r < n; r++) {
+      let m1 = L.m1[r], m2 = L.m2[r], M = L.M[r], Mb = L.Mb[r], s1 = L.s1[r], s2 = L.s2[r], Q = L.Q[r], Qb = L.Qb[r];
+      const d = D ? D[r] : M, j = r * 8;
+      for (let k = 0; k < it; k++) {
+        const n1 = nand(j, d, E), n2 = nand(j + 1, m1, E), n3 = nand(j + 2, m1, Mb), n4 = nand(j + 3, m2, M);
+        const n5 = nand(j + 4, M, C), n6 = nand(j + 5, s1, C), n7 = nand(j + 6, s1, Qb), n8 = nand(j + 7, s2, Q);
+        m1 = n1; m2 = n2; M = n3; Mb = n4; s1 = n5; s2 = n6; Q = n7; Qb = n8;
+      }
+      L.m1[r] = m1; L.m2[r] = m2; L.M[r] = M; L.Mb[r] = Mb; L.s1[r] = s1; L.s2[r] = s2; L.Q[r] = Q; L.Qb[r] = Qb;
+      for (const x of [m1, m2, M, Mb, s1, s2, Q, Qb]) { const dd = x < 0.5 ? x : 1 - x; if (dd > worst) worst = dd; }
+    }
+    return worst;
+  }
+  exactNext(inputs) {
+    const E = this.E, out = this.out, A = this.a, B = this.b, ty = this.type, tt = this.tt;
+    E[0] = 0; E[1] = 1;
+    for (const k in this.inW) E[this.inW[k]] = inputs[k] ? 1 : 0;
+    for (let r = 0; r < this.nR; r++) E[this.rq[r]] = this.Q[r] > 0.5 ? 1 : 0;
+    for (let i = 0; i < this.nG; i++) E[out[i]] = tt[ty[i]][E[A[i]] * 2 + E[B[i]]];
+    const D = new Uint8Array(this.nR);
+    for (let r = 0; r < this.nR; r++) D[r] = E[this.rd[r]];
+    return D;
+  }
+  step(inputs, checkExact) {
+    const expect = checkExact && this.mode === "neural" ? this.exactNext(inputs) : null;
+    this.loadSources(this.V, inputs, this.Q);
+    let worst = this.evalGates(null, this.nG);
+    const D = new Float64Array(this.nR);
+    for (let r = 0; r < this.nR; r++) D[r] = this.V[this.rd[r]];
+    if (this.mode === "logic") {
+      this.Q.set(D);
+      const L = this.L;
+      for (let r = 0; r < this.nR; r++) { const v = D[r]; L.M[r] = v; L.Mb[r] = 1 - v; L.s1[r] = 1 - v; L.s2[r] = v; L.Q[r] = v; L.Qb[r] = 1 - v; L.m1[r] = 1; L.m2[r] = 1; }
+    } else {
+      worst = Math.max(worst, this.settle(0, D), this.settle(1, D));
+      this.Q.set(this.L.Q);
+    }
+    this.worst = worst;
+    let wrong = 0;
+    if (expect) for (let r = 0; r < this.nR; r++) if ((this.Q[r] > 0.5 ? 1 : 0) !== expect[r]) wrong++;
+    return wrong;
+  }
+  display() {
+    this.loadSources(this.V, {}, this.Q);
+    this.evalGates(this.cone, this.cone.length);
+    const o = this.net.outputs, V = this.V, f = {};
+    for (const k in o) f[k] = o[k].map((w) => V[w]);
+    return f;
+  }
+  hash() {
+    let h = 0;
+    for (let r = 0; r < this.nR; r++) h = (h * 31 + (this.Q[r] > 0.5 ? 1 : 0)) >>> 0;
+    return h;
+  }
+}
+
+/* ---------------- assembler (same rules as gatecpu/asm.py) ---------------- */
+function assemble(src, ops) {
+  const items = [], labels = {};
+  const lines = src.split("\n");
+  for (let n = 1; n <= lines.length; n++) {
+    let line = lines[n - 1].split(";")[0].trim();
+    while (line.includes(":")) {
+      const i = line.indexOf(":"); const lab = line.slice(0, i).trim(); line = line.slice(i + 1).trim();
+      if (!/^[A-Za-z_][A-Za-z0-9_]*$/.test(lab)) throw new Error(`line ${n}: bad label '${lab}'`);
+      if (lab in labels) throw new Error(`line ${n}: label '${lab}' defined twice`);
+      labels[lab] = items.length;
+    }
+    if (!line) continue;
+    const m = line.match(/^(\S+)\s*(.*)$/);
+    items.push([n, m[1].toUpperCase(), m[2].trim() || null]);
+  }
+  if (items.length > 32) throw new Error(`program needs ${items.length} bytes; memory has 32`);
+  const num = (t, n) => {
+    if (t in labels) return labels[t];
+    const s = t.toLowerCase();
+    let v = NaN;
+    if (/^0x[0-9a-f]+$/.test(s)) v = parseInt(s.slice(2), 16);
+    else if (/^0b[01]+$/.test(s)) v = parseInt(s.slice(2), 2);
+    else if (/^-?\d+$/.test(s)) v = parseInt(s, 10);
+    if (Number.isNaN(v)) throw new Error(`line ${n}: unknown label or number '${t}'`);
+    return v;
+  };
+  const out = [];
+  items.forEach(([n, op, arg], addr) => {
+    if (op === ".BYTE") { if (arg === null) throw new Error(`line ${n}: .byte needs a value`); out.push(num(arg, n) & 255); }
+    else if (op === "OUT") out.push((ops.indexOf("STA") << 5) | 31);
+    else if (op === "HLT") out.push((ops.indexOf("JMP") << 5) | addr);
+    else if (ops.includes(op)) {
+      if (arg === null) throw new Error(`line ${n}: ${op} needs an address`);
+      const v = num(arg, n);
+      if (v < 0 || v > 31) throw new Error(`line ${n}: address ${v} is outside 0-31`);
+      out.push((ops.indexOf(op) << 5) | v);
+    } else throw new Error(`line ${n}: unknown instruction '${op}'`);
+  });
+  while (out.length < 32) out.push(0);
+  return out;
+}
+const disasm = (byte, ops) => { const op = ops[byte >> 5], a = byte & 31; return op === "STA" && a === 31 ? "OUT" : `${op} ${a}`; };
+
+/* ---------------- page state ---------------- */
+let net = null, M = null, idx = {}, cur = null;
+const S = { pool: "m4", noise: 0, mode: "neural", running: false, tps: 20, tick: 0, instr: 0, wrong: 0, ms: 0, outs: [], trace: [], resetNext: false };
+const portIn = (o = {}) => {
+  const d = { rst: o.rst || 0, prog: o.prog || 0, prog_we: o.we || 0 };
+  for (let i = 0; i < 5; i++) d[`prog_addr${i}`] = ((o.addr || 0) >> i) & 1;
+  for (let i = 0; i < 8; i++) d[`prog_data${i}`] = ((o.data || 0) >> i) & 1;
+  return d;
+};
+const regVal = (name, n) => { let v = 0; for (let i = 0; i < n; i++) if (M.Q[idx[`${name}[${i}]`]] > 0.5) v |= 1 << i; return v; };
+const regAnalog = (name, n) => Array.from({ length: n }, (_, i) => M.Q[idx[`${name}[${i}]`]]);
+const one = (name) => M.Q[idx[name]];
+
+function tick(inputs) {
+  inputs = inputs || portIn({ rst: S.resetNext ? 1 : 0 });
+  if (S.resetNext) S.resetNext = false;
+  const before = cur;
+  const t0 = performance.now();
+  const wrong = M.step(inputs, true);
+  cur = M.display();
+  const ms = performance.now() - t0;
+  S.ms = S.ms ? S.ms * 0.9 + ms * 0.1 : ms;
+  S.tick++; S.wrong += wrong;
+  const quiet = !inputs.rst && !inputs.prog;
+  if (quiet && before && before.OUT_in[0] > 0.5) {
+    let v = 0; before.bus.forEach((x, i) => { if (x > 0.5) v |= 1 << i; }); S.outs.push(v);
+  }
+  if (quiet && before && before.IR_in[0] > 0.5) S.instr++;
+  S.trace.push(M.mode === "neural" ? M.worst : 0); if (S.trace.length > 240) S.trace.shift();
+}
+
+function loadProgram(bytes) {
+  S.outs = []; S.instr = 0; S.tick = 0; S.wrong = 0; S.trace = [];
+  for (let i = 0; i < 32; i++) tick(portIn({ prog: 1, we: 1, addr: i, data: bytes[i] }));
+  tick(portIn({ rst: 1 }));
+  render();
+}
+
+/* ---------------- drawing ---------------- */
+function ledRow(el, n, cls) { el.innerHTML = Array.from({ length: n }, () => `<span class="led${cls ? " " + cls : ""}"></span>`).join(""); return Array.from(el.children).reverse(); }
+const UI = {};
+function buildUI() {
+  UI.pc = ledRow($("ledPC"), 5); UI.ir = ledRow($("ledIR"), 8); UI.bus = ledRow($("ledBus"), 8, "amber");
+  UI.a = ledRow($("ledA"), 8); UI.b = ledRow($("ledB"), 8); UI.f = ledRow($("ledF"), 2, "green");
+  $("steps").innerHTML = [0, 1, 2, 3, 4].map((i) => `<span class="pill" data-t="${i}">T${i}</span>`).join("") + `<span class="pill" data-t="halt">HALT</span>`;
+  $("ctlLines").innerHTML = net.lines.map((k) => `<span class="pill" data-l="${k}">${k.replace("_", " ")}</span>`).join("");
+  const ram = $("ram"); let html = "";
+  for (let col = 0; col < 2; col++) for (let r = 0; r < 16; r++) {
+    const w = col * 16 + r;
+    html += `<div class="row" data-w="${w}" style="grid-column:${col + 1};grid-row:${r + 1}"><span class="mk"></span><span class="ad">${String(w).padStart(2, "0")}</span><span class="leds small">${"<span class=\"led\"></span>".repeat(8)}</span><span class="hx"></span><span class="dis"></span></div>`;
+  }
+  ram.innerHTML = html;
+  UI.ram = Array.from(ram.children).sort((x, y) => x.dataset.w - y.dataset.w).map((row) => ({
+    row, mk: row.children[0], leds: Array.from(row.children[2].children).reverse(), hx: row.children[3], dis: row.children[4] }));
+}
+const setLeds = (leds, vals) => leds.forEach((el, i) => el.style.setProperty("--v", Math.max(0, Math.min(1, vals[i])).toFixed(3)));
+const hex2 = (v) => v.toString(16).toUpperCase().padStart(2, "0");
+
+function render() {
+  if (!M) return;
+  const ops = net.ops;
+  const pc = regVal("pc", 5), ir = regVal("ir", 8), t = regVal("t", 3), mar = regVal("mar", 5), a = regVal("a", 8), b = regVal("b", 8);
+  const halt = one("halt") > 0.5, fc = one("fc") > 0.5, fz = one("fz") > 0.5, outv = regVal("out", 8);
+  setLeds(UI.pc, regAnalog("pc", 5)); $("valPC").textContent = `${pc}`;
+  setLeds(UI.ir, regAnalog("ir", 8)); $("valIR").textContent = `${hex2(ir)}  ${disasm(ir, ops)}`;
+  setLeds(UI.a, regAnalog("a", 8)); $("valA").textContent = `${a}  (0x${hex2(a)})`;
+  setLeds(UI.b, regAnalog("b", 8)); $("valB").textContent = `${b}`;
+  setLeds(UI.f, [one("fc"), one("fz")]); $("valF").textContent = `C ${fc ? 1 : 0}  Z ${fz ? 1 : 0}`;
+  $("valMAR").textContent = mar;
+  document.querySelectorAll("#steps .pill").forEach((p) => p.classList.toggle("on", p.dataset.t === "halt" ? halt : (!halt && Number(p.dataset.t) === t)));
+  $("valStep").textContent = halt ? "halted" : ["fetch: MAR \u2190 PC", "fetch: IR \u2190 RAM, PC+1", "decode / jump", "memory", "ALU \u2192 A"][t] || "";
+  // control lines and bus come from the gates themselves
+  const on = {}; net.lines.forEach((k) => (on[k] = cur[k][0] > 0.5));
+  document.querySelectorAll("#ctlLines .pill").forEach((p) => p.classList.toggle("on", on[p.dataset.l]));
+  setLeds(UI.bus, cur.bus);
+  let busv = 0; cur.bus.forEach((x, i) => { if (x > 0.5) busv |= 1 << i; });
+  const src = [["PC_out", "PC"], ["RAM_out", "RAM"], ["IR_out", "IR address"], ["A_out", "A"], ["ALU_out", "ALU"]].filter(([k]) => on[k]).map(([, n]) => n);
+  const dst = [["MAR_in", "MAR"], ["IR_in", "IR"], ["A_in", "A"], ["B_in", "B"], ["PC_in", "PC"], ["RAM_in", "RAM"], ["OUT_in", "OUT"]].filter(([k]) => on[k]).map(([, n]) => n);
+  $("busFlow").innerHTML = src.length ? `<b>${busv}</b> &nbsp;${src.join(", ")} &rarr; ${dst.join(", ") || "nobody"}${on.PC_inc ? " &middot; PC+1" : ""}${on.F_in ? " &middot; flags" : ""}` : "idle";
+  // memory
+  for (let w = 0; w < 32; w++) {
+    const vals = regAnalog(`ram${w}`, 8), v = regVal(`ram${w}`, 8), r = UI.ram[w];
+    setLeds(r.leds, vals);
+    r.hx.textContent = hex2(v); r.dis.textContent = disasm(v, ops) + (w === 31 ? "  OUT" : "");
+    r.row.classList.toggle("mar", w === mar); r.row.classList.toggle("pc", w === pc);
+    r.mk.textContent = w === pc ? "\u25b8" : "";
+  }
+  $("outNum").textContent = String(outv);
+  $("outLog").textContent = S.outs.length ? S.outs.join(" ") : "nothing printed yet";
+  $("rTick").textContent = fmt(S.tick); $("rInstr").textContent = fmt(S.instr);
+  $("rMs").textContent = S.ms ? S.ms.toFixed(2) : "\u2013";
+  $("rWrong").textContent = fmt(S.wrong); $("rWrong").classList.toggle("bad", S.wrong > 0);
+  const st = $("status");
+  if (halt) { st.dataset.s = "halt"; st.textContent = "Halted"; }
+  else if (S.running) { st.dataset.s = "run"; st.textContent = "Running"; }
+  else { st.dataset.s = "pause"; st.textContent = "Stopped"; }
+  drawScope();
+}
+
+const scope = $("scope"), sctx = scope.getContext("2d");
+function drawScope() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2), W = scope.width, H = scope.height, cs = getComputedStyle(document.documentElement);
+  const col = (k) => cs.getPropertyValue(k).trim();
+  sctx.clearRect(0, 0, W, H);
+  const padL = 34 * dpr, padT = 5 * dpr, padB = 4 * dpr;
+  const yOf = (v) => padT + (H - padT - padB) * (1 - Math.sqrt(Math.min(v, 0.5) / 0.5));
+  sctx.font = `${10 * dpr}px "B612 Mono", monospace`; sctx.textBaseline = "middle";
+  for (const [v, c, lab] of [[0.01, col("--line"), "0.01"], [0.05, col("--good"), "0.05"], [0.5, col("--bad"), "0.5"]]) {
+    sctx.strokeStyle = c; sctx.lineWidth = dpr; sctx.beginPath(); sctx.moveTo(padL, yOf(v)); sctx.lineTo(W, yOf(v)); sctx.stroke();
+    sctx.fillStyle = col("--muted"); sctx.fillText(lab, 2 * dpr, yOf(v));
+  }
+  const tr = S.trace, n = 240, dx = (W - padL) / (n - 1);
+  if (tr.length > 1) {
+    sctx.strokeStyle = col("--accent"); sctx.lineWidth = 2 * dpr; sctx.lineJoin = "round"; sctx.beginPath();
+    tr.forEach((v, i) => { const x = padL + (n - tr.length + i) * dx, y = yOf(v); i ? sctx.lineTo(x, y) : sctx.moveTo(x, y); });
+    sctx.stroke();
+  }
+}
+function resize() {
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+  scope.width = Math.round(scope.clientWidth * dpr); scope.height = Math.round(80 * dpr);
+  drawScope();
+}
+window.addEventListener("resize", resize);
+
+function fillSpec() {
+  const s = net.stats, bd = s.breakdown, tot = (k) => bd[k] ? bd[k].comb + bd[k].dff : 0;
+  $("lGates").textContent = fmt(s.total_gates);
+  const rows = [
+    ["Gates", fmt(s.total_gates), `${fmt(s.comb_gates)} logic + ${fmt(s.registers * 8 + 1)} in ${s.registers} flip-flops`],
+    ["Memory unit", fmt(tot("memory")), "32 bytes, MAR, decoders, read select"],
+    ["Control unit", fmt(tot("control")), "PC, IR, step counter, control lines"],
+    ["ALU", fmt(tot("ALU")), "adder/subtractor, NAND, flags, B"],
+    ["Bus, A, OUT, program port", fmt(tot("bus") + tot("registers") + tot("program port")), ""],
+    ["Neurons", fmt(s.neurons), "sigmoid units"],
+    ["Weights", fmt(s.params), ""],
+    ["Multiply-adds per tick", fmt(s.macs_per_tick), "flip-flop loops counted 12 times"],
+    ["Depth", `${s.logic_depth} gates`, `${s.neuron_depth} neuron layers`],
+  ];
+  $("spec").tBodies[0].innerHTML = rows.map(([k, v, sub]) => `<tr><td>${k}${sub ? `<span class="sub">${sub}</span>` : ""}</td><td class="n">${v}</td></tr>`).join("");
+}
+
+/* ---------------- controls ---------------- */
+const speedOf = (x) => Math.round(Math.pow(10, x / 100 * Math.log10(1000)));     // 1 .. 1000 ticks/s
+function setSpeed() { S.tps = speedOf(Number($("speed").value)); $("speedOut").textContent = `${S.tps}/s`; }
+$("speed").addEventListener("input", setSpeed);
+function doLoad() {
+  const msg = $("asmMsg");
+  try {
+    const bytes = assemble($("src").value, net.ops);
+    const used = bytes.reduce((n, b, i) => (b ? i + 1 : n), 0);
+    loadProgram(bytes);
+    msg.className = "ok"; msg.textContent = `Loaded through the program port (33 clock ticks), ${used} bytes used.`;
+  } catch (e) { msg.className = "err"; msg.textContent = e.message; }
+}
+$("btnLoad").addEventListener("click", () => { S.running = false; $("btnRun").textContent = "Run"; doLoad(); });
+$("demo").addEventListener("change", () => { $("src").value = net.demos[$("demo").value].source; S.running = false; $("btnRun").textContent = "Run"; doLoad(); });
+$("btnRun").addEventListener("click", () => {
+  if (one("halt") > 0.5) { S.resetNext = true; S.outs = []; }
+  S.running = !S.running; $("btnRun").textContent = S.running ? "Pause" : "Run"; render();
+});
+$("btnTick").addEventListener("click", () => { S.running = false; $("btnRun").textContent = "Run"; tick(); render(); });
+$("btnInstr").addEventListener("click", () => {
+  S.running = false; $("btnRun").textContent = "Run";
+  for (let k = 0; k < 6; k++) { tick(); if (regVal("t", 3) === 0 || one("halt") > 0.5) break; }
+  render();
+});
+$("btnReset").addEventListener("click", () => { S.outs = []; S.instr = 0; tick(portIn({ rst: 1 })); render(); });
+function setPressed(g, v) { document.querySelectorAll(`#${g} button`).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); }
+function seg(g, fn) { document.querySelectorAll(`#${g} button`).forEach((b) => b.addEventListener("click", () => { setPressed(g, b.dataset.v); fn(b.dataset.v); })); }
+seg("segMargin", (v) => { S.pool = v; M.setPool(v); });
+seg("segEngine", (v) => { S.mode = v; M.mode = v; });
+$("noise").addEventListener("input", (e) => { S.noise = Number(e.target.value); $("noiseOut").textContent = S.noise.toFixed(3); M.noise = S.noise; });
+
+let acc = 0, last = performance.now(), testing = false;
+function loop(now) {
+  const dt = Math.min(now - last, 250); last = now;
+  if (S.running && M && !testing) {
+    acc += dt * S.tps / 1000;
+    let n = Math.floor(acc); acc -= n; n = Math.min(n, 60);
+    for (let i = 0; i < n; i++) {
+      tick();
+      if (one("halt") > 0.5) { S.running = false; $("btnRun").textContent = "Run"; break; }
+    }
+    if (n) render();
+  } else acc = 0;
+  requestAnimationFrame(loop);
+}
+
+/* ---------------- self-test ---------------- */
+$("btnTest").addEventListener("click", async () => {
+  if (testing || !net) return;
+  testing = true;
+  const out = $("testOut"); out.className = ""; out.textContent = "Running\u2026";
+  const T = new Machine(net); const tr = net.trace; let fail = -1; const t0 = performance.now();
+  for (let i = 0; i < tr.inputs.length; i++) {
+    const inp = {}; tr.input_names.forEach((k, j) => (inp[k] = tr.inputs[i][j]));
+    T.step(inp, false);
+    if (T.hash() !== tr.hashes[i]) { fail = i + 1; break; }
+    if (i % 200 === 199) { out.textContent = `Running\u2026 ${i + 1} / ${tr.inputs.length} ticks`; await new Promise((r) => setTimeout(r, 0)); }
+  }
+  const secs = ((performance.now() - t0) / 1000).toFixed(1);
+  if (fail < 0) { out.className = "pass"; out.textContent = `Pass: ${fmt(tr.inputs.length)} ticks match the Python reference bit for bit (${secs} s).`; }
+  else { out.className = "fail"; out.textContent = `Fail: register bits differ at tick ${fail}.`; }
+  testing = false;
+});
+
+/* ---------------- start ---------------- */
+async function start() {
+  resize(); setSpeed();
+  try {
+    const r = await fetch("cpu.json"); if (!r.ok) throw new Error(`HTTP ${r.status}`);
+    net = await r.json();
+  } catch (e) {
+    $("asmMsg").className = "err"; $("asmMsg").textContent = "Could not load cpu.json. Serve this folder over HTTP (python3 -m http.server).";
+    return;
+  }
+  M = new Machine(net);
+  net.regs.name.forEach((n, i) => (idx[n] = i));
+  buildUI(); fillSpec();
+  $("demo").innerHTML = Object.keys(net.demos).map((k) => `<option value="${k}">${k}</option>`).join("");
+  $("src").value = net.demos[Object.keys(net.demos)[0]].source;
+  cur = M.display();
+  doLoad();
+  requestAnimationFrame(loop);
+}
+start();
+</script>

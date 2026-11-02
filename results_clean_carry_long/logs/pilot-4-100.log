@@ -1,0 +1,201 @@
+PREREG.md unchanged since 2026-10-30 13:08:16 EDT a1d2bb3474f05b98880a3e7d8e8f3a7ff46442a9a601403eb7051b396d47630d
+pilot w4 s100 step 0 loss 1.50291  0s
+pilot w4 s100 step 250 loss 0.64298  7s
+pilot w4 s100 step 500 loss 0.57355  14s
+pilot w4 s100 step 750 loss 0.51753  21s
+pilot w4 s100 step 1000 exact 0.0115
+pilot w4 s100 step 1000 loss 0.44075  30s
+pilot w4 s100 step 1250 loss 0.39546  37s
+pilot w4 s100 step 1500 loss 0.37646  44s
+pilot w4 s100 step 1750 loss 0.37247  51s
+pilot w4 s100 step 2000 exact 0.0410
+pilot w4 s100 step 2000 loss 0.36731  60s
+pilot w4 s100 step 2250 loss 0.35392  67s
+pilot w4 s100 step 2500 loss 0.37012  75s
+pilot w4 s100 step 2750 loss 0.32431  82s
+pilot w4 s100 step 3000 exact 0.0745
+pilot w4 s100 step 3000 loss 0.31417  95s
+pilot w4 s100 step 3250 loss 0.30931  107s
+pilot w4 s100 step 3500 loss 0.28983  118s
+pilot w4 s100 step 3750 loss 0.32643  128s
+pilot w4 s100 step 4000 exact 0.0555
+pilot w4 s100 step 4000 loss 0.29577  138s
+pilot w4 s100 step 4250 loss 0.28836  147s
+pilot w4 s100 step 4500 loss 0.23666  156s
+pilot w4 s100 step 4750 loss 0.21745  166s
+pilot w4 s100 step 5000 exact 0.1460
+pilot w4 s100 step 5000 loss 0.21521  178s
+pilot w4 s100 step 5250 loss 0.16706  188s
+pilot w4 s100 step 5500 loss 0.16428  199s
+pilot w4 s100 step 5750 loss 0.14858  209s
+pilot w4 s100 step 6000 exact 0.2740
+pilot w4 s100 step 6000 loss 0.15140  222s
+pilot w4 s100 step 6250 loss 0.15094  233s
+pilot w4 s100 step 6500 loss 0.14977  243s
+pilot w4 s100 step 6750 loss 0.14625  254s
+pilot w4 s100 step 7000 exact 0.3010
+pilot w4 s100 step 7000 loss 0.13263  266s
+pilot w4 s100 step 7250 loss 0.15482  277s
+pilot w4 s100 step 7500 loss 0.13944  287s
+pilot w4 s100 step 7750 loss 0.14456  298s
+pilot w4 s100 step 8000 exact 0.3475
+pilot w4 s100 step 8000 loss 0.11945  311s
+pilot w4 s100 step 8250 loss 0.13383  322s
+pilot w4 s100 step 8500 loss 0.12116  335s
+pilot w4 s100 step 8750 loss 0.12167  348s
+pilot w4 s100 step 9000 exact 0.3480
+pilot w4 s100 step 9000 loss 0.12537  361s
+pilot w4 s100 step 9250 loss 0.12020  371s
+pilot w4 s100 step 9500 loss 0.11142  382s
+pilot w4 s100 step 9750 loss 0.15113  393s
+pilot w4 s100 step 10000 exact 0.3280
+pilot w4 s100 step 10000 loss 0.12463  406s
+pilot w4 s100 step 10250 loss 0.14796  417s
+pilot w4 s100 step 10500 loss 0.14133  427s
+pilot w4 s100 step 10750 loss 0.12617  438s
+pilot w4 s100 step 11000 exact 0.3310
+pilot w4 s100 step 11000 loss 0.11448  451s
+pilot w4 s100 step 11250 loss 0.12045  462s
+pilot w4 s100 step 11500 loss 0.11864  473s
+pilot w4 s100 step 11750 loss 0.12533  484s
+pilot w4 s100 step 12000 exact 0.3230
+pilot w4 s100 step 12000 loss 0.13419  498s
+pilot w4 s100 step 12250 loss 0.11527  509s
+pilot w4 s100 step 12500 loss 0.11909  520s
+pilot w4 s100 step 12750 loss 0.12182  531s
+pilot w4 s100 step 13000 exact 0.3355
+pilot w4 s100 step 13000 loss 0.12077  545s
+pilot w4 s100 step 13250 loss 0.12645  556s
+pilot w4 s100 step 13500 loss 0.12932  567s
+pilot w4 s100 step 13750 loss 0.12221  577s
+pilot w4 s100 step 14000 exact 0.2910
+pilot w4 s100 step 14000 loss 0.11866  591s
+pilot w4 s100 step 14250 loss 0.11536  602s
+pilot w4 s100 step 14500 loss 0.11506  613s
+pilot w4 s100 step 14750 loss 0.12043  624s
+pilot w4 s100 step 15000 exact 0.2260
+pilot w4 s100 step 15000 loss 0.21215  638s
+pilot w4 s100 step 15250 loss 0.11429  650s
+pilot w4 s100 step 15500 loss 0.11025  661s
+pilot w4 s100 step 15750 loss 0.11981  672s
+pilot w4 s100 step 16000 exact 0.3220
+pilot w4 s100 step 16000 loss 0.10959  686s
+pilot w4 s100 step 16250 loss 0.10903  697s
+pilot w4 s100 step 16500 loss 0.10242  708s
+pilot w4 s100 step 16750 loss 0.10205  720s
+pilot w4 s100 step 17000 exact 0.3910
+pilot w4 s100 step 17000 loss 0.10287  733s
+pilot w4 s100 step 17250 loss 0.09734  745s
+pilot w4 s100 step 17500 loss 0.09875  756s
+pilot w4 s100 step 17750 loss 0.10029  768s
+pilot w4 s100 step 18000 exact 0.3955
+pilot w4 s100 step 18000 loss 0.09703  782s
+pilot w4 s100 step 18250 loss 0.09262  793s
+pilot w4 s100 step 18500 loss 0.09644  805s
+pilot w4 s100 step 18750 loss 0.09033  817s
+pilot w4 s100 step 19000 exact 0.4155
+pilot w4 s100 step 19000 loss 0.09463  832s
+pilot w4 s100 step 19250 loss 0.09450  844s
+pilot w4 s100 step 19500 loss 0.10981  856s
+pilot w4 s100 step 19750 loss 0.07187  870s
+pilot w4 s100 step 20000 exact 0.4410
+pilot w4 s100 step 20000 loss 0.07482  887s
+pilot w4 s100 step 20250 loss 0.10730  899s
+pilot w4 s100 step 20500 loss 0.10231  910s
+pilot w4 s100 step 20750 loss 0.09868  922s
+pilot w4 s100 step 21000 exact 0.4220
+pilot w4 s100 step 21000 loss 0.09449  938s
+pilot w4 s100 step 21250 loss 0.09267  950s
+pilot w4 s100 step 21500 loss 0.09319  962s
+pilot w4 s100 step 21750 loss 0.09266  975s
+pilot w4 s100 step 22000 exact 0.4390
+pilot w4 s100 step 22000 loss 0.08194  989s
+pilot w4 s100 step 22250 loss 0.08472  1001s
+pilot w4 s100 step 22500 loss 0.08417  1014s
+pilot w4 s100 step 22750 loss 0.09988  1026s
+pilot w4 s100 step 23000 exact 0.4265
+pilot w4 s100 step 23000 loss 0.08076  1039s
+pilot w4 s100 step 23250 loss 0.08338  1049s
+pilot w4 s100 step 23500 loss 0.09840  1060s
+pilot w4 s100 step 23750 loss 0.09729  1071s
+pilot w4 s100 step 24000 exact 0.3745
+pilot w4 s100 step 24000 loss 0.09470  1084s
+pilot w4 s100 step 24250 loss 0.10211  1095s
+pilot w4 s100 step 24500 loss 0.09829  1105s
+pilot w4 s100 step 24750 loss 0.09759  1116s
+pilot w4 s100 step 25000 exact 0.3810
+pilot w4 s100 step 25000 loss 0.09157  1129s
+pilot w4 s100 step 25250 loss 0.09499  1140s
+pilot w4 s100 step 25500 loss 0.09734  1151s
+pilot w4 s100 step 25750 loss 0.09318  1162s
+pilot w4 s100 step 26000 exact 0.3815
+pilot w4 s100 step 26000 loss 0.09458  1176s
+pilot w4 s100 step 26250 loss 0.09358  1188s
+pilot w4 s100 step 26500 loss 0.09291  1200s
+pilot w4 s100 step 26750 loss 0.11825  1212s
+pilot w4 s100 step 27000 exact 0.3715
+pilot w4 s100 step 27000 loss 0.09705  1227s
+pilot w4 s100 step 27250 loss 0.08952  1241s
+pilot w4 s100 step 27500 loss 0.09864  1254s
+pilot w4 s100 step 27750 loss 0.09262  1266s
+pilot w4 s100 step 28000 exact 0.3655
+pilot w4 s100 step 28000 loss 0.09272  1282s
+pilot w4 s100 step 28250 loss 0.10015  1294s
+pilot w4 s100 step 28500 loss 0.09023  1307s
+pilot w4 s100 step 28750 loss 0.07707  1320s
+pilot w4 s100 step 29000 exact 0.4845
+pilot w4 s100 step 29000 loss 0.07666  1333s
+pilot w4 s100 step 29250 loss 0.08357  1343s
+pilot w4 s100 step 29500 loss 0.07903  1354s
+pilot w4 s100 step 29750 loss 0.07701  1365s
+pilot w4 s100 step 30000 exact 0.4720
+pilot w4 s100 step 30000 loss 0.07231  1379s
+pilot w4 s100 step 30250 loss 0.07988  1391s
+pilot w4 s100 step 30500 loss 0.07608  1406s
+pilot w4 s100 step 30750 loss 0.09915  1420s
+pilot w4 s100 step 31000 exact 0.4750
+pilot w4 s100 step 31000 loss 0.07924  1435s
+pilot w4 s100 step 31250 loss 0.07672  1448s
+pilot w4 s100 step 31500 loss 0.07803  1461s
+pilot w4 s100 step 31750 loss 0.08335  1473s
+pilot w4 s100 step 32000 exact 0.4695
+pilot w4 s100 step 32000 loss 0.08175  1489s
+pilot w4 s100 step 32250 loss 0.07959  1503s
+pilot w4 s100 step 32500 loss 0.08169  1517s
+pilot w4 s100 step 32750 loss 0.08363  1529s
+pilot w4 s100 step 33000 exact 0.4575
+pilot w4 s100 step 33000 loss 0.06894  1545s
+pilot w4 s100 step 33250 loss 0.07970  1557s
+pilot w4 s100 step 33500 loss 0.07671  1569s
+pilot w4 s100 step 33750 loss 0.07396  1582s
+pilot w4 s100 step 34000 exact 0.4595
+pilot w4 s100 step 34000 loss 0.08959  1598s
+pilot w4 s100 step 34250 loss 0.08289  1610s
+pilot w4 s100 step 34500 loss 0.07814  1622s
+pilot w4 s100 step 34750 loss 0.07774  1635s
+pilot w4 s100 step 35000 exact 0.4725
+pilot w4 s100 step 35000 loss 0.08670  1650s
+pilot w4 s100 step 35250 loss 0.08104  1662s
+pilot w4 s100 step 35500 loss 0.07854  1673s
+pilot w4 s100 step 35750 loss 0.08174  1684s
+pilot w4 s100 step 36000 exact 0.4835
+pilot w4 s100 step 36000 loss 0.07744  1699s
+pilot w4 s100 step 36250 loss 0.07036  1711s
+pilot w4 s100 step 36500 loss 0.07410  1725s
+pilot w4 s100 step 36750 loss 0.07876  1737s
+pilot w4 s100 step 37000 exact 0.4880
+pilot w4 s100 step 37000 loss 0.07601  1752s
+pilot w4 s100 step 37250 loss 0.07807  1763s
+pilot w4 s100 step 37500 loss 0.07844  1774s
+pilot w4 s100 step 37750 loss 0.08145  1784s
+pilot w4 s100 step 38000 exact 0.4735
+pilot w4 s100 step 38000 loss 0.06892  1798s
+pilot w4 s100 step 38250 loss 0.07630  1808s
+pilot w4 s100 step 38500 loss 0.07620  1819s
+pilot w4 s100 step 38750 loss 0.07772  1829s
+pilot w4 s100 step 39000 exact 0.4875
+pilot w4 s100 step 39000 loss 0.07579  1843s
+pilot w4 s100 step 39250 loss 0.07530  1853s
+pilot w4 s100 step 39500 loss 0.07856  1864s
+pilot w4 s100 step 39750 loss 0.07333  1877s
+pilot w4 s100 step 40000 exact 0.4930

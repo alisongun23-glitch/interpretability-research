@@ -1,0 +1,12 @@
+{
+ "cond": "scratch",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "newskill",
+ "n": 25,
+ "tag": "transfer_p6_scratch_newskill_n25_s0",
+ "answer_right": 0.0,
+ "story_loss": 7.778964042663574,
+ "seconds": 12.64121699333191
+}

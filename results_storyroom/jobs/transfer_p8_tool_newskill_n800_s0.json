@@ -1,0 +1,12 @@
+{
+ "cond": "tool",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drill",
+ "task": "newskill",
+ "n": 800,
+ "tag": "transfer_p8_tool_newskill_n800_s0",
+ "answer_right": 0.33,
+ "story_loss": 4.797181606292725,
+ "seconds": 31.52535104751587
+}

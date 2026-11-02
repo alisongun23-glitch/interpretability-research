@@ -1,0 +1,12 @@
+{
+ "cond": "tool",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "newskill",
+ "n": 100,
+ "tag": "transfer_p6_tool_newskill_n100_s0",
+ "answer_right": 0.025,
+ "story_loss": 4.953174114227295,
+ "seconds": 16.896133184432983
+}

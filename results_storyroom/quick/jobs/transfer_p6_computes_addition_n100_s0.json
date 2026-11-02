@@ -1,0 +1,12 @@
+{
+ "cond": "computes",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "addition",
+ "n": 100,
+ "tag": "transfer_p6_computes_addition_n100_s0",
+ "answer_right": 0.0,
+ "story_loss": 4.802062511444092,
+ "seconds": 11.286739826202393
+}

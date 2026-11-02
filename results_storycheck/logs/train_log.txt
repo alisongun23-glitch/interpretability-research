@@ -1,0 +1,76 @@
+analog CPU at noise 0.045 {'noise_sd': 0.045, 'calls': 300, 'p_wrong': 0.19666666666666666, 'threshold': 0.43742586543808437, 'hit': 0.9322033898305084, 'false_alarm': 0.2946058091286307, 'wrong_kinds': {'several bits': 31, 'one bit': 12, 'timeout': 16}, 'seconds': 57.2} [59s]
+streams {'numbers': {'train_tokens': 6542589, 'machine_tokens': 248242, 'unsure_tokens': 0, 'call_blocks': 124121, 'problems_with_calls': 84023}, 'signal': {'train_tokens': 6598080, 'machine_tokens': 303683, 'unsure_tokens': 55421, 'call_blocks': 124131, 'problems_with_calls': 84023}, 'stories_train': 20990, 'stories_test': 1000, 'vocab': 4282, 'test_text_tokens': 207172} [68s]
+sets {'math': 1000, 'word': 3000, 'newshape': 1500, 'newverb': 1000, 'two': 1500, 'nocall': 1000} cramped {'math': 0, 'word': 0, 'newshape': 0, 'newverb': 0, 'two': 0, 'nocall': 0} [69s]
+checks numbers + signal 1 {'step': 0, 'text_loss': 8.382, 'word_perfect': 0.003, 'word_flaky': 0.003, 'detection': None, 'false_alarm': None, 'two_flaky': 0.0, 'nocall_called': 0.0} 23s
+checks numbers 1 {'step': 0, 'text_loss': 8.382, 'word_perfect': 0.003, 'word_flaky': 0.003, 'detection': None, 'false_alarm': None, 'two_flaky': 0.0, 'nocall_called': 0.0} 24s
+checks numbers 0 {'step': 0, 'text_loss': 8.39, 'word_perfect': 0.0, 'word_flaky': 0.0, 'detection': None, 'false_alarm': None, 'two_flaky': 0.0, 'nocall_called': 0.0} 25s
+checks numbers + signal 0 {'step': 0, 'text_loss': 8.39, 'word_perfect': 0.0, 'word_flaky': 0.0, 'detection': None, 'false_alarm': None, 'two_flaky': 0.0, 'nocall_called': 0.0} 25s
+checks numbers + signal 0 {'step': 500, 'text_loss': 3.983, 'word_perfect': 0.047, 'word_flaky': 0.04, 'detection': 0.293, 'false_alarm': 0.353, 'two_flaky': 0.023, 'nocall_called': 0.663} 135s
+checks numbers + signal 1 {'step': 500, 'text_loss': 3.982, 'word_perfect': 0.047, 'word_flaky': 0.047, 'detection': 0.484, 'false_alarm': 0.469, 'two_flaky': 0.023, 'nocall_called': 0.79} 136s
+checks numbers 1 {'step': 500, 'text_loss': 3.96, 'word_perfect': 0.037, 'word_flaky': 0.037, 'detection': 0.264, 'false_alarm': 0.266, 'two_flaky': 0.017, 'nocall_called': 0.813} 140s
+checks numbers 0 {'step': 500, 'text_loss': 3.983, 'word_perfect': 0.03, 'word_flaky': 0.03, 'detection': 0.337, 'false_alarm': 0.513, 'two_flaky': 0.02, 'nocall_called': 0.79} 141s
+checks numbers + signal 0 {'step': 1000, 'text_loss': 3.494, 'word_perfect': 0.087, 'word_flaky': 0.067, 'detection': 0.504, 'false_alarm': 0.328, 'two_flaky': 0.007, 'nocall_called': 0.297} 253s
+checks numbers + signal 1 {'step': 1000, 'text_loss': 3.502, 'word_perfect': 0.13, 'word_flaky': 0.103, 'detection': 0.576, 'false_alarm': 0.409, 'two_flaky': 0.017, 'nocall_called': 0.35} 257s
+checks numbers 1 {'step': 1000, 'text_loss': 3.488, 'word_perfect': 0.103, 'word_flaky': 0.08, 'detection': 0.523, 'false_alarm': 0.464, 'two_flaky': 0.0, 'nocall_called': 0.237} 259s
+checks numbers 0 {'step': 1000, 'text_loss': 3.505, 'word_perfect': 0.057, 'word_flaky': 0.04, 'detection': 0.51, 'false_alarm': 0.487, 'two_flaky': 0.017, 'nocall_called': 0.38} 263s
+checks numbers + signal 0 {'step': 1500, 'text_loss': 3.314, 'word_perfect': 0.397, 'word_flaky': 0.293, 'detection': 0.538, 'false_alarm': 0.213, 'two_flaky': 0.02, 'nocall_called': 0.237} 368s
+checks numbers + signal 1 {'step': 1500, 'text_loss': 3.305, 'word_perfect': 0.38, 'word_flaky': 0.273, 'detection': 0.568, 'false_alarm': 0.345, 'two_flaky': 0.01, 'nocall_called': 0.217} 373s
+checks numbers 1 {'step': 1500, 'text_loss': 3.302, 'word_perfect': 0.42, 'word_flaky': 0.3, 'detection': 0.441, 'false_alarm': 0.358, 'two_flaky': 0.01, 'nocall_called': 0.127} 375s
+checks numbers 0 {'step': 1500, 'text_loss': 3.308, 'word_perfect': 0.31, 'word_flaky': 0.23, 'detection': 0.365, 'false_alarm': 0.319, 'two_flaky': 0.003, 'nocall_called': 0.303} 382s
+checks numbers + signal 0 {'step': 2000, 'text_loss': 3.174, 'word_perfect': 0.593, 'word_flaky': 0.427, 'detection': 0.442, 'false_alarm': 0.224, 'two_flaky': 0.027, 'nocall_called': 0.127} 494s
+checks numbers + signal 1 {'step': 2000, 'text_loss': 3.171, 'word_perfect': 0.5, 'word_flaky': 0.357, 'detection': 0.546, 'false_alarm': 0.303, 'two_flaky': 0.01, 'nocall_called': 0.14} 499s
+checks numbers 1 {'step': 2000, 'text_loss': 3.167, 'word_perfect': 0.483, 'word_flaky': 0.38, 'detection': 0.353, 'false_alarm': 0.301, 'two_flaky': 0.017, 'nocall_called': 0.147} 501s
+checks numbers 0 {'step': 2000, 'text_loss': 3.188, 'word_perfect': 0.387, 'word_flaky': 0.297, 'detection': 0.344, 'false_alarm': 0.248, 'two_flaky': 0.013, 'nocall_called': 0.107} 509s
+checks numbers + signal 0 {'step': 2500, 'text_loss': 3.081, 'word_perfect': 0.56, 'word_flaky': 0.397, 'detection': 0.568, 'false_alarm': 0.319, 'two_flaky': 0.023, 'nocall_called': 0.103} 622s
+checks numbers + signal 1 {'step': 2500, 'text_loss': 3.088, 'word_perfect': 0.723, 'word_flaky': 0.567, 'detection': 0.712, 'false_alarm': 0.31, 'two_flaky': 0.053, 'nocall_called': 0.14} 627s
+checks numbers 1 {'step': 2500, 'text_loss': 3.09, 'word_perfect': 0.51, 'word_flaky': 0.373, 'detection': 0.44, 'false_alarm': 0.407, 'two_flaky': 0.027, 'nocall_called': 0.197} 633s
+checks numbers 0 {'step': 2500, 'text_loss': 3.1, 'word_perfect': 0.487, 'word_flaky': 0.35, 'detection': 0.355, 'false_alarm': 0.34, 'two_flaky': 0.033, 'nocall_called': 0.063} 640s
+checks numbers + signal 0 {'step': 3000, 'text_loss': 3.007, 'word_perfect': 0.667, 'word_flaky': 0.47, 'detection': 0.483, 'false_alarm': 0.192, 'two_flaky': 0.04, 'nocall_called': 0.11} 759s
+checks numbers + signal 1 {'step': 3000, 'text_loss': 3.02, 'word_perfect': 0.897, 'word_flaky': 0.76, 'detection': 0.748, 'false_alarm': 0.29, 'two_flaky': 0.15, 'nocall_called': 0.073} 765s
+checks numbers 1 {'step': 3000, 'text_loss': 3.021, 'word_perfect': 0.527, 'word_flaky': 0.417, 'detection': 0.573, 'false_alarm': 0.289, 'two_flaky': 0.01, 'nocall_called': 0.133} 771s
+checks numbers 0 {'step': 3000, 'text_loss': 3.032, 'word_perfect': 0.683, 'word_flaky': 0.51, 'detection': 0.312, 'false_alarm': 0.166, 'two_flaky': 0.04, 'nocall_called': 0.083} 772s
+checks numbers + signal 0 {'step': 3500, 'text_loss': 2.951, 'word_perfect': 0.793, 'word_flaky': 0.623, 'detection': 0.554, 'false_alarm': 0.216, 'two_flaky': 0.097, 'nocall_called': 0.11} 873s
+checks numbers + signal 1 {'step': 3500, 'text_loss': 2.969, 'word_perfect': 0.917, 'word_flaky': 0.747, 'detection': 0.532, 'false_alarm': 0.19, 'two_flaky': 0.3, 'nocall_called': 0.11} 875s
+checks numbers 1 {'step': 3500, 'text_loss': 2.964, 'word_perfect': 0.61, 'word_flaky': 0.48, 'detection': 0.387, 'false_alarm': 0.212, 'two_flaky': 0.033, 'nocall_called': 0.05} 882s
+checks numbers 0 {'step': 3500, 'text_loss': 2.967, 'word_perfect': 0.757, 'word_flaky': 0.597, 'detection': 0.548, 'false_alarm': 0.308, 'two_flaky': 0.113, 'nocall_called': 0.127} 886s
+checks numbers + signal 0 {'step': 4000, 'text_loss': 2.897, 'word_perfect': 0.947, 'word_flaky': 0.78, 'detection': 0.584, 'false_alarm': 0.179, 'two_flaky': 0.187, 'nocall_called': 0.12} 982s
+checks numbers + signal 1 {'step': 4000, 'text_loss': 2.921, 'word_perfect': 0.963, 'word_flaky': 0.8, 'detection': 0.584, 'false_alarm': 0.097, 'two_flaky': 0.38, 'nocall_called': 0.023} 983s
+checks numbers 1 {'step': 4000, 'text_loss': 2.917, 'word_perfect': 0.773, 'word_flaky': 0.587, 'detection': 0.389, 'false_alarm': 0.264, 'two_flaky': 0.1, 'nocall_called': 0.183} 994s
+checks numbers 0 {'step': 4000, 'text_loss': 2.916, 'word_perfect': 0.88, 'word_flaky': 0.69, 'detection': 0.547, 'false_alarm': 0.296, 'two_flaky': 0.19, 'nocall_called': 0.04} 1001s
+checks numbers + signal 1 {'step': 4500, 'text_loss': 2.875, 'word_perfect': 0.967, 'word_flaky': 0.773, 'detection': 0.446, 'false_alarm': 0.134, 'two_flaky': 0.417, 'nocall_called': 0.03} 1113s
+checks numbers + signal 0 {'step': 4500, 'text_loss': 2.868, 'word_perfect': 0.937, 'word_flaky': 0.783, 'detection': 0.577, 'false_alarm': 0.168, 'two_flaky': 0.26, 'nocall_called': 0.097} 1114s
+checks numbers 1 {'step': 4500, 'text_loss': 2.874, 'word_perfect': 0.857, 'word_flaky': 0.703, 'detection': 0.564, 'false_alarm': 0.258, 'two_flaky': 0.12, 'nocall_called': 0.093} 1127s
+checks numbers 0 {'step': 4500, 'text_loss': 2.874, 'word_perfect': 0.92, 'word_flaky': 0.727, 'detection': 0.458, 'false_alarm': 0.211, 'two_flaky': 0.273, 'nocall_called': 0.023} 1133s
+checks numbers + signal 1 {'step': 5000, 'text_loss': 2.842, 'word_perfect': 0.977, 'word_flaky': 0.82, 'detection': 0.631, 'false_alarm': 0.217, 'two_flaky': 0.333, 'nocall_called': 0.043} 1242s
+checks numbers + signal 0 {'step': 5000, 'text_loss': 2.83, 'word_perfect': 0.97, 'word_flaky': 0.797, 'detection': 0.547, 'false_alarm': 0.154, 'two_flaky': 0.35, 'nocall_called': 0.11} 1244s
+checks numbers 1 {'step': 5000, 'text_loss': 2.843, 'word_perfect': 0.893, 'word_flaky': 0.687, 'detection': 0.474, 'false_alarm': 0.256, 'two_flaky': 0.18, 'nocall_called': 0.127} 1258s
+checks numbers 0 {'step': 5000, 'text_loss': 2.846, 'word_perfect': 0.873, 'word_flaky': 0.7, 'detection': 0.474, 'false_alarm': 0.261, 'two_flaky': 0.323, 'nocall_called': 0.05} 1263s
+checks numbers + signal 1 {'step': 5500, 'text_loss': 2.818, 'word_perfect': 0.957, 'word_flaky': 0.8, 'detection': 0.607, 'false_alarm': 0.181, 'two_flaky': 0.453, 'nocall_called': 0.043} 1367s
+checks numbers + signal 0 {'step': 5500, 'text_loss': 2.806, 'word_perfect': 0.987, 'word_flaky': 0.797, 'detection': 0.495, 'false_alarm': 0.134, 'two_flaky': 0.373, 'nocall_called': 0.053} 1369s
+checks numbers 1 {'step': 5500, 'text_loss': 2.815, 'word_perfect': 0.913, 'word_flaky': 0.723, 'detection': 0.557, 'false_alarm': 0.267, 'two_flaky': 0.2, 'nocall_called': 0.103} 1388s
+checks numbers 0 {'step': 5500, 'text_loss': 2.82, 'word_perfect': 0.907, 'word_flaky': 0.707, 'detection': 0.518, 'false_alarm': 0.261, 'two_flaky': 0.3, 'nocall_called': 0.037} 1393s
+checks numbers + signal 1 {'step': 6000, 'text_loss': 2.795, 'word_perfect': 0.97, 'word_flaky': 0.807, 'detection': 0.573, 'false_alarm': 0.21, 'two_flaky': 0.49, 'nocall_called': 0.03} 1503s
+checks numbers + signal 0 {'step': 6000, 'text_loss': 2.786, 'word_perfect': 0.97, 'word_flaky': 0.79, 'detection': 0.547, 'false_alarm': 0.159, 'two_flaky': 0.453, 'nocall_called': 0.05} 1508s
+checks numbers 1 {'step': 6000, 'text_loss': 2.794, 'word_perfect': 0.953, 'word_flaky': 0.763, 'detection': 0.531, 'false_alarm': 0.251, 'two_flaky': 0.267, 'nocall_called': 0.083} 1525s
+checks numbers 0 {'step': 6000, 'text_loss': 2.79, 'word_perfect': 0.893, 'word_flaky': 0.7, 'detection': 0.473, 'false_alarm': 0.277, 'two_flaky': 0.353, 'nocall_called': 0.057} 1530s
+checks numbers + signal 1 {'step': 6500, 'text_loss': 2.784, 'word_perfect': 0.947, 'word_flaky': 0.787, 'detection': 0.598, 'false_alarm': 0.22, 'two_flaky': 0.48, 'nocall_called': 0.013} 1642s
+checks numbers + signal 0 {'step': 6500, 'text_loss': 2.771, 'word_perfect': 0.957, 'word_flaky': 0.773, 'detection': 0.495, 'false_alarm': 0.124, 'two_flaky': 0.433, 'nocall_called': 0.037} 1644s
+checks numbers 1 {'step': 6500, 'text_loss': 2.778, 'word_perfect': 0.923, 'word_flaky': 0.71, 'detection': 0.53, 'false_alarm': 0.297, 'two_flaky': 0.26, 'nocall_called': 0.047} 1667s
+checks numbers 0 {'step': 6500, 'text_loss': 2.781, 'word_perfect': 0.917, 'word_flaky': 0.703, 'detection': 0.504, 'false_alarm': 0.338, 'two_flaky': 0.327, 'nocall_called': 0.023} 1674s
+checks numbers + signal 1 {'step': 7000, 'text_loss': 2.776, 'word_perfect': 0.977, 'word_flaky': 0.847, 'detection': 0.63, 'false_alarm': 0.173, 'two_flaky': 0.503, 'nocall_called': 0.013} 1792s
+checks numbers + signal 0 {'step': 7000, 'text_loss': 2.766, 'word_perfect': 0.98, 'word_flaky': 0.813, 'detection': 0.593, 'false_alarm': 0.171, 'two_flaky': 0.467, 'nocall_called': 0.03} 1794s
+checks numbers 1 {'step': 7000, 'text_loss': 2.765, 'word_perfect': 0.93, 'word_flaky': 0.743, 'detection': 0.552, 'false_alarm': 0.27, 'two_flaky': 0.357, 'nocall_called': 0.05} 1808s
+checks numbers 0 {'step': 7000, 'text_loss': 2.768, 'word_perfect': 0.913, 'word_flaky': 0.723, 'detection': 0.522, 'false_alarm': 0.272, 'two_flaky': 0.363, 'nocall_called': 0.03} 1810s
+trained [1880s]
+trusts the machine 2 perfect {'math': 0.999, 'word': 0.996, 'newshape': 0.758, 'newverb': 0.837, 'two': 0.984, 'nocall': 0.903} flaky {'math': 0.762, 'word': 0.75, 'newshape': 0.579, 'newverb': 0.65, 'two': 0.563, 'nocall': 0.903} detect 0 false alarm 0 ppl 15.66 [2480s]
+checks numbers 1 perfect {'math': 0.966, 'word': 0.902, 'newshape': 0.689, 'newverb': 0.817, 'two': 0.513, 'nocall': 0.511} flaky {'math': 0.802, 'word': 0.768, 'newshape': 0.576, 'newverb': 0.687, 'two': 0.326, 'nocall': 0.511} detect 0.598 false alarm 0.243 ppl 15.89 [2678s]
+checks numbers 0 perfect {'math': 0.986, 'word': 0.89, 'newshape': 0.664, 'newverb': 0.616, 'two': 0.611, 'nocall': 0.7} flaky {'math': 0.804, 'word': 0.748, 'newshape': 0.543, 'newverb': 0.523, 'two': 0.393, 'nocall': 0.7} detect 0.546 false alarm 0.275 ppl 15.92 [2688s]
+checks numbers + signal 0 perfect {'math': 0.988, 'word': 0.971, 'newshape': 0.745, 'newverb': 0.716, 'two': 0.821, 'nocall': 0.733} flaky {'math': 0.797, 'word': 0.785, 'newshape': 0.602, 'newverb': 0.582, 'two': 0.505, 'nocall': 0.733} detect 0.281 false alarm 0.022 ppl 15.89 [2987s]
+checks numbers + signal 1 perfect {'math': 0.977, 'word': 0.97, 'newshape': 0.78, 'newverb': 0.733, 'two': 0.833, 'nocall': 0.834} flaky {'math': 0.788, 'word': 0.781, 'newshape': 0.621, 'newverb': 0.597, 'two': 0.523, 'nocall': 0.834} detect 0.274 false alarm 0.02 ppl 16.06 [2987s]
+live checks numbers + signal, signal on {'answer_right': 0.878, 'calls_per_problem': 1.262, 'problems_with_a_wrong_answer': 0.16, 'copied_a_wrong_answer': 0.084} detect {'n': 84, 'rate': 0.5833333333333334} false alarm {'n': 517, 'rate': 0.1528046421663443} {'calls': 631, 'wrong': 97, 'unsure': 271, 'doubts': 271, 'seconds': 177.0} [3164s]
+live checks numbers + signal, signal off {'answer_right': 0.854, 'calls_per_problem': 1.068, 'problems_with_a_wrong_answer': 0.14, 'copied_a_wrong_answer': 0.122} detect {'n': 76, 'rate': 0.19736842105263158} false alarm {'n': 457, 'rate': 0.0350109409190372} {'calls': 534, 'wrong': 76, 'unsure': 0, 'doubts': 217, 'seconds': 136.1} [3300s]
+live checks numbers {'answer_right': 0.818, 'calls_per_problem': 1.484, 'problems_with_a_wrong_answer': 0.204, 'copied_a_wrong_answer': 0.102} detect {'n': 109, 'rate': 0.6055045871559633} false alarm {'n': 565, 'rate': 0.26371681415929205} {'calls': 742, 'wrong': 119, 'unsure': 0, 'doubts': 287, 'seconds': 398.7} [3699s]
+live trusts the machine {'answer_right': 0.816, 'calls_per_problem': 0.996, 'problems_with_a_wrong_answer': 0.18, 'copied_a_wrong_answer': 0.18} detect {'n': 90, 'rate': 0.0} false alarm {'n': 408, 'rate': 0.0} {'calls': 498, 'wrong': 90, 'unsure': 0, 'doubts': 189, 'seconds': 350.9} [4050s]
+/Users/alisongun/Downloads/xor_circuits 2/run_storycheck.py:509: UserWarning: set_ticklabels() should only be used with a fixed number of ticks, i.e. after set_ticks() or using a FixedLocator.
+  ax.set_xticklabels(["another operation", "random byte", "0 (timeout)"] + [f"bit {k} flipped (+-{1 << k})" for k in range(8)], rotation=20, ha="right", fontsize=8)
+done [4059s]

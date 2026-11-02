@@ -1,0 +1,12 @@
+{
+ "cond": "masked",
+ "d": 64,
+ "seed": 0,
+ "recipe": "k8",
+ "task": "addition",
+ "n": 25,
+ "tag": "transfer_p4_masked_addition_n25_s0",
+ "answer_right": 0.0,
+ "story_loss": 6.4402241706848145,
+ "seconds": 3.4195210933685303
+}

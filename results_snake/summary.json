@@ -1,0 +1,884 @@
+{
+ "library_margin": 4.0,
+ "size": {
+  "4": {
+   "board": "4x4",
+   "counter_bits": 5,
+   "minimal": {
+    "comb_gates": 844,
+    "gates_by_type": {
+     "NOT": 101,
+     "OR": 231,
+     "AND": 409,
+     "XNOR": 8,
+     "XOR": 94,
+     "NAND": 1
+    },
+    "registers": 114,
+    "dff_gates": 913,
+    "logic_depth": 37,
+    "inputs": 5,
+    "output_wires": 43,
+    "total_gates": 1757,
+    "neurons": 1859,
+    "neurons_comb": 946,
+    "params": 5577,
+    "params_comb": 2839,
+    "macs": 3718,
+    "macs_comb": 1893,
+    "neuron_depth_comb": 40,
+    "macs_per_tick_simulated": 23781
+   },
+   "NAND-only": {
+    "comb_gates": 1442,
+    "gates_by_type": {
+     "NOT": 399,
+     "NAND": 1043
+    },
+    "registers": 114,
+    "dff_gates": 913,
+    "logic_depth": 60,
+    "inputs": 5,
+    "output_wires": 43,
+    "total_gates": 2355,
+    "neurons": 2355,
+    "neurons_comb": 1442,
+    "params": 7065,
+    "params_comb": 4326,
+    "macs": 4710,
+    "macs_comb": 2884,
+    "neuron_depth_comb": 60,
+    "macs_per_tick_simulated": 24772
+   },
+   "baseline": {
+    "comb_gates": 844,
+    "gates_by_type": {
+     "NOT": 101,
+     "OR": 231,
+     "AND": 409,
+     "XNOR": 8,
+     "XOR": 94,
+     "NAND": 1
+    },
+    "registers": 114,
+    "dff_gates": 913,
+    "logic_depth": 37,
+    "inputs": 5,
+    "output_wires": 43,
+    "total_gates": 1757,
+    "neurons": 8377,
+    "neurons_comb": 3816,
+    "params": 28339,
+    "params_comb": 12833,
+    "macs": 19962,
+    "macs_comb": 9017,
+    "neuron_depth_comb": 69,
+    "macs_per_tick_simulated": 140345
+   }
+  },
+  "8": {
+   "board": "8x8",
+   "counter_bits": 7,
+   "minimal": {
+    "comb_gates": 3918,
+    "gates_by_type": {
+     "NOT": 473,
+     "OR": 1115,
+     "AND": 1851,
+     "XNOR": 10,
+     "XOR": 468,
+     "NAND": 1
+    },
+    "registers": 488,
+    "dff_gates": 3905,
+    "logic_depth": 43,
+    "inputs": 5,
+    "output_wires": 143,
+    "total_gates": 7823,
+    "neurons": 8301,
+    "neurons_comb": 4396,
+    "params": 24907,
+    "params_comb": 13193,
+    "macs": 16606,
+    "macs_comb": 8797,
+    "neuron_depth_comb": 46,
+    "macs_per_tick_simulated": 102493
+   },
+   "NAND-only": {
+    "comb_gates": 6662,
+    "gates_by_type": {
+     "NOT": 1791,
+     "NAND": 4871
+    },
+    "registers": 488,
+    "dff_gates": 3905,
+    "logic_depth": 72,
+    "inputs": 5,
+    "output_wires": 143,
+    "total_gates": 10567,
+    "neurons": 10567,
+    "neurons_comb": 6662,
+    "params": 31701,
+    "params_comb": 19986,
+    "macs": 21134,
+    "macs_comb": 13324,
+    "neuron_depth_comb": 72,
+    "macs_per_tick_simulated": 107020
+   },
+   "baseline": {
+    "comb_gates": 3918,
+    "gates_by_type": {
+     "NOT": 473,
+     "OR": 1115,
+     "AND": 1851,
+     "XNOR": 10,
+     "XOR": 468,
+     "NAND": 1
+    },
+    "registers": 488,
+    "dff_gates": 3905,
+    "logic_depth": 43,
+    "inputs": 5,
+    "output_wires": 143,
+    "total_gates": 7823,
+    "neurons": 37219,
+    "neurons_comb": 17698,
+    "params": 125881,
+    "params_comb": 59511,
+    "macs": 88662,
+    "macs_comb": 41813,
+    "neuron_depth_comb": 81,
+    "macs_per_tick_simulated": 603989
+   }
+  },
+  "16": {
+   "board": "16x16",
+   "counter_bits": 9,
+   "minimal": {
+    "comb_gates": 18720,
+    "gates_by_type": {
+     "NOT": 2333,
+     "OR": 5407,
+     "AND": 8637,
+     "XNOR": 12,
+     "XOR": 2330,
+     "NAND": 1
+    },
+    "registers": 2350,
+    "dff_gates": 18801,
+    "logic_depth": 48,
+    "inputs": 5,
+    "output_wires": 531,
+    "total_gates": 37521,
+    "neurons": 39863,
+    "neurons_comb": 21062,
+    "params": 119597,
+    "params_comb": 63195,
+    "macs": 79734,
+    "macs_comb": 42133,
+    "neuron_depth_comb": 51,
+    "macs_per_tick_simulated": 493333
+   },
+   "NAND-only": {
+    "comb_gates": 31786,
+    "gates_by_type": {
+     "NOT": 8383,
+     "NAND": 23403
+    },
+    "registers": 2350,
+    "dff_gates": 18801,
+    "logic_depth": 82,
+    "inputs": 5,
+    "output_wires": 531,
+    "total_gates": 50587,
+    "neurons": 50587,
+    "neurons_comb": 31786,
+    "params": 151761,
+    "params_comb": 95358,
+    "macs": 101174,
+    "macs_comb": 63572,
+    "neuron_depth_comb": 82,
+    "macs_per_tick_simulated": 514772
+   },
+   "baseline": {
+    "comb_gates": 18720,
+    "gates_by_type": {
+     "NOT": 2333,
+     "OR": 5407,
+     "AND": 8637,
+     "XNOR": 12,
+     "XOR": 2330,
+     "NAND": 1
+    },
+    "registers": 2350,
+    "dff_gates": 18801,
+    "logic_depth": 48,
+    "inputs": 5,
+    "output_wires": 531,
+    "total_gates": 37521,
+    "neurons": 178269,
+    "neurons_comb": 84268,
+    "params": 602847,
+    "params_comb": 283245,
+    "macs": 424578,
+    "macs_comb": 198977,
+    "neuron_depth_comb": 91,
+    "macs_per_tick_simulated": 2906177
+   }
+  },
+  "32": {
+   "board": "32x32",
+   "counter_bits": 11,
+   "minimal": {
+    "comb_gates": 88482,
+    "gates_by_type": {
+     "NOT": 11297,
+     "OR": 25635,
+     "AND": 40239,
+     "XNOR": 14,
+     "XOR": 11296,
+     "NAND": 1
+    },
+    "registers": 11316,
+    "dff_gates": 90529,
+    "logic_depth": 54,
+    "inputs": 5,
+    "output_wires": 2071,
+    "total_gates": 179011,
+    "neurons": 190321,
+    "neurons_comb": 99792,
+    "params": 570975,
+    "params_comb": 299389,
+    "macs": 380654,
+    "macs_comb": 199597,
+    "neuron_depth_comb": 57,
+    "macs_per_tick_simulated": 2372269
+   },
+   "NAND-only": {
+    "comb_gates": 150318,
+    "gates_by_type": {
+     "NOT": 39215,
+     "NAND": 111103
+    },
+    "registers": 11316,
+    "dff_gates": 90529,
+    "logic_depth": 94,
+    "inputs": 5,
+    "output_wires": 2071,
+    "total_gates": 240847,
+    "neurons": 240847,
+    "neurons_comb": 150318,
+    "params": 722541,
+    "params_comb": 450954,
+    "macs": 481694,
+    "macs_comb": 300636,
+    "neuron_depth_comb": 94,
+    "macs_per_tick_simulated": 2473308
+   },
+   "baseline": {
+    "comb_gates": 88482,
+    "gates_by_type": {
+     "NOT": 11297,
+     "OR": 25635,
+     "AND": 40239,
+     "XNOR": 14,
+     "XOR": 11296,
+     "NAND": 1
+    },
+    "registers": 11316,
+    "dff_gates": 90529,
+    "logic_depth": 54,
+    "inputs": 5,
+    "output_wires": 2071,
+    "total_gates": 179011,
+    "neurons": 849863,
+    "neurons_comb": 397222,
+    "params": 2873717,
+    "params_comb": 1334739,
+    "macs": 2023854,
+    "macs_comb": 937517,
+    "neuron_depth_comb": 103,
+    "macs_per_tick_simulated": 13973549
+   }
+  },
+  "64": {
+   "board": "64x64",
+   "counter_bits": 13,
+   "minimal": {
+    "comb_gates": 410212,
+    "gates_by_type": {
+     "NOT": 53285,
+     "OR": 118823,
+     "AND": 184801,
+     "XNOR": 16,
+     "XOR": 53286,
+     "NAND": 1
+    },
+    "registers": 53306,
+    "dff_gates": 426449,
+    "logic_depth": 59,
+    "inputs": 5,
+    "output_wires": 8219,
+    "total_gates": 836661,
+    "neurons": 889963,
+    "neurons_comb": 463514,
+    "params": 2669905,
+    "params_comb": 1390559,
+    "macs": 1779942,
+    "macs_comb": 927045,
+    "neuron_depth_comb": 62,
+    "macs_per_tick_simulated": 11161797
+   },
+   "NAND-only": {
+    "comb_gates": 697522,
+    "gates_by_type": {
+     "NOT": 180703,
+     "NAND": 516819
+    },
+    "registers": 53306,
+    "dff_gates": 426449,
+    "logic_depth": 104,
+    "inputs": 5,
+    "output_wires": 8219,
+    "total_gates": 1123971,
+    "neurons": 1123971,
+    "neurons_comb": 697522,
+    "params": 3371913,
+    "params_comb": 2092566,
+    "macs": 2247942,
+    "macs_comb": 1395044,
+    "neuron_depth_comb": 104,
+    "macs_per_tick_simulated": 11629796
+   },
+   "baseline": {
+    "comb_gates": 410212,
+    "gates_by_type": {
+     "NOT": 53285,
+     "OR": 118823,
+     "AND": 184801,
+     "XNOR": 16,
+     "XOR": 53286,
+     "NAND": 1
+    },
+    "registers": 53306,
+    "dff_gates": 426449,
+    "logic_depth": 59,
+    "inputs": 5,
+    "output_wires": 8219,
+    "total_gates": 836661,
+    "neurons": 3970161,
+    "neurons_comb": 1837920,
+    "params": 13423947,
+    "params_comb": 6174329,
+    "macs": 9453786,
+    "macs_comb": 4336409,
+    "neuron_depth_comb": 113,
+    "macs_per_tick_simulated": 65744921
+   }
+  }
+ },
+ "unique_trained_weights": {
+  "minimal": 224,
+  "NAND-only": 24
+ },
+ "verify": {
+  "8x8 | Boolean gates, ideal flip-flops": {
+   "ticks": 12000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 1073,
+   "games": 455,
+   "max_len": 14,
+   "ms_per_tick": 0.20142151912053427,
+   "worst_signal_dev": 0.0
+  },
+  "8x8 | Boolean gates, NAND flip-flops": {
+   "ticks": 12000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 1073,
+   "games": 455,
+   "max_len": 14,
+   "ms_per_tick": 0.42666544516881305,
+   "worst_signal_dev": 0.0
+  },
+  "8x8 | neural gates, ideal flip-flops": {
+   "ticks": 12000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 1073,
+   "games": 455,
+   "max_len": 14,
+   "ms_per_tick": 0.45412389437357586,
+   "worst_signal_dev": 0.03054023650674592
+  },
+  "8x8 | neural gates, neural NAND flip-flops (fully analog)": {
+   "ticks": 12000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 1073,
+   "games": 455,
+   "max_len": 14,
+   "ms_per_tick": 0.959945023059845,
+   "worst_signal_dev": 0.030540256493984397
+  },
+  "8x8 | NAND-only, fully analog": {
+   "ticks": 12000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 1073,
+   "games": 455,
+   "max_len": 14,
+   "ms_per_tick": 0.9392228921254476,
+   "worst_signal_dev": 0.025906713894648603
+  },
+  "16x16 | Boolean gates, ideal flip-flops": {
+   "ticks": 9000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 559,
+   "games": 141,
+   "max_len": 23,
+   "ms_per_tick": 0.696299261516995,
+   "worst_signal_dev": 0.0
+  },
+  "16x16 | Boolean gates, NAND flip-flops": {
+   "ticks": 9000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 559,
+   "games": 141,
+   "max_len": 23,
+   "ms_per_tick": 1.0685604148440893,
+   "worst_signal_dev": 0.0
+  },
+  "16x16 | neural gates, ideal flip-flops": {
+   "ticks": 9000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 559,
+   "games": 141,
+   "max_len": 23,
+   "ms_per_tick": 1.0207482973734539,
+   "worst_signal_dev": 0.0306459015361214
+  },
+  "16x16 | neural gates, neural NAND flip-flops (fully analog)": {
+   "ticks": 9000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 559,
+   "games": 141,
+   "max_len": 23,
+   "ms_per_tick": 2.4649288919236927,
+   "worst_signal_dev": 0.030645903252510542
+  },
+  "16x16 | NAND-only, fully analog": {
+   "ticks": 9000,
+   "errors": 0,
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "eats": 559,
+   "games": 141,
+   "max_len": 23,
+   "ms_per_tick": 2.603604528639052,
+   "worst_signal_dev": 0.025920532549460695
+  },
+  "32x32 | neural gates, ideal flip-flops": {
+   "ticks": 400,
+   "errors": 0,
+   "first_errors": [
+    null
+   ],
+   "eats": 15,
+   "games": 4,
+   "max_len": 13,
+   "ms_per_tick": 3.7936776876449585,
+   "worst_signal_dev": 0.0307635786665309
+  },
+  "32x32 | neural gates, neural NAND flip-flops (fully analog)": {
+   "ticks": 400,
+   "errors": 0,
+   "first_errors": [
+    null
+   ],
+   "eats": 15,
+   "games": 4,
+   "max_len": 13,
+   "ms_per_tick": 10.679842829704285,
+   "worst_signal_dev": 0.030763578667466818
+  },
+  "32x32 | NAND-only, fully analog": {
+   "ticks": 400,
+   "errors": 0,
+   "first_errors": [
+    null
+   ],
+   "eats": 15,
+   "games": 4,
+   "max_len": 13,
+   "ms_per_tick": 11.047192811965942,
+   "worst_signal_dev": 0.025914095287599526
+  },
+  "8x8 | fully analog, board-filling game": {
+   "ticks": 1700,
+   "eats": 60,
+   "games": 1,
+   "max_len": 63,
+   "first_error": null,
+   "ms_per_tick": 1.0553381022285013,
+   "worst_signal_dev": 0.030258304420658133
+  },
+  "16x16 | fully analog, board-filling game": {
+   "ticks": 18300,
+   "eats": 252,
+   "games": 1,
+   "max_len": 255,
+   "first_error": null,
+   "ms_per_tick": 2.9164692482661683,
+   "worst_signal_dev": 0.030884778750330077
+  }
+ },
+ "python_reference_ms_per_tick_16": 0.011873404184977213,
+ "breakdown_16": {
+  "control": {
+   "comb": 550,
+   "dff": 32
+  },
+  "cells": {
+   "comb": 16384,
+   "dff": 18432
+  },
+  "food": {
+   "comb": 1384,
+   "dff": 72
+  },
+  "random (LFSR)": {
+   "comb": 3,
+   "dff": 128
+  },
+  "head & walls": {
+   "comb": 371,
+   "dff": 64
+  },
+  "length": {
+   "comb": 28,
+   "dff": 72
+  }
+ },
+ "gates_by_type_16": {
+  "NOT": 2333,
+  "OR": 5407,
+  "AND": 8637,
+  "XNOR": 12,
+  "XOR": 2330,
+  "NAND": 1
+ },
+ "margin_survival_16": {
+  "1.5": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ],
+   "worst_signal_dev": 0.49999938445096775,
+   "or_tree_zero_by_level": [
+    0.1781802405185451,
+    0.4832674239350886,
+    0.9166180391291837,
+    0.9972611301412219,
+    0.9985702546055257,
+    0.9985852716759398,
+    0.9985854430210224,
+    0.9985854449759536,
+    0.9985854449982581
+   ]
+  },
+  "2.0": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ],
+   "worst_signal_dev": 0.49958896150289633,
+   "or_tree_zero_by_level": [
+    0.11703981574986345,
+    0.3013605812767801,
+    0.7298813645682385,
+    0.9948304854133969,
+    0.9996283804803061,
+    0.9996457061979515,
+    0.999645767276583,
+    0.999645767491886,
+    0.999645767492645
+   ]
+  },
+  "2.5": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ],
+   "worst_signal_dev": 0.49850841825696063,
+   "or_tree_zero_by_level": [
+    0.07446021441651517,
+    0.16547648344805937,
+    0.3686255250882328,
+    0.8667194215287108,
+    0.9995830700792998,
+    0.9999137876802962,
+    0.9999141252843646,
+    0.9999141256283222,
+    0.9999141256286728
+   ]
+  },
+  "3.0": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ],
+   "worst_signal_dev": 0.4997995547185691,
+   "or_tree_zero_by_level": [
+    0.04662394309995393,
+    0.08643082917472923,
+    0.14092402359816683,
+    0.2584189539700361,
+    0.6388339557448138,
+    0.9970705384819292,
+    0.9999792523254482,
+    0.9999800701519101,
+    0.9999800703772599
+   ]
+  },
+  "3.25": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ],
+   "worst_signal_dev": 0.48457031339017703,
+   "or_tree_zero_by_level": [
+    0.036672078173576185,
+    0.062446702476195055,
+    0.0888904349820557,
+    0.12612673781309294,
+    0.2003339861155026,
+    0.4291651098454532,
+    0.9570388399134173,
+    0.9999819244994136,
+    0.9999904301909524
+   ]
+  },
+  "3.5": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    1500,
+    1500,
+    1500
+   ],
+   "worst_signal_dev": 0.20520092423675512,
+   "or_tree_zero_by_level": [
+    0.02881603204842472,
+    0.04535581576822223,
+    0.05811232409634575,
+    0.07017634628059155,
+    0.08367746063573558,
+    0.10155079892909785,
+    0.13036313940309585,
+    0.1911460591731121,
+    0.3816985927410824
+   ]
+  },
+  "4.0": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    1500,
+    1500,
+    1500
+   ],
+   "worst_signal_dev": 0.030645903252510542,
+   "or_tree_zero_by_level": [
+    0.01767688667494508,
+    0.02442782103274375,
+    0.02745769862129739,
+    0.028933510780667183,
+    0.0296799593038347,
+    0.030064580578871115,
+    0.03026464490567196,
+    0.030369219556176958,
+    0.030424020474995397
+   ]
+  }
+ },
+ "noise_survival_16": {
+  "0.0": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    1500,
+    1500,
+    1500
+   ]
+  },
+  "0.01": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    1500,
+    1500,
+    1500
+   ]
+  },
+  "0.02": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    1500,
+    1500,
+    1500
+   ]
+  },
+  "0.03": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    1500,
+    1500,
+    1500
+   ]
+  },
+  "0.04": {
+   "first_errors": [
+    27,
+    47,
+    147
+   ],
+   "ticks_ok": [
+    26,
+    46,
+    146
+   ]
+  },
+  "0.05": {
+   "first_errors": [
+    3,
+    1,
+    7
+   ],
+   "ticks_ok": [
+    2,
+    0,
+    6
+   ]
+  },
+  "0.075": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ]
+  },
+  "0.1": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ]
+  }
+ },
+ "runtime_s": 287.6
+}

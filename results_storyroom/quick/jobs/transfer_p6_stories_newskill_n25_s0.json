@@ -1,0 +1,12 @@
+{
+ "cond": "stories",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "newskill",
+ "n": 25,
+ "tag": "transfer_p6_stories_newskill_n25_s0",
+ "answer_right": 0.0,
+ "story_loss": 4.875436305999756,
+ "seconds": 12.543491840362549
+}

@@ -1,0 +1,12 @@
+PREREG.md unchanged since 2026-10-30 11:56:09 EDT c3f2e446110a68805f6c88e94fde717bf6492362fd3b07c3d7f5d04a98c104f7
+A-w256-s9 step 0: clean 0.00 packed None acc 0.000 ic 0.216  [13s]
+A-w256-s9 step 250: clean 0.07 packed 0.17647058823529413 acc 0.014  [21s]
+A-w256-s9 step 500: clean 0.47 packed 0.0 acc 1.000  [29s]
+A-w256-s9 step 750: clean 0.49 packed 0.023809523809523808 acc 1.000  [37s]
+A-w256-s9 step 1000: clean 0.52 packed 0.02247191011235955 acc 1.000  [45s]
+A-w256-s9 step 1250: clean 0.55 packed 0.01098901098901099 acc 1.000  [53s]
+A-w256-s9 step 1500: clean 0.55 packed 0.010869565217391304 acc 1.000  [61s]
+A-w256-s9 step 1750: clean 0.53 packed 0.021505376344086023 acc 1.000  [68s]
+A-w256-s9 step 2000: clean 0.53 packed 0.010752688172043012 acc 1.000  [76s]
+A-w256-s9 step 2250: clean 0.53 packed 0.010638297872340425 acc 1.000  [84s]
+A-w256-s9 step 2500: clean 0.53 packed 0.010638297872340425 acc 1.000 ic 1.000  [203s]

@@ -1,0 +1,12 @@
+{
+ "cond": "scratch",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drillx2",
+ "task": "newskill",
+ "n": 1600,
+ "tag": "transfer_p8_m64drillx2_scratch_newskill_n1600_s0",
+ "answer_right": 0.02666666666666667,
+ "story_loss": 8.718692779541016,
+ "seconds": 24.150563955307007
+}

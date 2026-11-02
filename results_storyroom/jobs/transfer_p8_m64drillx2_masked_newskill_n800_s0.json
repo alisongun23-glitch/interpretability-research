@@ -1,0 +1,12 @@
+{
+ "cond": "masked",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drillx2",
+ "task": "newskill",
+ "n": 800,
+ "tag": "transfer_p8_m64drillx2_masked_newskill_n800_s0",
+ "answer_right": 0.14,
+ "story_loss": 4.582672595977783,
+ "seconds": 39.63893795013428
+}

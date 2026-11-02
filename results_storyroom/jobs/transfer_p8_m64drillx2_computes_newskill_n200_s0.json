@@ -1,0 +1,12 @@
+{
+ "cond": "computes",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drillx2",
+ "task": "newskill",
+ "n": 200,
+ "tag": "transfer_p8_m64drillx2_computes_newskill_n200_s0",
+ "answer_right": 0.28,
+ "story_loss": 4.849177360534668,
+ "seconds": 40.680535078048706
+}

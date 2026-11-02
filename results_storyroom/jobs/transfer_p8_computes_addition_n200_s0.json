@@ -1,0 +1,12 @@
+{
+ "cond": "computes",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drill",
+ "task": "addition",
+ "n": 200,
+ "tag": "transfer_p8_computes_addition_n200_s0",
+ "answer_right": 0.15666666666666668,
+ "story_loss": 4.389893054962158,
+ "seconds": 31.341017961502075
+}

@@ -1,0 +1,12 @@
+{
+ "cond": "stories",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "addition",
+ "n": 25,
+ "tag": "transfer_p6_stories_addition_n25_s0",
+ "answer_right": 0.0,
+ "story_loss": 6.495168685913086,
+ "seconds": 12.358226776123047
+}

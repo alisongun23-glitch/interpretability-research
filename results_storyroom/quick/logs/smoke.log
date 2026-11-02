@@ -1,0 +1,130 @@
+streams (2.0, 256, 'all') {'tool': (6336068, 0.685), 'plain': (5673742, 0.765), 'stories': (4341816, 1.0)} [11s]
+phase 0: 8 jobs {'tool': 200, 'computes': 179, 'masked': 179, 'stories': 137} [11s]
+p0_computes_d64_s0_base {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p0_computes_d64_s1_base {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.357, 'add_heldout': 0.0} 1s
+p0_tool_d64_s1_base {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.357, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 1s
+p0_tool_d64_s0_base {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 1s
+p0_computes_d64_s1_base {'step': 100, 'story_tokens': 156722.656, 'story_loss': 6.973, 'add_heldout': 0.0} 11s
+p0_computes_d64_s0_base {'step': 100, 'story_tokens': 156722.656, 'story_loss': 7.0, 'add_heldout': 0.0} 11s
+p0_tool_d64_s1_base {'step': 100, 'story_tokens': 140340.021, 'story_loss': 6.912, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 11s
+p0_tool_d64_s0_base {'step': 100, 'story_tokens': 140340.021, 'story_loss': 6.95, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 11s
+p0_computes_d64_s0_base {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.401, 'add_heldout': 0.0} 18s
+p0_computes_d64_s1_base {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.359, 'add_heldout': 0.0} 18s
+p0_tool_d64_s1_base {'step': 200, 'story_tokens': 280680.042, 'story_loss': 6.165, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 21s
+done p0_computes_d64_s1_base story loss 6.3594 add own 0.0 22s [33s]
+p0_tool_d64_s0_base {'step': 200, 'story_tokens': 280680.042, 'story_loss': 6.199, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 21s
+done p0_computes_d64_s0_base story loss 6.4005 add own 0.0 22s [33s]
+p0_masked_d64_s0_base {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p0_masked_d64_s1_base {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.357, 'add_heldout': 0.0} 1s
+done p0_tool_d64_s1_base story loss 6.1651 add own 0.0 25s [36s]
+done p0_tool_d64_s0_base story loss 6.1992 add own 0.0 26s [37s]
+p0_stories_d64_s0_base {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p0_stories_d64_s1_base {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.357, 'add_heldout': 0.0} 1s
+p0_masked_d64_s0_base {'step': 100, 'story_tokens': 156722.656, 'story_loss': 6.989, 'add_heldout': 0.0} 10s
+p0_masked_d64_s1_base {'step': 100, 'story_tokens': 156722.656, 'story_loss': 6.963, 'add_heldout': 0.0} 10s
+p0_stories_d64_s0_base {'step': 100, 'story_tokens': 204800.0, 'story_loss': 7.192, 'add_heldout': 0.0} 10s
+p0_stories_d64_s1_base {'step': 100, 'story_tokens': 204800.0, 'story_loss': 7.179, 'add_heldout': 0.0} 10s
+p0_stories_d64_s0_base {'step': 137, 'story_tokens': 280576.0, 'story_loss': 6.972, 'add_heldout': 0.0} 14s
+p0_stories_d64_s1_base {'step': 137, 'story_tokens': 280576.0, 'story_loss': 6.949, 'add_heldout': 0.0} 14s
+p0_masked_d64_s1_base {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.345, 'add_heldout': 0.0} 18s
+p0_masked_d64_s0_base {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.386, 'add_heldout': 0.0} 18s
+done p0_stories_d64_s0_base story loss 6.9717 add own 0.0 17s [54s]
+done p0_masked_d64_s1_base story loss 6.3452 add own 0.0 21s [54s]
+done p0_stories_d64_s1_base story loss 6.9494 add own 0.0 17s [54s]
+done p0_masked_d64_s0_base story loss 6.3859 add own 0.0 22s [54s]
+phase 0 contrasts {'tool - computes': -0.1977853775024414, 'computes - masked': 0.014391422271728516, 'tool - masked': -0.1833939552307129, 'stories - computes': 0.5806090831756592} sd {'tool': 0.02411946129102635, 'computes': 0.029075930675907486, 'masked': 0.02872998934333007, 'stories': 0.01572684364074904} [54s]
+streams (6.0, 64, 'add') {'tool': (7470453, 0.581), 'plain': (6270597, 0.692), 'stories': (4341816, 1.0)} [68s]
+phase 1: 2 jobs {'k8': 179, 'm64drill': 198} [68s]
+p1_computes_d64_s0_m64drill {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p1_computes_d64_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p1_computes_d64_s0_m64drill {'step': 100, 'story_tokens': 141805.304, 'story_loss': 6.909, 'add_heldout': 0.0} 8s
+p1_computes_d64_s0_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 7.036, 'add_heldout': 0.0} 8s
+p1_computes_d64_s0_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.472, 'add_heldout': 0.0} 14s
+p1_computes_d64_s0_m64drill {'step': 198, 'story_tokens': 280774.503, 'story_loss': 6.259, 'add_heldout': 0.0} 15s
+done p1_computes_d64_s0_k8 story loss 6.472 add own 0.0 17s [85s]
+done p1_computes_d64_s0_m64drill story loss 6.2588 add own 0.0 18s [86s]
+phase 1 verdict: no recipe reached the criterion recipe k8 {'p1_computes_d64_s0_k8': 0.0, 'p1_computes_d64_s0_m64drill': 0.0} [86s]
+p2_computes_d64_s1_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.357, 'add_heldout': 0.0} 1s
+p2_computes_d64_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p2_tool_d64_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 1s
+p2_tool_d64_s1_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.357, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 1s
+p2_computes_d64_s1_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 7.016, 'add_heldout': 0.0} 10s
+p2_computes_d64_s0_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 7.036, 'add_heldout': 0.0} 10s
+p2_tool_d64_s1_k8 {'step': 100, 'story_tokens': 140340.021, 'story_loss': 6.946, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 11s
+p2_tool_d64_s0_k8 {'step': 100, 'story_tokens': 140340.021, 'story_loss': 6.979, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 11s
+p2_computes_d64_s1_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.432, 'add_heldout': 0.0} 18s
+p2_computes_d64_s0_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.472, 'add_heldout': 0.0} 18s
+p2_tool_d64_s1_k8 {'step': 200, 'story_tokens': 280680.042, 'story_loss': 6.236, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 21s
+done p2_computes_d64_s1_k8 story loss 6.4317 add own 0.0 22s [107s]
+p2_tool_d64_s0_k8 {'step': 200, 'story_tokens': 280680.042, 'story_loss': 6.266, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 21s
+done p2_computes_d64_s0_k8 story loss 6.472 add own 0.0 22s [108s]
+p2_masked_d64_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p2_masked_d64_s1_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.357, 'add_heldout': 0.0} 1s
+done p2_tool_d64_s1_k8 story loss 6.2364 add own 0.0 26s [111s]
+done p2_tool_d64_s0_k8 story loss 6.2662 add own 0.0 26s [112s]
+p2_stories_d64_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.38, 'add_heldout': 0.0} 1s
+p2_stories_d64_s1_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.357, 'add_heldout': 0.0} 1s
+p2_masked_d64_s0_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 6.992, 'add_heldout': 0.0} 12s
+p2_masked_d64_s1_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 6.966, 'add_heldout': 0.0} 12s
+p2_stories_d64_s0_k8 {'step': 100, 'story_tokens': 204800.0, 'story_loss': 7.194, 'add_heldout': 0.0} 12s
+p2_stories_d64_s1_k8 {'step': 100, 'story_tokens': 204800.0, 'story_loss': 7.181, 'add_heldout': 0.0} 12s
+p2_masked_d64_s0_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.391, 'add_heldout': 0.0} 21s
+p2_stories_d64_s1_k8 {'step': 137, 'story_tokens': 280576.0, 'story_loss': 6.952, 'add_heldout': 0.0} 17s
+p2_stories_d64_s0_k8 {'step': 137, 'story_tokens': 280576.0, 'story_loss': 6.975, 'add_heldout': 0.0} 17s
+p2_masked_d64_s1_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 6.35, 'add_heldout': 0.0} 21s
+done p2_masked_d64_s0_k8 story loss 6.3911 add own 0.0 25s [132s]
+done p2_stories_d64_s0_k8 story loss 6.9747 add own 0.0 21s [133s]
+done p2_stories_d64_s1_k8 story loss 6.9524 add own 0.0 21s [133s]
+done p2_masked_d64_s1_k8 story loss 6.3505 add own 0.0 25s [133s]
+p2_tool_d32_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.333, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 1s
+p2_computes_d32_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.333, 'add_heldout': 0.0} 1s
+p2_computes_d32_s1_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.37, 'add_heldout': 0.0} 1s
+p2_tool_d32_s1_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.37, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 1s
+p2_tool_d32_s0_k8 {'step': 100, 'story_tokens': 140340.021, 'story_loss': 7.553, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 12s
+p2_computes_d32_s0_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 7.601, 'add_heldout': 0.0} 12s
+p2_computes_d32_s1_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 7.605, 'add_heldout': 0.0} 12s
+p2_tool_d32_s1_k8 {'step': 100, 'story_tokens': 140340.021, 'story_loss': 7.57, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 13s
+p2_computes_d32_s0_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 7.151, 'add_heldout': 0.0} 22s
+p2_computes_d32_s1_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 7.181, 'add_heldout': 0.0} 22s
+p2_tool_d32_s0_k8 {'step': 200, 'story_tokens': 280680.042, 'story_loss': 6.919, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 25s
+p2_tool_d32_s1_k8 {'step': 200, 'story_tokens': 280680.042, 'story_loss': 6.962, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 26s
+done p2_computes_d32_s0_k8 story loss 7.1513 add own 0.0 26s [159s]
+done p2_computes_d32_s1_k8 story loss 7.1808 add own 0.0 26s [159s]
+p2_masked_d32_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.333, 'add_heldout': 0.0} 1s
+p2_masked_d32_s1_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.37, 'add_heldout': 0.0} 1s
+done p2_tool_d32_s0_k8 story loss 6.919 add own 0.0 30s [163s]
+p2_stories_d32_s0_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.333, 'add_heldout': 0.0} 1s
+done p2_tool_d32_s1_k8 story loss 6.9622 add own 0.0 31s [164s]
+p2_stories_d32_s1_k8 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.37, 'add_heldout': 0.0} 1s
+p2_masked_d32_s0_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 7.573, 'add_heldout': 0.0} 14s
+p2_masked_d32_s1_k8 {'step': 100, 'story_tokens': 156722.656, 'story_loss': 7.589, 'add_heldout': 0.0} 15s
+p2_stories_d32_s0_k8 {'step': 100, 'story_tokens': 204800.0, 'story_loss': 7.713, 'add_heldout': 0.0} 16s
+p2_stories_d32_s1_k8 {'step': 100, 'story_tokens': 204800.0, 'story_loss': 7.713, 'add_heldout': 0.0} 16s
+p2_stories_d32_s0_k8 {'step': 137, 'story_tokens': 280576.0, 'story_loss': 7.572, 'add_heldout': 0.0} 22s
+p2_masked_d32_s0_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 7.105, 'add_heldout': 0.0} 28s
+p2_stories_d32_s1_k8 {'step': 137, 'story_tokens': 280576.0, 'story_loss': 7.576, 'add_heldout': 0.0} 23s
+p2_masked_d32_s1_k8 {'step': 179, 'story_tokens': 280533.555, 'story_loss': 7.146, 'add_heldout': 0.0} 28s
+done p2_stories_d32_s0_k8 story loss 7.5722 add own 0.0 27s [190s]
+done p2_stories_d32_s1_k8 story loss 7.5757 add own 0.0 28s [191s]
+done p2_masked_d32_s0_k8 story loss 7.1051 add own 0.0 32s [191s]
+done p2_masked_d32_s1_k8 story loss 7.1464 add own 0.0 32s [191s]
+phase 2 fit {'E': -3.7199660013895506, 'alpha': 0.05, 'A': {'tool': 18.39013131753987, 'computes': 18.770111910665978, 'masked': 18.663272029485086, 'stories': 19.585888300024276}, 'factor_vs_stories': {'tool': 0.2836815823533241, 'computes': 0.42704316203556675, 'masked': 0.38096954353183615, 'stories': 1.0}, 'sse': 0.022089680425750262} factor CI {'tool': [0.2691433791476136, 0.298338069509429], 'computes': [0.41079773330524727, 0.4419288759004125], 'masked': [0.36319271595430663, 0.3991901952185928], 'stories': [1.0, 1.0]} [192s]
+phase 3: 16 models [192s]
+inside p2_computes_d64_s0_k8 best probe r2 -0.111 68s [260s]
+inside p2_tool_d64_s0_k8 best probe r2 -0.05 68s [260s]
+inside p2_computes_d64_s1_k8 best probe r2 -0.132 68s [260s]
+inside p2_tool_d64_s1_k8 best probe r2 -0.05 68s [261s]
+inside p2_stories_d64_s0_k8 best probe r2 -0.108 58s [318s]
+inside p2_stories_d64_s1_k8 best probe r2 -0.114 58s [319s]
+inside p2_masked_d64_s0_k8 best probe r2 -0.112 59s [319s]
+inside p2_masked_d64_s1_k8 best probe r2 -0.132 59s [319s]
+inside p2_tool_d32_s0_k8 best probe r2 -0.05 25s [343s]
+inside p2_computes_d32_s1_k8 best probe r2 -0.086 24s [343s]
+inside p2_tool_d32_s1_k8 best probe r2 0.056 25s [344s]
+inside p2_computes_d32_s0_k8 best probe r2 -0.09 25s [345s]
+inside p2_masked_d32_s0_k8 best probe r2 -0.092 26s [369s]
+inside p2_stories_d32_s0_k8 best probe r2 -0.097 26s [370s]
+inside p2_masked_d32_s1_k8 best probe r2 -0.091 26s [370s]
+inside p2_stories_d32_s1_k8 best probe r2 -0.089 25s [370s]
+phase 4: 40 fine-tunes [371s]
+done [406s]

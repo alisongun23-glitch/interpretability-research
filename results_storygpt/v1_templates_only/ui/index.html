@@ -1,0 +1,509 @@
+<title>Story GPT with a Gate CPU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@600;900&family=B612:wght@400;700&family=B612+Mono:wght@400;700&family=Literata:opsz,wght@7..72,400;7..72,500&display=swap">
+<style>
+/* Layout: the story is the page. Prompt on top, the generated story set like a page of a children's book, and a narrow
+   side column with the computer, the last call and the settings. Stacks on phones. */
+:root {
+  --bg: #eceee9; --paper: #fbfbf8; --panel: #f4f6f2; --ink: #171b19; --ink-2: #4a524e; --muted: #7d8681; --line: #d4d9d3;
+  --accent: #c8372b; --good: #1d8a4c; --bad: #c22f26; --chip-bg: #e2e6e0; --led-off: #cfd5ce;
+  --led: 214, 52, 40; --amber: 214, 140, 20; --blue: 42, 120, 214;
+  --font-display: "Doto", "B612 Mono", ui-monospace, monospace;
+  --font-story: "Literata", Georgia, "Times New Roman", serif;
+  --font-ui: "B612", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "B612 Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1312; --paper: #151a18; --panel: #161b19; --ink: #e7ebe8; --ink-2: #aab3ae; --muted: #78827d; --line: #29302d;
+    --accent: #ff5a48; --good: #3cc47a; --bad: #ff6a5c; --chip-bg: #212825; --led-off: #2a312e;
+    --led: 255, 74, 58; --amber: 255, 181, 46; --blue: 90, 160, 240; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1312; --paper: #151a18; --panel: #161b19; --ink: #e7ebe8; --ink-2: #aab3ae; --muted: #78827d; --line: #29302d;
+  --accent: #ff5a48; --good: #3cc47a; --bad: #ff6a5c; --chip-bg: #212825; --led-off: #2a312e;
+  --led: 255, 74, 58; --amber: 255, 181, 46; --blue: 90, 160, 240; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--font-ui); font-size: 14px; line-height: 1.5; padding-inline: 16px; padding-block: 20px 40px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 18px; }
+h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(32px, 6vw, 54px); line-height: 0.95; margin: 0; text-wrap: balance; }
+.lede { margin: 6px 0 0; max-width: 74ch; color: var(--ink-2); font-size: 15px; text-wrap: pretty; }
+.ask { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 8px; }
+.ask textarea { font: inherit; font-family: var(--font-story); font-size: 17px; line-height: 1.5; padding: 10px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--paper); color: var(--ink); resize: vertical; min-height: 64px; min-width: 0; }
+button { font: inherit; font-size: 13px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+button.primary { background: var(--ink); color: var(--paper); border-color: var(--ink); align-self: start; padding: 10px 18px; }
+button:hover { border-color: var(--muted); }
+button:focus-visible, textarea:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.examples { display: flex; flex-wrap: wrap; gap: 6px; }
+.examples button { font-family: var(--font-story); font-size: 13px; padding: 3px 10px; border-radius: 999px; background: var(--chip-bg); border-color: transparent; color: var(--ink-2); }
+#msg { font-size: 12.5px; color: var(--bad); min-height: 1em; }
+.bench { display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+@media (max-width: 880px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+.page { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 22px 26px; min-height: 260px; min-width: 0; }
+.story { font-family: var(--font-story); font-size: 19px; line-height: 1.7; max-width: 62ch; white-space: pre-wrap; overflow-wrap: anywhere; }
+.story .prompt { color: var(--ink-2); }
+.story .cpu { background: rgba(var(--amber), 0.22); border-bottom: 2px solid rgb(var(--amber)); border-radius: 3px; padding: 0 2px; cursor: pointer; }
+.story .cpu sup { font-family: var(--font-data); font-size: 10px; color: var(--ink-2); margin-left: 2px; }
+.story .caret { display: inline-block; width: 0.5em; height: 1.1em; vertical-align: -0.15em; background: var(--muted); margin-left: 2px; animation: blink 1s steps(2) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .story .caret { animation: none; } }
+.pagefoot { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 14px; font-size: 12px; color: var(--muted); }
+.pagefoot b { color: var(--ink-2); font-weight: 700; }
+.col { display: grid; gap: 14px; min-width: 0; }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; display: grid; gap: 9px; min-width: 0; }
+.card h2 { margin: 0; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.card h2 span { text-transform: none; letter-spacing: 0.02em; font-weight: 400; }
+.panel-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; }
+.ro { display: grid; gap: 1px; min-width: 0; }
+.ro .v { font-family: var(--font-data); font-size: 16px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ro .k { font-size: 11px; color: var(--muted); }
+.leds { display: inline-flex; gap: 4px; }
+.led { width: 11px; height: 11px; border-radius: 50%; background: var(--led-off); position: relative; }
+.led::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: rgb(var(--led)); opacity: var(--v, 0); box-shadow: 0 0 calc(8px * var(--v, 0)) rgba(var(--led), 0.7); }
+.small { font-family: var(--font-data); font-size: 12px; color: var(--ink-2); }
+.ctx { display: flex; flex-wrap: wrap; gap: 4px; }
+.ctx span { font-family: var(--font-data); font-size: 12px; padding: 2px 6px; border-radius: 5px; background: var(--chip-bg); color: var(--ink-2); position: relative; }
+.ctx span[data-s] { background: rgba(var(--blue), 0.18); color: var(--ink); outline: 1.5px solid rgb(var(--blue)); }
+.ctx span[data-s]::after { content: attr(data-s); position: absolute; top: -9px; right: -4px; font-size: 9px; background: rgb(var(--blue)); color: #fff; border-radius: 4px; padding: 0 3px; }
+.ctl { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 8px 10px; align-items: center; font-size: 12.5px; color: var(--ink-2); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; width: max-content; max-width: 100%; }
+.seg button { border: 0; border-radius: 0; padding: 5px 9px; background: transparent; color: var(--ink-2); font-size: 12px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--paper); }
+.slider { display: flex; align-items: center; gap: 8px; min-width: 0; }
+.slider input { flex: 1; min-width: 0; accent-color: var(--accent); }
+.slider output { font-family: var(--font-data); font-size: 12px; min-width: 3.5ch; text-align: right; }
+table.cmp { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+table.cmp td, table.cmp th { padding: 4px 0; border-bottom: 1px solid var(--line); text-align: left; }
+table.cmp th { font-size: 10.5px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+table.cmp .n { font-family: var(--font-data); text-align: right; padding-left: 10px; white-space: nowrap; font-variant-numeric: tabular-nums; }
+table.cmp tr:last-child td { border-bottom: 0; }
+.note { font-size: 12px; color: var(--ink-2); margin: 0; }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>Story GPT with a Gate CPU</h1>
+    <p class="lede">A small GPT trained on children's stories. One attention head in its last layer is a frozen 8-bit computer
+      built from trained neuron gates. The model writes the story itself, and when a sum comes up it points the computer at the
+      numbers and the operation, runs it, and writes the computer's answer. Marked words came from the computer.</p>
+  </header>
+
+  <section class="card" style="background:var(--paper)">
+    <div class="ask">
+      <textarea id="prompt" aria-label="Story prompt" spellcheck="false">lily went to the park with her mom . what is 14 times 12 ?</textarea>
+      <button id="go" class="primary">Write</button>
+    </div>
+    <div class="examples" id="examples"></div>
+    <div id="msg"></div>
+  </section>
+
+  <div class="bench">
+    <article class="page" aria-label="Generated story">
+      <div class="story" id="story"></div>
+      <div class="pagefoot" id="foot"></div>
+    </article>
+    <div class="col">
+      <section class="card" aria-label="Computer">
+        <h2>The computer <span id="cpuNote">calculator program in RAM</span></h2>
+        <div class="panel-row">
+          <div class="ro"><span class="v" id="cPC">0</span><span class="k">PC</span></div>
+          <div class="ro"><span class="v" id="cA">0</span><span class="k">A</span></div>
+          <div class="ro"><span class="v" id="cOUT">0</span><span class="k">OUT</span></div>
+          <div class="ro"><span class="v" id="cT">0</span><span class="k">ticks</span></div>
+        </div>
+        <div><span class="leds" id="outLeds"></span> <span class="small" id="cpuState">idle</span></div>
+      </section>
+      <section class="card" aria-label="Last call">
+        <h2>Last call <span id="callNote">none yet</span></h2>
+        <div class="ctx" id="ctx"></div>
+        <div class="small" id="sent"></div>
+      </section>
+      <section class="card" aria-label="Settings">
+        <h2>Settings</h2>
+        <div class="ctl">
+          <span>Model</span>
+          <div class="seg" id="segModel" role="group"><button data-v="cpu" aria-pressed="true">With CPU head</button><button data-v="plain" aria-pressed="false">Plain GPT</button></div>
+          <span>CPU head</span>
+          <div class="seg" id="segHead" role="group"><button data-v="on" aria-pressed="true">On</button><button data-v="off" aria-pressed="false">Off</button></div>
+          <label for="temp">Randomness</label>
+          <div class="slider"><input type="range" id="temp" min="0" max="1.2" step="0.1" value="0"><output id="tempOut">0.0</output></div>
+          <label for="len">Length</label>
+          <div class="slider"><input type="range" id="len" min="10" max="120" step="10" value="50"><output id="lenOut">50</output></div>
+          <span>Computer runs</span>
+          <div class="seg" id="segAnim" role="group"><button data-v="anim" aria-pressed="true">Animated</button><button data-v="fast" aria-pressed="false">Instant</button></div>
+        </div>
+      </section>
+      <section class="card" aria-label="Results">
+        <h2>Held-out results <span>run_storygpt.py</span></h2>
+        <table class="cmp"><thead><tr><th>model</th><th class="n">+</th><th class="n">&minus;</th><th class="n">&times;</th><th class="n">ppl</th></tr></thead><tbody id="res"></tbody></table>
+        <p class="note">Math with numbers never seen in training, placed after held-out story text; ppl = perplexity on held-out stories (lower is better). Numbers are single tokens 0&ndash;255.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const sig = (z) => 1 / (1 + Math.exp(-z));
+/* ---------------- the gate computer (same engine as cpu_ui) ---------------- */
+class Machine {
+  constructor(net) {
+    this.net = net;
+    const g = net.gates;
+    this.nG = g.out.length;
+    this.out = Int32Array.from(g.out); this.a = Int32Array.from(g.a); this.b = Int32Array.from(g.b);
+    this.type = Int32Array.from(g.type); this.pick = Int32Array.from(g.pick);
+    this.cone = Int32Array.from(net.out_cone);
+    const TTN = { NOT: [1, 1, 0, 0], AND: [0, 0, 0, 1], OR: [0, 1, 1, 1], NAND: [1, 1, 1, 0], NOR: [1, 0, 0, 0], XOR: [0, 1, 1, 0], XNOR: [1, 0, 0, 1] };
+    this.tt = net.types.map((t) => TTN[t]);
+    this.V = new Float64Array(net.n_wires);
+    this.E = new Uint8Array(net.n_wires);
+    this.nR = net.regs.q.length;
+    this.rq = Int32Array.from(net.regs.q); this.rd = Int32Array.from(net.regs.d);
+    this.iters = net.latch_iters || 6;
+    this.inW = net.inputs;
+    const n = this.nR;
+    this.Q = Float64Array.from(net.regs.init);
+    this.L = {};
+    for (const k of ["m1", "m2", "M", "Mb", "s1", "s2", "Q", "Qb"]) this.L[k] = new Float64Array(n);
+    for (let r = 0; r < n; r++) {
+      const v = net.regs.init[r];
+      this.L.m1[r] = 1; this.L.m2[r] = 1; this.L.M[r] = v; this.L.Mb[r] = 1 - v;
+      this.L.s1[r] = 1 - v; this.L.s2[r] = v; this.L.Q[r] = v; this.L.Qb[r] = 1 - v;
+    }
+    this.noise = 0; this.mode = "neural"; this.worst = 0;
+    this.setPool(net.default_pool);
+    this.settle(1, null);
+    this.Q.set(this.L.Q);
+  }
+  setPool(tag) {
+    const pools = this.net.pools[tag], n = this.nG, T = this.net.types;
+    this.w0 = new Float64Array(n); this.w1 = new Float64Array(n); this.bo = new Float64Array(n);
+    this.H = new Uint8Array(n); this.u0 = new Float64Array(n); this.u1 = new Float64Array(n); this.c = new Float64Array(n); this.v = new Float64Array(n);
+    for (let i = 0; i < n; i++) {
+      const p = pools[T[this.type[i]]][this.pick[i]];
+      this.w0[i] = p.w[0]; this.w1[i] = p.w[1]; this.bo[i] = p.bo;
+      if (p.v.length) { this.H[i] = 1; this.u0[i] = p.U[0][0]; this.u1[i] = p.U[1][0]; this.c[i] = p.c[0]; this.v[i] = p.v[0]; }
+      else { this.H[i] = 0; }
+    }
+    const m = this.nR * 8, nand = pools.NAND;
+    this.f0 = new Float64Array(m); this.f1 = new Float64Array(m); this.fb = new Float64Array(m);
+    for (let j = 0; j < m; j++) { const p = nand[this.net.dff_pick[j]]; this.f0[j] = p.w[0]; this.f1[j] = p.w[1]; this.fb[j] = p.bo; }
+    const inv = pools.NOT[0]; this.cw = inv.w[0] + inv.w[1]; this.cb = inv.bo;
+  }
+  gauss() { let u = 0; while (u === 0) u = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * Math.random()); }
+  loadSources(V, inputs, Q) {
+    V[0] = 0; V[1] = 1;
+    for (const k in this.inW) V[this.inW[k]] = inputs[k] || 0;
+    for (let r = 0; r < this.nR; r++) V[this.rq[r]] = Q[r];
+  }
+  evalGates(list, count) {
+    const V = this.V, out = this.out, A = this.a, B = this.b, nz = this.noise;
+    let worst = 0;
+    if (this.mode === "logic") {
+      const ty = this.type, tt = this.tt;
+      for (let j = 0; j < count; j++) { const i = list ? list[j] : j; V[out[i]] = tt[ty[i]][(V[A[i]] > 0.5 ? 2 : 0) + (V[B[i]] > 0.5 ? 1 : 0)]; }
+      return 0;
+    }
+    const w0 = this.w0, w1 = this.w1, bo = this.bo, H = this.H, u0 = this.u0, u1 = this.u1, c = this.c, v = this.v;
+    for (let j = 0; j < count; j++) {
+      const i = list ? list[j] : j;
+      const x = V[A[i]], y = V[B[i]];
+      let z = w0[i] * x + w1[i] * y + bo[i];
+      if (H[i]) z += v[i] * sig(u0[i] * x + u1[i] * y + c[i]);
+      let o = sig(z);
+      if (nz) { o += nz * this.gauss(); o = o < 0 ? 0 : o > 1 ? 1 : o; }
+      V[out[i]] = o;
+      const d = o < 0.5 ? o : 1 - o; if (d > worst) worst = d;
+    }
+    return worst;
+  }
+  settle(clk, D) {
+    const L = this.L, n = this.nR, it = this.iters, nz = this.noise, f0 = this.f0, f1 = this.f1, fb = this.fb;
+    const E = sig(this.cw * clk + this.cb), C = clk;
+    const nand = (j, x, y) => { let o = sig(f0[j] * x + f1[j] * y + fb[j]); if (nz) { o += nz * this.gauss(); o = o < 0 ? 0 : o > 1 ? 1 : o; } return o; };
+    let worst = 0;
+    for (let r = 0; r < n; r++) {
+      let m1 = L.m1[r], m2 = L.m2[r], M = L.M[r], Mb = L.Mb[r], s1 = L.s1[r], s2 = L.s2[r], Q = L.Q[r], Qb = L.Qb[r];
+      const d = D ? D[r] : M, j = r * 8;
+      for (let k = 0; k < it; k++) {
+        const n1 = nand(j, d, E), n2 = nand(j + 1, m1, E), n3 = nand(j + 2, m1, Mb), n4 = nand(j + 3, m2, M);
+        const n5 = nand(j + 4, M, C), n6 = nand(j + 5, s1, C), n7 = nand(j + 6, s1, Qb), n8 = nand(j + 7, s2, Q);
+        m1 = n1; m2 = n2; M = n3; Mb = n4; s1 = n5; s2 = n6; Q = n7; Qb = n8;
+      }
+      L.m1[r] = m1; L.m2[r] = m2; L.M[r] = M; L.Mb[r] = Mb; L.s1[r] = s1; L.s2[r] = s2; L.Q[r] = Q; L.Qb[r] = Qb;
+      for (const x of [m1, m2, M, Mb, s1, s2, Q, Qb]) { const dd = x < 0.5 ? x : 1 - x; if (dd > worst) worst = dd; }
+    }
+    return worst;
+  }
+  exactNext(inputs) {
+    const E = this.E, out = this.out, A = this.a, B = this.b, ty = this.type, tt = this.tt;
+    E[0] = 0; E[1] = 1;
+    for (const k in this.inW) E[this.inW[k]] = inputs[k] ? 1 : 0;
+    for (let r = 0; r < this.nR; r++) E[this.rq[r]] = this.Q[r] > 0.5 ? 1 : 0;
+    for (let i = 0; i < this.nG; i++) E[out[i]] = tt[ty[i]][E[A[i]] * 2 + E[B[i]]];
+    const D = new Uint8Array(this.nR);
+    for (let r = 0; r < this.nR; r++) D[r] = E[this.rd[r]];
+    return D;
+  }
+  step(inputs, checkExact) {
+    const expect = checkExact && this.mode === "neural" ? this.exactNext(inputs) : null;
+    this.loadSources(this.V, inputs, this.Q);
+    let worst = this.evalGates(null, this.nG);
+    const D = new Float64Array(this.nR);
+    for (let r = 0; r < this.nR; r++) D[r] = this.V[this.rd[r]];
+    if (this.mode === "logic") {
+      this.Q.set(D);
+      const L = this.L;
+      for (let r = 0; r < this.nR; r++) { const v = D[r]; L.M[r] = v; L.Mb[r] = 1 - v; L.s1[r] = 1 - v; L.s2[r] = v; L.Q[r] = v; L.Qb[r] = 1 - v; L.m1[r] = 1; L.m2[r] = 1; }
+    } else {
+      worst = Math.max(worst, this.settle(0, D), this.settle(1, D));
+      this.Q.set(this.L.Q);
+    }
+    this.worst = worst;
+    let wrong = 0;
+    if (expect) for (let r = 0; r < this.nR; r++) if ((this.Q[r] > 0.5 ? 1 : 0) !== expect[r]) wrong++;
+    return wrong;
+  }
+  display() {
+    this.loadSources(this.V, {}, this.Q);
+    this.evalGates(this.cone, this.cone.length);
+    const o = this.net.outputs, V = this.V, f = {};
+    for (const k in o) f[k] = o[k].map((w) => V[w]);
+    return f;
+  }
+  hash() {
+    let h = 0;
+    for (let r = 0; r < this.nR; r++) h = (h * 31 + (this.Q[r] > 0.5 ? 1 : 0)) >>> 0;
+    return h;
+  }
+}
+
+/* ---------------- model (mirrors cpugpt/lm.py) ---------------- */
+let META = null, MODELS = {}, CPUNET = null, cpu = null, idx = {};
+function tensors(buf, list) {
+  const f = new Float32Array(buf), P = {};
+  for (const t of list) { const n = t.shape.reduce((a, b) => a * b, 1); P[t.name] = { d: f.subarray(t.offset, t.offset + n), shape: t.shape }; }
+  return P;
+}
+function lin(W, b, x) {                     // W: (out, in) row-major
+  const [o, i] = W.shape, y = new Float64Array(o), w = W.d;
+  for (let r = 0; r < o; r++) { let s = b ? b.d[r] : 0; const off = r * i; for (let c = 0; c < i; c++) s += w[off + c] * x[c]; y[r] = s; }
+  return y;
+}
+function ln(x, w, b) { let m = 0; for (const v of x) m += v; m /= x.length; let s = 0; for (const v of x) s += (v - m) * (v - m); s = 1 / Math.sqrt(s / x.length + 1e-5); const y = new Float64Array(x.length); for (let i = 0; i < x.length; i++) y[i] = (x[i] - m) * s * w.d[i] + b.d[i]; return y; }
+const addTo = (a, b) => { for (let i = 0; i < a.length; i++) a[i] += b[i]; return a; };
+function mlp(P, pre, x) { const h = lin(P[pre + ".mlp.0.weight"], P[pre + ".mlp.0.bias"], x); for (let i = 0; i < h.length; i++) h[i] = Math.max(h[i], 0); return lin(P[pre + ".mlp.2.weight"], P[pre + ".mlp.2.bias"], h); }
+
+class Runner {                              // forward with a key/value cache
+  constructor(P, meta) {
+    this.P = P; this.L = meta.layers; this.d = meta.d; this.dh = meta.d / meta.heads; this.T = meta.n_ctx;
+    this.hasCpu = !!P["q.weight"]; this.reset();
+  }
+  reset() { this.toks = []; this.K = Array.from({ length: this.L }, () => []); this.Vc = Array.from({ length: this.L }, () => []); this.pk = []; }
+  heads(l) { return this.P[`blocks.${l}.attn.qkv.weight`].shape[0] / (3 * this.dh); }
+  /* run one token through every layer; returns the state needed by the last layer's head */
+  push(tok) {
+    const P = this.P, p = this.toks.length, dh = this.dh;
+    this.toks.push(tok);
+    const x = new Float64Array(this.d);
+    const e = P["emb.weight"].d, po = P["pos.weight"].d;
+    for (let i = 0; i < this.d; i++) x[i] = e[tok * this.d + i] + po[p * this.d + i];
+    let h = null;
+    for (let l = 0; l < this.L; l++) {
+      const pre = `blocks.${l}`; h = ln(x, P[pre + ".ln1.weight"], P[pre + ".ln1.bias"]);
+      const H = this.heads(l), qkv = lin(P[pre + ".attn.qkv.weight"], P[pre + ".attn.qkv.bias"], h);
+      this.K[l].push(qkv.slice(H * dh, 2 * H * dh)); this.Vc[l].push(qkv.slice(2 * H * dh));
+      const cat = new Float64Array(H * dh);
+      for (let hh = 0; hh < H; hh++) {
+        const sc = []; for (let s = 0; s <= p; s++) { let dd = 0; const k = this.K[l][s]; for (let i = 0; i < dh; i++) dd += qkv[hh * dh + i] * k[hh * dh + i]; sc.push(dd / Math.sqrt(dh)); }
+        const mx = Math.max(...sc); let Z = 0; const ex = sc.map((v) => { const t = Math.exp(v - mx); Z += t; return t; });
+        for (let s = 0; s <= p; s++) { const v = this.Vc[l][s], w = ex[s] / Z; for (let i = 0; i < dh; i++) cat[hh * dh + i] += w * v[hh * dh + i]; }
+      }
+      addTo(x, lin(P[pre + ".attn.o.weight"], P[pre + ".attn.o.bias"], cat));
+      if (l < this.L - 1) addTo(x, mlp(P, pre, ln(x, P[pre + ".ln2.weight"], P[pre + ".ln2.bias"])));
+    }
+    if (this.hasCpu) this.pk.push(lin(P["k.weight"], P["k.bias"], h));
+    return { x, h };
+  }
+  /* CPU head decision at the last pushed position */
+  head(st) {
+    const P = this.P, p = this.toks.length - 1, dh = this.dh, q = lin(P["q.weight"], P["q.bias"], st.h);
+    const rel = P["rel"].d, R = P["rel"].shape[1];
+    const picks = [0, 1, 2].map((s) => {
+      let best = -Infinity, bi = 0;
+      for (let u = 0; u <= p; u++) { let dd = 0; for (let i = 0; i < dh; i++) dd += q[s * dh + i] * this.pk[u][s * dh + i]; dd = dd / Math.sqrt(dh) + rel[s * R + (p - u)]; if (dd > best) { best = dd; bi = u; } }
+      return bi;
+    });
+    const gate = sig(lin(P["gate.weight"], P["gate.bias"], st.h)[0]);
+    return { picks, gate };
+  }
+  finish(st, result) {
+    const P = this.P, last = `blocks.${this.L - 1}`, x = Float64Array.from(st.x);
+    if (result !== null) addTo(x, lin(P["read.weight"], P["read.bias"], Array.from({ length: 8 }, (_, i) => (result >> i) & 1)));
+    addTo(x, mlp(P, last, ln(x, P[last + ".ln2.weight"], P[last + ".ln2.bias"])));
+    const z = ln(x, P["lnf.weight"], P["lnf.bias"]), E = P["emb.weight"], V = E.shape[0], b = P["out_bias"].d, lg = new Float64Array(V);
+    for (let v = 0; v < V; v++) { let s = b[v]; const off = v * this.d; for (let i = 0; i < this.d; i++) s += E.d[off + i] * z[i]; lg[v] = s; }
+    return lg;
+  }
+  /* keep the context inside the trained 64 positions: drop the oldest half and rebuild the cache */
+  slide() {
+    const keep = this.toks.slice(-Math.floor(this.T / 2)); this.reset();
+    let st = null; for (const t of keep) st = this.push(t); return st;
+  }
+}
+
+/* ---------------- words (mirror cpugpt/text.py) ---------------- */
+const WORD_RE = /[a-z]+|\d+|[^\sa-z\d]/g;
+function encode(text) {
+  return (text.toLowerCase().match(WORD_RE) || []).map((w) => { const i = META.stoi[w]; return i === undefined ? META.stoi["<unk>"] : i; });
+}
+function decodeTokens(ids) {                 // returns a list of [text piece, separator before it]
+  const out = []; let quoteOpen = false, glue = false, prev = "";
+  for (const i of ids) {
+    const w = META.vocab[i];
+    if (w === "<pad>" || w === "<bos>") { out.push(["", ""]); continue; }
+    if (w === "<eos>") { out.push(["", "\n\n"]); quoteOpen = glue = false; prev = "\n"; continue; }
+    if (w === "'") { out.push([w, ""]); glue = true; prev = w; continue; }
+    if (w === "\"") {
+      if (quoteOpen) out.push([w, ""]); else { out.push([w, prev === "" || prev.endsWith("\n") ? "" : " "]); glue = true; }
+      quoteOpen = !quoteOpen; prev = w; continue;
+    }
+    let space = !(glue || prev === "" || prev.endsWith("\n") || ".,!?;:)".includes(w));
+    if ("+-*=;".includes(w)) space = prev !== "" && !prev.endsWith("\n");
+    out.push([w, space ? " " : ""]); glue = false; prev = w;
+  }
+  return out;
+}
+
+/* ---------------- the computer ---------------- */
+const portIn = (o = {}) => { const d = { rst: 0, prog: o.prog || 0, prog_we: o.we || 0 };
+  for (let i = 0; i < 5; i++) d[`prog_addr${i}`] = ((o.addr || 0) >> i) & 1;
+  for (let i = 0; i < 8; i++) d[`prog_data${i}`] = ((o.data || 0) >> i) & 1; return d; };
+const reg = (name, n) => { let v = 0; for (let i = 0; i < n; i++) if (cpu.Q[idx[`${name}[${i}]`]] > 0.5) v |= 1 << i; return v; };
+function cpuShow(t, state) {
+  $("cPC").textContent = reg("pc", 5); $("cA").textContent = reg("a", 8); $("cOUT").textContent = reg("out", 8); $("cT").textContent = t;
+  Array.from($("outLeds").children).reverse().forEach((el, i) => el.style.setProperty("--v", Math.max(0, Math.min(1, cpu.Q[idx[`out[${i}]`]])).toFixed(3)));
+  $("cpuState").textContent = state;
+}
+async function cpuCall(x, y, op, animate) {
+  for (const [k, v] of [["x", x], ["y", y], ["op", op], ["prod", 0]]) cpu.step(portIn({ prog: 1, we: 1, addr: META.addr[k], data: v }), false);
+  let t = 0, last = performance.now();
+  while (t < META.cap && !(cpu.Q[idx["halt"]] > 0.5)) {
+    const now = performance.now(), budget = animate ? Math.max(1, Math.round((now - last) * 400 / 1000)) : META.cap;
+    last = now;
+    for (let i = 0; i < budget && t < META.cap; i++) { cpu.step(portIn(), false); t++; if (cpu.Q[idx["halt"]] > 0.5) break; }
+    if (animate) { cpuShow(t, "running"); await new Promise((r) => setTimeout(r, 16)); }
+  }
+  cpuShow(t, cpu.Q[idx["halt"]] > 0.5 ? "halted, answer in OUT" : "timeout");
+  return { result: reg("out", 8), ticks: t };
+}
+
+/* ---------------- page ---------------- */
+const OPS = ["none", "+", "\u2212", "\u00d7"];
+const S = { model: "cpu", head: "on", anim: "anim", busy: false, stop: false };
+function setPressed(g, v) { document.querySelectorAll(`#${g} button`).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); }
+function seg(g, fn) { document.querySelectorAll(`#${g} button`).forEach((b) => b.addEventListener("click", () => { setPressed(g, b.dataset.v); fn(b.dataset.v); })); }
+seg("segModel", (v) => { S.model = v; }); seg("segHead", (v) => { S.head = v; }); seg("segAnim", (v) => { S.anim = v; });
+$("temp").addEventListener("input", () => { $("tempOut").textContent = Number($("temp").value).toFixed(1); });
+$("len").addEventListener("input", () => { $("lenOut").textContent = $("len").value; });
+
+function sample(lg, temp) {
+  if (temp <= 0) { let b = 0; for (let i = 1; i < lg.length; i++) if (lg[i] > lg[b]) b = i; return b; }
+  const top = Array.from(lg, (v, i) => [v, i]).sort((a, b) => b[0] - a[0]).slice(0, 20);
+  const mx = top[0][0], w = top.map(([v]) => Math.exp((v - mx) / temp)), Z = w.reduce((a, b) => a + b, 0);
+  let r = Math.random() * Z; for (let k = 0; k < w.length; k++) { r -= w[k]; if (r <= 0) return top[k][1]; } return top[0][1];
+}
+function render(ids, nPrompt, marks, done) {
+  const pieces = decodeTokens(ids);
+  let html = "";
+  pieces.forEach(([w, sep], i) => {
+    const esc = w.replace(/&/g, "&amp;").replace(/</g, "&lt;");
+    const m = marks[i];
+    const span = i < nPrompt ? `<span class="prompt">${esc}</span>`
+      : m ? `<span class="cpu" data-i="${i}" title="from the computer">${esc}<sup>${m.x}${OPS[m.op] || "?"}${m.y}</sup></span>` : esc;
+    html += sep + span;
+  });
+  $("story").innerHTML = html + (done ? "" : "<span class=\"caret\"></span>");
+}
+function showCall(ctxIds, call) {
+  const start = Math.max(0, ctxIds.length - 14);
+  const tag = {}; ["A", "B", "OP"].forEach((s, k) => { tag[call.picks[k]] = (tag[call.picks[k]] ? tag[call.picks[k]] + "," : "") + s; });
+  $("ctx").innerHTML = ctxIds.slice(start).map((t, j) => { const p = start + j; return `<span${tag[p] ? ` data-s="${tag[p]}"` : ""}>${META.vocab[t].replace(/</g, "&lt;")}</span>`; }).join("");
+  $("sent").textContent = `sent x = ${call.x}, y = ${call.y}, op = ${OPS[call.op] || "none"}; gate ${call.gate.toFixed(2)}; computer said ${call.result} after ${call.ticks} ticks`;
+  $("callNote").textContent = "pointers on the context";
+}
+
+async function write() {
+  if (S.busy || !META) return;
+  $("msg").textContent = "";
+  const promptIds = encode($("prompt").value);
+  if (!promptIds.length) { $("msg").textContent = "Type a few words to start the story."; return; }
+  S.busy = true; $("go").textContent = "Writing\u2026";
+  const R = MODELS[S.model]; R.reset();
+  let st = null;
+  for (const t of promptIds.slice(-R.T)) st = R.push(t);
+  const ids = promptIds.slice(-R.T), nPrompt = ids.length, marks = {}, n = Number($("len").value), temp = Number($("temp").value);
+  let calls = 0, t0 = performance.now();
+  for (let k = 0; k < n; k++) {
+    let result = null;
+    if (R.hasCpu && S.head === "on") {
+      const hd = R.head(st);
+      if (hd.gate >= 0.5) {
+        const ctx = R.toks, x = META.numval[ctx[hd.picks[0]]], y = META.numval[ctx[hd.picks[1]]], op = META.opval[ctx[hd.picks[2]]];
+        const out = await cpuCall(x, y, op, S.anim === "anim");
+        result = out.result; calls++;
+        const call = { x, y, op, gate: hd.gate, result, ticks: out.ticks, picks: hd.picks };
+        marks[ids.length] = call; showCall(ctx.slice(), call);
+      }
+    }
+    const nxt = sample(R.finish(st, result), temp);
+    ids.push(nxt);
+    render(ids, nPrompt, marks, false);
+    if (nxt === META.stoi["<eos>"]) break;
+    if (R.toks.length >= R.T) st = R.slide();
+    st = R.push(nxt);
+    if (k % 4 === 3) await new Promise((r) => setTimeout(r, 0));
+  }
+  render(ids, nPrompt, marks, true);
+  const secs = (performance.now() - t0) / 1000;
+  $("foot").innerHTML = `<span><b>${ids.length - nPrompt}</b> words written</span><span><b>${calls}</b> computer call${calls === 1 ? "" : "s"}</span><span>${MODELS[S.model] === MODELS.cpu ? (S.head === "on" ? "GPT with CPU head" : "CPU head switched off") : "plain GPT"}</span><span>${secs.toFixed(1)} s</span>`;
+  if (!calls) { $("callNote").textContent = "no call in this text"; }
+  S.busy = false; $("go").textContent = "Write";
+}
+$("go").addEventListener("click", write);
+$("prompt").addEventListener("keydown", (e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); write(); } });
+
+async function start() {
+  try {
+    const [m, c] = await Promise.all([fetch("model.json"), fetch("cpu.json")]);
+    if (!m.ok || !c.ok) throw new Error("HTTP");
+    META = await m.json(); CPUNET = await c.json();
+    const [b1, b2] = await Promise.all([fetch(META.models.cpu.file), fetch(META.models.plain.file)]);
+    if (!b1.ok || !b2.ok) throw new Error("HTTP");
+    const unb64 = async (resp) => { const s = atob((await resp.text()).trim()), u = new Uint8Array(s.length); for (let i = 0; i < s.length; i++) u[i] = s.charCodeAt(i); return u.buffer; };
+    MODELS.cpu = new Runner(tensors(await unb64(b1), META.models.cpu.tensors), META);
+    MODELS.plain = new Runner(tensors(await unb64(b2), META.models.plain.tensors), META);
+  } catch (e) { $("msg").textContent = "Could not load the model files. Serve this folder over HTTP (python3 -m http.server)."; return; }
+  META.stoi = {}; META.vocab.forEach((w, i) => (META.stoi[w] = i));
+  cpu = new Machine(CPUNET); CPUNET.regs.name.forEach((nm, i) => (idx[nm] = i));
+  $("outLeds").innerHTML = "<span class=\"led\"></span>".repeat(8);
+  for (let i = 0; i < 32; i++) cpu.step(portIn({ prog: 1, we: 1, addr: i, data: META.program[i] || 0 }), false);
+  cpuShow(0, "calculator program loaded");
+  const ex = ["once upon a time", "lily went to the park with her mom . what is 14 times 12 ?", "the cat was hungry . 60 + 117 =",
+              "tom had a red ball . subtract 54 from 120 =", "sam and his dog played all day .", "sum of 60 and 97 ="];
+  $("examples").innerHTML = ex.map((t) => `<button>${t}</button>`).join("");
+  document.querySelectorAll("#examples button").forEach((b) => b.addEventListener("click", () => { $("prompt").value = b.textContent; write(); }));
+  const rows = [["with CPU head", /CPU head \| seed 0/], ["with CPU head (seed 1)", /CPU head \| seed 1/], ["plain GPT", /^story GPT \| seed 0/]];
+  $("res").innerHTML = rows.map(([lab, re]) => { const e = Object.entries(META.results).find(([k]) => re.test(k)); if (!e) return "";
+    const r = e[1]; return `<tr><td>${lab}</td>${["add", "sub", "mul"].map((k) => `<td class="n">${Math.round(r.math[k] * 100)}%</td>`).join("")}<td class="n">${r.perplexity.toFixed(1)}</td></tr>`; }).join("");
+  write();
+}
+start();
+</script>

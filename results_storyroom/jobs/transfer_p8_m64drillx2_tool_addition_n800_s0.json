@@ -1,0 +1,12 @@
+{
+ "cond": "tool",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drillx2",
+ "task": "addition",
+ "n": 800,
+ "tag": "transfer_p8_m64drillx2_tool_addition_n800_s0",
+ "answer_right": 0.023333333333333334,
+ "story_loss": 4.957825660705566,
+ "seconds": 41.33368897438049
+}

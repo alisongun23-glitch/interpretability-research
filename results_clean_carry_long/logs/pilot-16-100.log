@@ -1,0 +1,201 @@
+PREREG.md unchanged since 2026-10-30 13:08:16 EDT a1d2bb3474f05b98880a3e7d8e8f3a7ff46442a9a601403eb7051b396d47630d
+pilot w16 s100 step 0 loss 1.49611  0s
+pilot w16 s100 step 250 loss 0.64229  7s
+pilot w16 s100 step 500 loss 0.54767  14s
+pilot w16 s100 step 750 loss 0.46093  21s
+pilot w16 s100 step 1000 exact 0.0450
+pilot w16 s100 step 1000 loss 0.32684  30s
+pilot w16 s100 step 1250 loss 0.27341  38s
+pilot w16 s100 step 1500 loss 0.20152  45s
+pilot w16 s100 step 1750 loss 0.17682  52s
+pilot w16 s100 step 2000 exact 0.2910
+pilot w16 s100 step 2000 loss 0.13756  61s
+pilot w16 s100 step 2250 loss 0.12628  69s
+pilot w16 s100 step 2500 loss 0.12330  76s
+pilot w16 s100 step 2750 loss 0.07282  84s
+pilot w16 s100 step 3000 exact 0.6705
+pilot w16 s100 step 3000 loss 0.05714  98s
+pilot w16 s100 step 3250 loss 0.04885  110s
+pilot w16 s100 step 3500 loss 0.04096  122s
+pilot w16 s100 step 3750 loss 0.04674  131s
+pilot w16 s100 step 4000 exact 0.6690
+pilot w16 s100 step 4000 loss 0.04509  141s
+pilot w16 s100 step 4250 loss 0.05976  150s
+pilot w16 s100 step 4500 loss 0.04414  160s
+pilot w16 s100 step 4750 loss 0.04431  170s
+pilot w16 s100 step 5000 exact 0.6685
+pilot w16 s100 step 5000 loss 0.04474  182s
+pilot w16 s100 step 5250 loss 0.05019  193s
+pilot w16 s100 step 5500 loss 0.03320  204s
+pilot w16 s100 step 5750 loss 0.03554  214s
+pilot w16 s100 step 6000 exact 0.7500
+pilot w16 s100 step 6000 loss 0.03428  227s
+pilot w16 s100 step 6250 loss 0.03011  238s
+pilot w16 s100 step 6500 loss 0.03157  249s
+pilot w16 s100 step 6750 loss 0.02499  259s
+pilot w16 s100 step 7000 exact 0.7450
+pilot w16 s100 step 7000 loss 0.03221  272s
+pilot w16 s100 step 7250 loss 0.02585  283s
+pilot w16 s100 step 7500 loss 0.03112  293s
+pilot w16 s100 step 7750 loss 0.02836  304s
+pilot w16 s100 step 8000 exact 0.9950
+pilot w16 s100 step 8000 loss 0.00242  318s
+pilot w16 s100 step 8250 loss 0.00013  330s
+pilot w16 s100 step 8500 loss 0.00767  344s
+pilot w16 s100 step 8750 loss 0.00011  355s
+pilot w16 s100 step 9000 exact 1.0000
+pilot w16 s100 step 9000 loss 0.00005  368s
+pilot w16 s100 step 9250 loss 0.00004  379s
+pilot w16 s100 step 9500 loss 0.00003  390s
+pilot w16 s100 step 9750 loss 0.00065  401s
+pilot w16 s100 step 10000 exact 1.0000
+pilot w16 s100 step 10000 loss 0.00006  414s
+pilot w16 s100 step 10250 loss 0.00003  425s
+pilot w16 s100 step 10500 loss 0.00002  436s
+pilot w16 s100 step 10750 loss 0.00002  447s
+pilot w16 s100 step 11000 exact 1.0000
+pilot w16 s100 step 11000 loss 0.00001  461s
+pilot w16 s100 step 11250 loss 0.00001  472s
+pilot w16 s100 step 11500 loss 0.00001  484s
+pilot w16 s100 step 11750 loss 0.00001  495s
+pilot w16 s100 step 12000 exact 1.0000
+pilot w16 s100 step 12000 loss 0.00001  508s
+pilot w16 s100 step 12250 loss 0.00001  520s
+pilot w16 s100 step 12500 loss 0.00000  531s
+pilot w16 s100 step 12750 loss 0.00000  543s
+pilot w16 s100 step 13000 exact 1.0000
+pilot w16 s100 step 13000 loss 0.00000  556s
+pilot w16 s100 step 13250 loss 0.00000  568s
+pilot w16 s100 step 13500 loss 0.00044  579s
+pilot w16 s100 step 13750 loss 0.00010  590s
+pilot w16 s100 step 14000 exact 1.0000
+pilot w16 s100 step 14000 loss 0.00004  604s
+pilot w16 s100 step 14250 loss 0.00003  615s
+pilot w16 s100 step 14500 loss 0.00003  627s
+pilot w16 s100 step 14750 loss 0.00002  638s
+pilot w16 s100 step 15000 exact 1.0000
+pilot w16 s100 step 15000 loss 0.00001  652s
+pilot w16 s100 step 15250 loss 0.00001  664s
+pilot w16 s100 step 15500 loss 0.00001  675s
+pilot w16 s100 step 15750 loss 0.00001  687s
+pilot w16 s100 step 16000 exact 1.0000
+pilot w16 s100 step 16000 loss 0.00001  701s
+pilot w16 s100 step 16250 loss 0.00001  712s
+pilot w16 s100 step 16500 loss 0.00001  724s
+pilot w16 s100 step 16750 loss 0.00000  735s
+pilot w16 s100 step 17000 exact 1.0000
+pilot w16 s100 step 17000 loss 0.00000  749s
+pilot w16 s100 step 17250 loss 0.00003  761s
+pilot w16 s100 step 17500 loss 0.00016  773s
+pilot w16 s100 step 17750 loss 0.00008  784s
+pilot w16 s100 step 18000 exact 1.0000
+pilot w16 s100 step 18000 loss 0.00005  799s
+pilot w16 s100 step 18250 loss 0.00003  811s
+pilot w16 s100 step 18500 loss 0.00002  823s
+pilot w16 s100 step 18750 loss 0.00002  836s
+pilot w16 s100 step 19000 exact 1.0000
+pilot w16 s100 step 19000 loss 0.00002  851s
+pilot w16 s100 step 19250 loss 0.00001  865s
+pilot w16 s100 step 19500 loss 0.00001  879s
+pilot w16 s100 step 19750 loss 0.00008  892s
+pilot w16 s100 step 20000 exact 1.0000
+pilot w16 s100 step 20000 loss 0.00002  907s
+pilot w16 s100 step 20250 loss 0.00001  919s
+pilot w16 s100 step 20500 loss 0.00002  932s
+pilot w16 s100 step 20750 loss 0.00000  944s
+pilot w16 s100 step 21000 exact 1.0000
+pilot w16 s100 step 21000 loss 0.00000  960s
+pilot w16 s100 step 21250 loss 0.00000  972s
+pilot w16 s100 step 21500 loss 0.00000  985s
+pilot w16 s100 step 21750 loss 0.00000  997s
+pilot w16 s100 step 22000 exact 1.0000
+pilot w16 s100 step 22000 loss 0.00000  1013s
+pilot w16 s100 step 22250 loss 0.00000  1025s
+pilot w16 s100 step 22500 loss 0.00000  1036s
+pilot w16 s100 step 22750 loss 0.00000  1046s
+pilot w16 s100 step 23000 exact 1.0000
+pilot w16 s100 step 23000 loss 0.00000  1060s
+pilot w16 s100 step 23250 loss 0.00010  1070s
+pilot w16 s100 step 23500 loss 0.00003  1081s
+pilot w16 s100 step 23750 loss 0.00002  1092s
+pilot w16 s100 step 24000 exact 1.0000
+pilot w16 s100 step 24000 loss 0.00001  1106s
+pilot w16 s100 step 24250 loss 0.00001  1117s
+pilot w16 s100 step 24500 loss 0.00001  1128s
+pilot w16 s100 step 24750 loss 0.00001  1139s
+pilot w16 s100 step 25000 exact 1.0000
+pilot w16 s100 step 25000 loss 0.00000  1152s
+pilot w16 s100 step 25250 loss 0.00000  1163s
+pilot w16 s100 step 25500 loss 0.00000  1175s
+pilot w16 s100 step 25750 loss 0.00000  1188s
+pilot w16 s100 step 26000 exact 1.0000
+pilot w16 s100 step 26000 loss 0.00000  1202s
+pilot w16 s100 step 26250 loss 0.00000  1215s
+pilot w16 s100 step 26500 loss 0.00000  1228s
+pilot w16 s100 step 26750 loss 0.00000  1242s
+pilot w16 s100 step 27000 exact 1.0000
+pilot w16 s100 step 27000 loss 0.00000  1258s
+pilot w16 s100 step 27250 loss 0.00000  1271s
+pilot w16 s100 step 27500 loss 0.00000  1284s
+pilot w16 s100 step 27750 loss 0.00000  1296s
+pilot w16 s100 step 28000 exact 1.0000
+pilot w16 s100 step 28000 loss 0.00000  1314s
+pilot w16 s100 step 28250 loss 0.00000  1325s
+pilot w16 s100 step 28500 loss 0.00000  1335s
+pilot w16 s100 step 28750 loss 0.00000  1346s
+pilot w16 s100 step 29000 exact 1.0000
+pilot w16 s100 step 29000 loss 0.00000  1360s
+pilot w16 s100 step 29250 loss 0.00000  1371s
+pilot w16 s100 step 29500 loss 0.00000  1383s
+pilot w16 s100 step 29750 loss 0.00000  1397s
+pilot w16 s100 step 30000 exact 1.0000
+pilot w16 s100 step 30000 loss 0.00000  1414s
+pilot w16 s100 step 30250 loss 0.00000  1428s
+pilot w16 s100 step 30500 loss 0.00000  1441s
+pilot w16 s100 step 30750 loss 0.00000  1454s
+pilot w16 s100 step 31000 exact 1.0000
+pilot w16 s100 step 31000 loss 0.00000  1469s
+pilot w16 s100 step 31250 loss 0.00000  1483s
+pilot w16 s100 step 31500 loss 0.00000  1496s
+pilot w16 s100 step 31750 loss 0.00001  1510s
+pilot w16 s100 step 32000 exact 1.0000
+pilot w16 s100 step 32000 loss 0.00001  1526s
+pilot w16 s100 step 32250 loss 0.00000  1539s
+pilot w16 s100 step 32500 loss 0.00000  1552s
+pilot w16 s100 step 32750 loss 0.00000  1565s
+pilot w16 s100 step 33000 exact 1.0000
+pilot w16 s100 step 33000 loss 0.00000  1580s
+pilot w16 s100 step 33250 loss 0.00000  1593s
+pilot w16 s100 step 33500 loss 0.00000  1606s
+pilot w16 s100 step 33750 loss 0.00000  1619s
+pilot w16 s100 step 34000 exact 1.0000
+pilot w16 s100 step 34000 loss 0.00000  1634s
+pilot w16 s100 step 34250 loss 0.00000  1647s
+pilot w16 s100 step 34500 loss 0.00000  1659s
+pilot w16 s100 step 34750 loss 0.00000  1670s
+pilot w16 s100 step 35000 exact 1.0000
+pilot w16 s100 step 35000 loss 0.00000  1685s
+pilot w16 s100 step 35250 loss 0.00000  1696s
+pilot w16 s100 step 35500 loss 0.00000  1709s
+pilot w16 s100 step 35750 loss 0.00000  1723s
+pilot w16 s100 step 36000 exact 1.0000
+pilot w16 s100 step 36000 loss 0.00000  1739s
+pilot w16 s100 step 36250 loss 0.00000  1751s
+pilot w16 s100 step 36500 loss 0.00000  1762s
+pilot w16 s100 step 36750 loss 0.00000  1773s
+pilot w16 s100 step 37000 exact 1.0000
+pilot w16 s100 step 37000 loss 0.00000  1786s
+pilot w16 s100 step 37250 loss 0.00000  1797s
+pilot w16 s100 step 37500 loss 0.00000  1808s
+pilot w16 s100 step 37750 loss 0.00000  1819s
+pilot w16 s100 step 38000 exact 1.0000
+pilot w16 s100 step 38000 loss 0.00000  1832s
+pilot w16 s100 step 38250 loss 0.00000  1843s
+pilot w16 s100 step 38500 loss 0.00000  1854s
+pilot w16 s100 step 38750 loss 0.00000  1865s
+pilot w16 s100 step 39000 exact 1.0000
+pilot w16 s100 step 39000 loss 0.00000  1881s
+pilot w16 s100 step 39250 loss 0.00000  1892s
+pilot w16 s100 step 39500 loss 0.00000  1899s
+pilot w16 s100 step 39750 loss 0.00000  1907s
+pilot w16 s100 step 40000 exact 1.0000

@@ -1,0 +1,12 @@
+{
+ "cond": "masked",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "newskill",
+ "n": 100,
+ "tag": "transfer_p6_masked_newskill_n100_s0",
+ "answer_right": 0.05,
+ "story_loss": 4.8084635734558105,
+ "seconds": 11.42808222770691
+}

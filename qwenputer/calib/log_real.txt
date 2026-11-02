@@ -1,0 +1,452 @@
+circuit: {'layers': 11, 'dims': 2679, 'heads': 99, 'ffn_units': 42014, 'max_units': 8149, 'max_heads': 16} dims 2679 nodes 2425 [1s]
+FFN nodes 2326 head nodes 99
+  loop                 35 tokens, wrong predictions 0  [2s]
+  memcpy              160 tokens, wrong predictions 0  [4s]
+  fib                 173 tokens, wrong predictions 0  [6s]
+  call                475 tokens, wrong predictions 0  [8s]
+  signext              45 tokens, wrong predictions 0  [9s]
+  c-crc32            4166 tokens, wrong predictions 0  [46s]
+  c-strops           1074 tokens, wrong predictions 0  [51s]
+  rv32ui-add          502 tokens, wrong predictions 0  [53s]
+  rv32ui-addi         266 tokens, wrong predictions 0  [55s]
+  rv32ui-and          691 tokens, wrong predictions 0  [59s]
+  rv32ui-andi         206 tokens, wrong predictions 0  [60s]
+  rv32ui-auipc         26 tokens, wrong predictions 0  [61s]
+  rv32ui-beq          254 tokens, wrong predictions 0  [63s]
+  rv32ui-bge          272 tokens, wrong predictions 0  [65s]
+  rv32ui-bgeu         375 tokens, wrong predictions 0  [67s]
+  rv32ui-blt          254 tokens, wrong predictions 0  [69s]
+  rv32ui-bltu         357 tokens, wrong predictions 0  [71s]
+  rv32ui-bne          254 tokens, wrong predictions 0  [73s]
+  rv32ui-jal           20 tokens, wrong predictions 0  [75s]
+  rv32ui-jalr         100 tokens, wrong predictions 0  [77s]
+  rv32ui-lb           193 tokens, wrong predictions 0  [80s]
+  rv32ui-lbu          193 tokens, wrong predictions 0  [82s]
+  rv32ui-ld_st       1347 tokens, wrong predictions 0  [91s]
+  rv32ui-lh           209 tokens, wrong predictions 0  [93s]
+  rv32ui-lhu          269 tokens, wrong predictions 0  [96s]
+  rv32ui-lui           32 tokens, wrong predictions 0  [98s]
+  rv32ui-lw           313 tokens, wrong predictions 0  [102s]
+  rv32ui-or           701 tokens, wrong predictions 0  [107s]
+  rv32ui-ori          242 tokens, wrong predictions 0  [109s]
+  rv32ui-sb           504 tokens, wrong predictions 0  [112s]
+  rv32ui-sh           624 tokens, wrong predictions 0  [115s]
+  rv32ui-simple         4 tokens, wrong predictions 0  [116s]
+  rv32ui-sll          605 tokens, wrong predictions 0  [121s]
+  rv32ui-slli         285 tokens, wrong predictions 0  [124s]
+  rv32ui-slt          450 tokens, wrong predictions 0  [128s]
+  rv32ui-slti         221 tokens, wrong predictions 0  [130s]
+  rv32ui-sltiu        221 tokens, wrong predictions 0  [133s]
+  rv32ui-sltu         450 tokens, wrong predictions 0  [136s]
+  rv32ui-sra          717 tokens, wrong predictions 0  [141s]
+  rv32ui-srai         366 tokens, wrong predictions 0  [143s]
+  rv32ui-srl          679 tokens, wrong predictions 0  [146s]
+  rv32ui-srli         337 tokens, wrong predictions 0  [148s]
+  rv32ui-st_ld        640 tokens, wrong predictions 0  [150s]
+  rv32ui-sub          483 tokens, wrong predictions 0  [153s]
+  rv32ui-sw           753 tokens, wrong predictions 0  [156s]
+  rv32ui-xor          697 tokens, wrong predictions 0  [159s]
+  rv32ui-xori         251 tokens, wrong predictions 0  [161s]
+  rv32um-div          142 tokens, wrong predictions 0  [163s]
+  rv32um-divu         129 tokens, wrong predictions 0  [165s]
+  rv32um-mul          461 tokens, wrong predictions 0  [167s]
+  rv32um-mulh         599 tokens, wrong predictions 0  [171s]
+  rv32um-mulhsu       601 tokens, wrong predictions 0  [174s]
+  rv32um-mulhu        601 tokens, wrong predictions 0  [177s]
+  rv32um-rem          138 tokens, wrong predictions 0  [179s]
+  rv32um-remu         126 tokens, wrong predictions 0  [181s]
+  rv32uzba-sh1add     483 tokens, wrong predictions 0  [183s]
+  rv32uzba-sh2add     483 tokens, wrong predictions 0  [186s]
+  rv32uzba-sh3add     483 tokens, wrong predictions 0  [188s]
+positions 25737 programs 58
+correlation matrix (2679, 2243) [459s]
+{
+ "positions": 25737,
+ "programs": [
+  [
+   "loop",
+   35,
+   0
+  ],
+  [
+   "memcpy",
+   160,
+   0
+  ],
+  [
+   "fib",
+   173,
+   0
+  ],
+  [
+   "call",
+   475,
+   0
+  ],
+  [
+   "signext",
+   45,
+   0
+  ],
+  [
+   "c-crc32",
+   4166,
+   0
+  ],
+  [
+   "c-strops",
+   1074,
+   0
+  ],
+  [
+   "rv32ui-add",
+   502,
+   0
+  ],
+  [
+   "rv32ui-addi",
+   266,
+   0
+  ],
+  [
+   "rv32ui-and",
+   691,
+   0
+  ],
+  [
+   "rv32ui-andi",
+   206,
+   0
+  ],
+  [
+   "rv32ui-auipc",
+   26,
+   0
+  ],
+  [
+   "rv32ui-beq",
+   254,
+   0
+  ],
+  [
+   "rv32ui-bge",
+   272,
+   0
+  ],
+  [
+   "rv32ui-bgeu",
+   375,
+   0
+  ],
+  [
+   "rv32ui-blt",
+   254,
+   0
+  ],
+  [
+   "rv32ui-bltu",
+   357,
+   0
+  ],
+  [
+   "rv32ui-bne",
+   254,
+   0
+  ],
+  [
+   "rv32ui-jal",
+   20,
+   0
+  ],
+  [
+   "rv32ui-jalr",
+   100,
+   0
+  ],
+  [
+   "rv32ui-lb",
+   193,
+   0
+  ],
+  [
+   "rv32ui-lbu",
+   193,
+   0
+  ],
+  [
+   "rv32ui-ld_st",
+   1347,
+   0
+  ],
+  [
+   "rv32ui-lh",
+   209,
+   0
+  ],
+  [
+   "rv32ui-lhu",
+   269,
+   0
+  ],
+  [
+   "rv32ui-lui",
+   32,
+   0
+  ],
+  [
+   "rv32ui-lw",
+   313,
+   0
+  ],
+  [
+   "rv32ui-or",
+   701,
+   0
+  ],
+  [
+   "rv32ui-ori",
+   242,
+   0
+  ],
+  [
+   "rv32ui-sb",
+   504,
+   0
+  ],
+  [
+   "rv32ui-sh",
+   624,
+   0
+  ],
+  [
+   "rv32ui-simple",
+   4,
+   0
+  ],
+  [
+   "rv32ui-sll",
+   605,
+   0
+  ],
+  [
+   "rv32ui-slli",
+   285,
+   0
+  ],
+  [
+   "rv32ui-slt",
+   450,
+   0
+  ],
+  [
+   "rv32ui-slti",
+   221,
+   0
+  ],
+  [
+   "rv32ui-sltiu",
+   221,
+   0
+  ],
+  [
+   "rv32ui-sltu",
+   450,
+   0
+  ],
+  [
+   "rv32ui-sra",
+   717,
+   0
+  ],
+  [
+   "rv32ui-srai",
+   366,
+   0
+  ],
+  [
+   "rv32ui-srl",
+   679,
+   0
+  ],
+  [
+   "rv32ui-srli",
+   337,
+   0
+  ],
+  [
+   "rv32ui-st_ld",
+   640,
+   0
+  ],
+  [
+   "rv32ui-sub",
+   483,
+   0
+  ],
+  [
+   "rv32ui-sw",
+   753,
+   0
+  ],
+  [
+   "rv32ui-xor",
+   697,
+   0
+  ],
+  [
+   "rv32ui-xori",
+   251,
+   0
+  ],
+  [
+   "rv32um-div",
+   142,
+   0
+  ],
+  [
+   "rv32um-divu",
+   129,
+   0
+  ],
+  [
+   "rv32um-mul",
+   461,
+   0
+  ],
+  [
+   "rv32um-mulh",
+   599,
+   0
+  ],
+  [
+   "rv32um-mulhsu",
+   601,
+   0
+  ],
+  [
+   "rv32um-mulhu",
+   601,
+   0
+  ],
+  [
+   "rv32um-rem",
+   138,
+   0
+  ],
+  [
+   "rv32um-remu",
+   126,
+   0
+  ],
+  [
+   "rv32uzba-sh1add",
+   483,
+   0
+  ],
+  [
+   "rv32uzba-sh2add",
+   483,
+   0
+  ],
+  [
+   "rv32uzba-sh3add",
+   483,
+   0
+  ]
+ ],
+ "ffn_nodes_scored": 2243,
+ "active": 1898,
+ "m2_recall_active": 0.9512802321746142,
+ "m2_recall_all": 0.8049620511223441,
+ "m1_recall_at_k_active": 0.2780840449890031,
+ "m3_tested": 221,
+ "m3_right": 130,
+ "m3_right_on_seen_combos": 221,
+ "m3_full_table_seen": 128,
+ "m3_right_when_full_table": 128,
+ "m3_by_kind": {
+  "AND": [
+   19,
+   19
+  ],
+  "OR": [
+   2,
+   2
+  ],
+  "other": [
+   200,
+   109
+  ]
+ },
+ "by_fanin": {
+  "1": {
+   "n": 365,
+   "active": 336,
+   "m2": 0.9553571428571429,
+   "m1_at_k": 0.4880952380952381,
+   "m3_tested": 18,
+   "m3_right": 18,
+   "m3_full": 18
+  },
+  "2": {
+   "n": 62,
+   "active": 58,
+   "m2": 0.9827586206896551,
+   "m1_at_k": 0.35344827586206895,
+   "m3_tested": 37,
+   "m3_right": 37,
+   "m3_full": 37
+  },
+  "3": {
+   "n": 88,
+   "active": 86,
+   "m2": 0.9806201550387597,
+   "m1_at_k": 0.40310077519379817,
+   "m3_tested": 21,
+   "m3_right": 13,
+   "m3_full": 13
+  },
+  "4": {
+   "n": 194,
+   "active": 173,
+   "m2": 0.865606936416185,
+   "m1_at_k": 0.37283236994219654,
+   "m3_tested": 145,
+   "m3_right": 62,
+   "m3_full": 60
+  },
+  "5": {
+   "n": 30,
+   "active": 28,
+   "m2": 0.942857142857143,
+   "m1_at_k": 0.3071428571428572,
+   "m3_tested": 0,
+   "m3_right": 0,
+   "m3_full": 0
+  },
+  "6": {
+   "n": 45,
+   "active": 43,
+   "m2": 0.8914728682170542,
+   "m1_at_k": 0.2790697674418604,
+   "m3_tested": 0,
+   "m3_right": 0,
+   "m3_full": 0
+  },
+  "7": {
+   "n": 48,
+   "active": 40,
+   "m2": 0.9821428571428573,
+   "m1_at_k": 0.29285714285714304,
+   "m3_tested": 0,
+   "m3_right": 0,
+   "m3_full": 0
+  },
+  "8": {
+   "n": 1411,
+   "active": 1134,
+   "m2": 0.9606944441931542,
+   "m1_at_k": 0.18679238536876083,
+   "m3_tested": 0,
+   "m3_right"
+done [5649s]

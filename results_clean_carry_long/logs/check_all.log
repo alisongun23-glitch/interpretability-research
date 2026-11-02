@@ -1,0 +1,80 @@
+PASS  XOR gradient (tanh) matches finite differences max err 6.9e-11
+PASS  XOR gradient (relu) matches finite differences max err 8.0e-11
+PASS  batched training gives the same weights as training seed 1 alone 
+PASS  frozen networks keep their weights after converging 
+PASS  mean ablation = subtract the unit's input-dependent contribution 
+PASS  ablating every unit gives a constant output 
+PASS  minimal circuit [1, 3] is sufficient 
+PASS    subset [3] is NOT sufficient 
+PASS    subset [1] is NOT sufficient 
+PASS  minimal circuit [0, 2] is sufficient 
+PASS    subset [2] is NOT sufficient 
+PASS    subset [0] is NOT sufficient 
+PASS  native transplant reproduces the recipient's own logits 
+PASS  ablated transplant equals mean-ablating the recipient circuit 
+PASS  moment matching preserves recipient mean and std 
+PASS  hand-built tanh reference has XOR shape [0. 8. 8. 0.]
+PASS  hand-built relu reference has XOR shape [0. 8. 8. 0.]
+PASS  AND pattern labelled AND 
+PASS  negated AND pattern is NOT labelled AND 
+PASS  constant vector labelled constant 
+PASS  CKA invariant to rotation and scale 
+PASS  CKA invariant to neuron permutation 
+PASS  carries(): 0111..1 + 1 carries into bits 1..15 
+PASS  chain_len(): that problem has chain length 15 
+PASS  chain_len(): 5 + 3 (0101+0011) has chain 3 
+PASS  chain_len(): 0 + 0 has chain 0 
+PASS  adder MLP gradient matches finite differences max err 2.7e-10
+PASS  opposite_carry_source(k=4) flips the carry and keeps high bits 
+PASS  opposite_carry_source(k=8) flips the carry and keeps high bits 
+PASS  opposite_carry_source(k=12) flips the carry and keeps high bits 
+PASS  built_distance(L=4) gives travel distance of at least 4 min 4, max 6
+PASS  built_distance(L=8) gives travel distance of at least 8 min 8, max 8
+PASS  built_distance(L=14) gives travel distance of at least 14 min 14, max 14
+PASS  tiled_adder with perfect gates adds correctly on all 256 problems 
+PASS  forcing opposite carry into bit 1 shifts the sum by 2^1 
+PASS  forcing opposite carry into bit 2 shifts the sum by 2^2 
+PASS  forcing opposite carry into bit 3 shifts the sum by 2^3 
+PASS  NAND neuron trains to its truth table at margin 4 
+PASS  XOR skip-1 trains to its truth table at margin 4 
+PASS  NOT neuron trains to its truth table at margin 4 
+PASS  XOR cannot be one sigmoid neuron (no seed converges) 
+PASS  hand-built NAND sigmoid(18 - 12a - 12b) restores at eps 0.05 
+PASS  the same NAND with weights / 4 does not restore 
+PASS  parameter count: neuron 3, skip-1 7, mlp-4 17 
+PASS  incdec (all 16 values, +-1, carry = wall) and 4->16 decoder are exact 
+PASS  NAND-only lowering uses only NAND (and NAND-as-NOT) gates 
+PASS  4x4 snake (netlist, Boolean gates, NAND flip-flops) matches the Python snake for 600 ticks 
+PASS  4x4 snake (NAND-only, Boolean gates, NAND flip-flops) matches the Python snake for 600 ticks 
+PASS  4x4 snake with hand-built neuron gates, fully analog, matches for 400 ticks worst signal 0.003
+PASS  board-filling loop visits all 16 cells and returns to the start 
+PASS  board-filling loop visits all 64 cells and returns to the start 
+PASS  board-filling loop visits all 256 cells and returns to the start 
+PASS  demo 'Fibonacci' prints [0, 1, 1, 2]... and halts (instruction-level run) 
+PASS  demo 'Multiply' prints [42] and halts (instruction-level run) 
+PASS  demo 'Countdown' prints [10, 9, 8, 7]... and halts (instruction-level run) 
+PASS  demo 'XOR from NAND' prints [108] and halts (instruction-level run) 
+PASS  assembler: OUT = STA 31, HLT = jump to itself, labels, hex data 
+PASS  assembler rejects an address outside memory 
+PASS  gate ALU: ADD, SUB, NAND and flags right on 156 operand pairs 
+PASS  program port loads all 32 RAM bytes 
+PASS  gate CPU (Boolean gates, NAND flip-flops) matches the Python CPU for 500 ticks of a random program 
+PASS  gate CPU with hand-built neuron gates, fully analog, runs Multiply and prints 42 worst signal 0.003
+PASS  calculator program fits in RAM below the output address 
+PASS  calculator: tick-level CPU = instruction-level run (+, -, x, timeout at y = 18, no-op) 
+PASS  bit-sliced gate CPU gives the calculator's answers for 8 calls at once 
+PASS  bit-sliced runner equals the one-machine simulator on random programs for 150 ticks 
+PASS  tokenizer round-trips every template 
+PASS  the computer's table is a frozen buffer (no gradient), pointing weights get a gradient 
+PASS  REINFORCE with the result check moves the OP pointer onto '+' 0.16 -> 1.00
+PASS  tokenizer + decoder round-trip story text and math 'tom had a red ball. he said, "i like it!" 12 + 5 = 17.'
+PASS  number v is token NUM0 + v, and the CPU tables read it 
+PASS  every inserted problem's answer follows its question 
+PASS  story GPT: computer table frozen, pointers and gate get gradients 
+PASS  story GPT is causal, CPU head included: changing later tokens leaves earlier predictions alone 
+PASS  word problems: answer after the question, operands and operation word where 'at' says, operation word in the frozen table, split kept 
+PASS  training stream with word problems: every answer follows its question, train operand pairs only 
+PASS  read-back with the result's token embedding and the copy bonus: both gains get a gradient, a call changes the prediction, still causal 
+PASS  loading a story-GPT checkpoint leaves the vocabulary's frozen tables alone (buffers are copies) 
+
+ALL PASS

@@ -1,0 +1,12 @@
+{
+ "cond": "scratch",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drill",
+ "task": "addition",
+ "n": 50,
+ "tag": "transfer_p8_scratch_addition_n50_s0",
+ "answer_right": 0.006666666666666667,
+ "story_loss": 12.537242889404297,
+ "seconds": 32.941251039505005
+}

@@ -1,0 +1,881 @@
+{
+ "context": 64,
+ "batch": 32,
+ "steps": 7000,
+ "runs": {
+  "story GPT | seed 0": {
+   "curve": [
+    {
+     "step": 0,
+     "text_loss": 8.44282341003418,
+     "add": 0.0,
+     "sub": 0.0,
+     "mul": 0.0
+    },
+    {
+     "step": 500,
+     "text_loss": 3.7812933921813965,
+     "add": 0.0,
+     "sub": 0.021853146853146852,
+     "mul": 0.07384987893462469
+    },
+    {
+     "step": 1000,
+     "text_loss": 3.326589345932007,
+     "add": 0.0,
+     "sub": 0.013986013986013986,
+     "mul": 0.0774818401937046
+    },
+    {
+     "step": 1500,
+     "text_loss": 3.1363096237182617,
+     "add": 0.0,
+     "sub": 0.016608391608391608,
+     "mul": 0.0774818401937046
+    },
+    {
+     "step": 2000,
+     "text_loss": 3.0118978023529053,
+     "add": 0.0,
+     "sub": 0.012237762237762238,
+     "mul": 0.07627118644067797
+    },
+    {
+     "step": 2500,
+     "text_loss": 2.916985511779785,
+     "add": 0.0,
+     "sub": 0.021853146853146852,
+     "mul": 0.07869249394673124
+    },
+    {
+     "step": 3000,
+     "text_loss": 2.8667049407958984,
+     "add": 0.0,
+     "sub": 0.019230769230769232,
+     "mul": 0.09443099273607748
+    },
+    {
+     "step": 3500,
+     "text_loss": 2.808058500289917,
+     "add": 0.000970873786407767,
+     "sub": 0.012237762237762238,
+     "mul": 0.1089588377723971
+    },
+    {
+     "step": 4000,
+     "text_loss": 2.7544665336608887,
+     "add": 0.0,
+     "sub": 0.02097902097902098,
+     "mul": 0.13075060532687652
+    },
+    {
+     "step": 4500,
+     "text_loss": 2.7243738174438477,
+     "add": 0.000970873786407767,
+     "sub": 0.013111888111888112,
+     "mul": 0.10290556900726393
+    },
+    {
+     "step": 5000,
+     "text_loss": 2.6950197219848633,
+     "add": 0.0,
+     "sub": 0.016608391608391608,
+     "mul": 0.1368038740920097
+    },
+    {
+     "step": 5500,
+     "text_loss": 2.669079065322876,
+     "add": 0.0,
+     "sub": 0.020104895104895104,
+     "mul": 0.14769975786924938
+    },
+    {
+     "step": 6000,
+     "text_loss": 2.6488051414489746,
+     "add": 0.0,
+     "sub": 0.021853146853146852,
+     "mul": 0.16585956416464892
+    },
+    {
+     "step": 6500,
+     "text_loss": 2.6336851119995117,
+     "add": 0.0,
+     "sub": 0.015734265734265736,
+     "mul": 0.14769975786924938
+    },
+    {
+     "step": 7000,
+     "text_loss": 2.6254453659057617,
+     "add": 0.0,
+     "sub": 0.02097902097902098,
+     "mul": 0.17554479418886199
+    }
+   ],
+   "train_seconds": NaN,
+   "math_heldout": {
+    "add": {
+     "acc": 0.0,
+     "ci95": [
+      0.0,
+      0.003715849700766539
+     ],
+     "n": 1030
+    },
+    "sub": {
+     "acc": 0.02097902097902098,
+     "ci95": [
+      0.014137692335002915,
+      0.03102672756404936
+     ],
+     "n": 1144
+    },
+    "mul": {
+     "acc": 0.17554479418886199,
+     "ci95": [
+      0.15111898436958224,
+      0.2029746161440579
+     ],
+     "n": 826
+    }
+   },
+   "math_heldout_by_template": {
+    "a + b": 0.0,
+    "a - b": 0.033003300330033,
+    "a * b": 0.17142857142857143,
+    "what is a plus b": 0.0,
+    "what is a minus b": 0.007272727272727273,
+    "what is a times b": 0.17870722433460076,
+    "sum of a and b": 0.0,
+    "subtract b from a": 0.01818181818181818,
+    "c ; a + b": 0.0,
+    "c ; a - b": 0.024054982817869417,
+    "c ; a * b": 0.17667844522968199
+   },
+   "math_train_pairs": {
+    "add": 0.056776556776556776,
+    "sub": 0.0446927374301676,
+    "mul": 0.7242206235011991
+   },
+   "text": {
+    "loss": 2.6254453659057617,
+    "perplexity": 13.810724258422852
+   }
+  },
+  "story GPT + CPU head | seed 0": {
+   "curve": [
+    {
+     "step": 0,
+     "text_loss": 8.407133102416992,
+     "add": 0.0,
+     "sub": 0.0,
+     "mul": 0.0,
+     "point": 0.0,
+     "call_at_answer": 0.17266666889190674,
+     "calls_per_1000_words": 184.5703125
+    },
+    {
+     "step": 500,
+     "text_loss": 3.7657370567321777,
+     "add": 0.0,
+     "sub": 0.02097902097902098,
+     "mul": 0.07869249394673124,
+     "point": 0.8406666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 1000,
+     "text_loss": 3.3256006240844727,
+     "add": 0.03203883495145631,
+     "sub": 0.20541958041958042,
+     "mul": 0.4043583535108959,
+     "point": 0.8583333333333333,
+     "call_at_answer": 0.9103333353996277,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 1500,
+     "text_loss": 3.135587692260742,
+     "add": 0.12718446601941746,
+     "sub": 0.5314685314685315,
+     "mul": 0.7191283292978208,
+     "point": 0.884,
+     "call_at_answer": 0.9083333611488342,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 2000,
+     "text_loss": 3.0178475379943848,
+     "add": 0.28252427184466017,
+     "sub": 0.9038461538461539,
+     "mul": 0.9261501210653753,
+     "point": 0.9503333333333334,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 2500,
+     "text_loss": 2.919064998626709,
+     "add": 0.5689320388349515,
+     "sub": 0.965034965034965,
+     "mul": 0.9673123486682809,
+     "point": 0.9716666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 3000,
+     "text_loss": 2.8750832080841064,
+     "add": 0.6427184466019418,
+     "sub": 0.9624125874125874,
+     "mul": 0.9539951573849879,
+     "point": 0.957,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.06103515625
+    },
+    {
+     "step": 3500,
+     "text_loss": 2.812523603439331,
+     "add": 0.7271844660194174,
+     "sub": 0.972027972027972,
+     "mul": 0.9709443099273608,
+     "point": 0.9716666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.06103515625
+    },
+    {
+     "step": 4000,
+     "text_loss": 2.76149845123291,
+     "add": 0.7203883495145631,
+     "sub": 0.9702797202797203,
+     "mul": 0.9358353510895884,
+     "point": 0.9546666666666667,
+     "call_at_answer": 0.999666690826416,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 4500,
+     "text_loss": 2.724949836730957,
+     "add": 0.7980582524271844,
+     "sub": 0.965034965034965,
+     "mul": 0.9358353510895884,
+     "point": 0.951,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 5000,
+     "text_loss": 2.6966447830200195,
+     "add": 0.8368932038834952,
+     "sub": 0.951048951048951,
+     "mul": 0.9164648910411622,
+     "point": 0.9393333333333334,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 5500,
+     "text_loss": 2.6686596870422363,
+     "add": 0.8300970873786407,
+     "sub": 0.9685314685314685,
+     "mul": 0.9443099273607748,
+     "point": 0.9563333333333334,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 6000,
+     "text_loss": 2.652949810028076,
+     "add": 0.8485436893203884,
+     "sub": 0.9632867132867133,
+     "mul": 0.9418886198547215,
+     "point": 0.9546666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 6500,
+     "text_loss": 2.6392321586608887,
+     "add": 0.8572815533980582,
+     "sub": 0.9667832167832168,
+     "mul": 0.9394673123486683,
+     "point": 0.9563333333333334,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 7000,
+     "text_loss": 2.63077974319458,
+     "add": 0.8572815533980582,
+     "sub": 0.9676573426573427,
+     "mul": 0.9467312348668281,
+     "point": 0.9586666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    }
+   ],
+   "train_seconds": NaN,
+   "math_heldout": {
+    "add": {
+     "acc": 0.8572815533980582,
+     "ci95": [
+      0.8345905141502776,
+      0.8773173835392718
+     ],
+     "n": 1030
+    },
+    "sub": {
+     "acc": 0.9676573426573427,
+     "ci95": [
+      0.9557387652155052,
+      0.9764456058684494
+     ],
+     "n": 1144
+    },
+    "mul": {
+     "acc": 0.9467312348668281,
+     "ci95": [
+      0.9292443898128245,
+      0.9600819587336932
+     ],
+     "n": 826
+    }
+   },
+   "math_heldout_by_template": {
+    "a + b": 0.7637795275590551,
+    "a - b": 0.8844884488448845,
+    "a * b": 0.8428571428571429,
+    "what is a plus b": 0.8888888888888888,
+    "what is a minus b": 0.9963636363636363,
+    "what is a times b": 1.0,
+    "sum of a and b": 0.8695652173913043,
+    "subtract b from a": 1.0,
+    "c ; a + b": 0.9051383399209486,
+    "c ; a - b": 0.9965635738831615,
+    "c ; a * b": 1.0
+   },
+   "math_train_pairs": {
+    "add": 0.9615384615384616,
+    "sub": 0.9720670391061452,
+    "mul": 0.9520383693045563
+   },
+   "text": {
+    "loss": 2.63077974319458,
+    "perplexity": 13.884592056274414,
+    "calls_per_1000_words": 0.0
+   },
+   "point": 0.9586666666666667,
+   "call_at_answer": 1.0,
+   "text_head_off": {
+    "loss": 2.63077974319458,
+    "perplexity": 13.884592056274414,
+    "calls_per_1000_words": 0.0
+   },
+   "math_head_off": {
+    "add": 0.0,
+    "sub": 0.02097902097902098,
+    "mul": 0.0774818401937046
+   },
+   "math_wrong_op": {
+    "add": 0.01650485436893204,
+    "sub": 0.012237762237762238,
+    "mul": 0.007263922518159807
+   }
+  },
+  "story GPT + CPU head | seed 1": {
+   "curve": [
+    {
+     "step": 0,
+     "text_loss": 8.399709701538086,
+     "add": 0.0,
+     "sub": 0.0,
+     "mul": 0.0,
+     "point": 0.0,
+     "call_at_answer": 0.6060000061988831,
+     "calls_per_1000_words": 589.41650390625
+    },
+    {
+     "step": 500,
+     "text_loss": 3.779712438583374,
+     "add": 0.000970873786407767,
+     "sub": 0.027097902097902096,
+     "mul": 0.07627118644067797,
+     "point": 0.9086666666666666,
+     "call_at_answer": 0.9950000047683716,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 1000,
+     "text_loss": 3.31219482421875,
+     "add": 0.036893203883495145,
+     "sub": 0.381993006993007,
+     "mul": 0.45036319612590797,
+     "point": 0.993,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 1500,
+     "text_loss": 3.1254029273986816,
+     "add": 0.12524271844660195,
+     "sub": 0.8146853146853147,
+     "mul": 0.9007263922518159,
+     "point": 0.9793333333333333,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 2000,
+     "text_loss": 2.9987001419067383,
+     "add": 0.33106796116504855,
+     "sub": 0.9545454545454546,
+     "mul": 0.9854721549636803,
+     "point": 0.9856666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 2500,
+     "text_loss": 2.915938377380371,
+     "add": 0.5466019417475728,
+     "sub": 0.958916083916084,
+     "mul": 0.9891041162227603,
+     "point": 0.9763333333333334,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 3000,
+     "text_loss": 2.8500874042510986,
+     "add": 0.7194174757281553,
+     "sub": 0.9702797202797203,
+     "mul": 0.9854721549636803,
+     "point": 0.978,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 3500,
+     "text_loss": 2.7942054271698,
+     "add": 0.7009708737864078,
+     "sub": 0.9536713286713286,
+     "mul": 0.9769975786924939,
+     "point": 0.9636666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 4000,
+     "text_loss": 2.7530252933502197,
+     "add": 0.7417475728155339,
+     "sub": 0.9536713286713286,
+     "mul": 0.986682808716707,
+     "point": 0.9666666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 4500,
+     "text_loss": 2.713728666305542,
+     "add": 0.7786407766990291,
+     "sub": 0.9685314685314685,
+     "mul": 0.9891041162227603,
+     "point": 0.9733333333333334,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 5000,
+     "text_loss": 2.683161735534668,
+     "add": 0.7980582524271844,
+     "sub": 0.9519230769230769,
+     "mul": 0.9745762711864406,
+     "point": 0.9596666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 5500,
+     "text_loss": 2.658834457397461,
+     "add": 0.8262135922330097,
+     "sub": 0.9484265734265734,
+     "mul": 0.9745762711864406,
+     "point": 0.955,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 6000,
+     "text_loss": 2.6389331817626953,
+     "add": 0.8475728155339806,
+     "sub": 0.9606643356643356,
+     "mul": 0.9842615012106537,
+     "point": 0.969,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 6500,
+     "text_loss": 2.619628667831421,
+     "add": 0.8563106796116505,
+     "sub": 0.9624125874125874,
+     "mul": 0.9830508474576272,
+     "point": 0.9673333333333334,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    },
+    {
+     "step": 7000,
+     "text_loss": 2.615711212158203,
+     "add": 0.8514563106796117,
+     "sub": 0.9562937062937062,
+     "mul": 0.9769975786924939,
+     "point": 0.9606666666666667,
+     "call_at_answer": 1.0,
+     "calls_per_1000_words": 0.0
+    }
+   ],
+   "train_seconds": NaN,
+   "math_heldout": {
+    "add": {
+     "acc": 0.8514563106796117,
+     "ci95": [
+      0.8284321456087284,
+      0.8718685580967523
+     ],
+     "n": 1030
+    },
+    "sub": {
+     "acc": 0.9562937062937062,
+     "ci95": [
+      0.9428411762323367,
+      0.9666919858346245
+     ],
+     "n": 1144
+    },
+    "mul": {
+     "acc": 0.9769975786924939,
+     "ci95": [
+      0.9643533091570342,
+      0.9852255020281364
+     ],
+     "n": 826
+    }
+   },
+   "math_heldout_by_template": {
+    "a + b": 0.7440944881889764,
+    "a - b": 0.8382838283828383,
+    "a * b": 0.9321428571428572,
+    "what is a plus b": 0.8851851851851852,
+    "what is a minus b": 0.9963636363636363,
+    "what is a times b": 1.0,
+    "sum of a and b": 0.8695652173913043,
+    "subtract b from a": 1.0,
+    "c ; a + b": 0.9051383399209486,
+    "c ; a - b": 1.0,
+    "c ; a * b": 1.0
+   },
+   "math_train_pairs": {
+    "add": 0.9578754578754579,
+    "sub": 0.9608938547486033,
+    "mul": 0.9904076738609112
+   },
+   "text": {
+    "loss": 2.615711212158203,
+    "perplexity": 13.676939964294434,
+    "calls_per_1000_words": 0.0
+   },
+   "point": 0.9606666666666667,
+   "call_at_answer": 1.0,
+   "text_head_off": {
+    "loss": 2.615711212158203,
+    "perplexity": 13.676939964294434,
+    "calls_per_1000_words": 0.0
+   },
+   "math_head_off": {
+    "add": 0.0,
+    "sub": 0.019230769230769232,
+    "mul": 0.08353510895883777
+   },
+   "math_wrong_op": {
+    "add": 0.015533980582524271,
+    "sub": 0.012237762237762238,
+    "mul": 0.0036319612590799033
+   }
+  }
+ },
+ "data": {
+  "stories_train": 20990,
+  "stories_test": 1000,
+  "vocab": 4279,
+  "train_tokens": 4649072,
+  "test_text_tokens": 207172
+ },
+ "samples": {
+  "story GPT + CPU head": [
+   {
+    "prompt": "once upon a time",
+    "temperature": 0.0,
+    "text": "once upon a time, there was a little girl named lily. she loved to play outside in the park. one day, she saw a big, scary dog. lily wanted to play with the dog, but she didn",
+    "calls": []
+   },
+   {
+    "prompt": "once upon a time",
+    "temperature": 0.8,
+    "text": "once upon a time, there was a little girl named lily. she loved to play outside in the sun. one day, she saw a big bird in the sky. the bird was very mean and hurt because the bird",
+    "calls": []
+   },
+   {
+    "prompt": "tom had a red ball .",
+    "temperature": 0.0,
+    "text": "tom had a red ball. he liked to play with it all day. one day, he saw a big, scary dog. the dog was very mean and had a big dog. the dog was angry and scared. he wanted",
+    "calls": []
+   },
+   {
+    "prompt": "tom had a red ball .",
+    "temperature": 0.8,
+    "text": "tom had a red ball. he thought it was a very good dog. it had big wings and a long tail. it was like a bird. tom looked at sara. what is 0 times 10? 0. he saw her",
+    "calls": [
+     {
+      "after_token": [
+       "times"
+      ],
+      "x": 0,
+      "y": 0,
+      "op": 3,
+      "results": 0
+     },
+     {
+      "after_token": [
+       "10?"
+      ],
+      "x": 0,
+      "y": 10,
+      "op": 3,
+      "results": 0
+     }
+    ]
+   },
+   {
+    "prompt": "lily went to the park with her mom . what is 14 times 12 ?",
+    "temperature": 0.0,
+    "text": "lily went to the park with her mom. what is 14 times 12? 168. she saw a big, red ball and wanted to play with it. lily said, \"i want to play with it.\" her mom said, \"okay, but be careful. it",
+    "calls": [
+     {
+      "after_token": [
+       "12?"
+      ],
+      "x": 14,
+      "y": 12,
+      "op": 3,
+      "results": 168
+     }
+    ]
+   },
+   {
+    "prompt": "lily went to the park with her mom . what is 14 times 12 ?",
+    "temperature": 0.8,
+    "text": "lily went to the park with her mom. what is 14 times 12? 168. they found a pretty flower on it and decided to make it look beautiful. but then, lily's mom told her what it was. what is 19 minus 3? 16. lily was",
+    "calls": [
+     {
+      "after_token": [
+       "12?"
+      ],
+      "x": 14,
+      "y": 12,
+      "op": 3,
+      "results": 168
+     },
+     {
+      "after_token": [
+       "3?"
+      ],
+      "x": 19,
+      "y": 3,
+      "op": 2,
+      "results": 16
+     }
+    ]
+   },
+   {
+    "prompt": "the cat was hungry . 60 + 117 =",
+    "temperature": 0.0,
+    "text": "the cat was hungry. 60 + 117 = 177. the cat was very happy and said, \"thank you, little bird!\" the cat smiled and said, \"you're welcome, my friend.\" the cat smiled and said,",
+    "calls": [
+     {
+      "after_token": [
+       "="
+      ],
+      "x": 60,
+      "y": 117,
+      "op": 1,
+      "results": 177
+     }
+    ]
+   },
+   {
+    "prompt": "the cat was hungry . 60 + 117 =",
+    "temperature": 0.8,
+    "text": "the cat was hungry. 60 + 117 = 177. the cat had a big, fluffy cat named max. max lived in a big, hairy dog and a furry dog. one day, max's owner said, \"max, you should",
+    "calls": [
+     {
+      "after_token": [
+       "="
+      ],
+      "x": 60,
+      "y": 117,
+      "op": 1,
+      "results": 177
+     }
+    ]
+   },
+   {
+    "prompt": "subtract 54 from 120 =",
+    "temperature": 0.0,
+    "text": "subtract 54 from 120 = 66. he was so happy and he couldn't wait to go back to the park.\n\n",
+    "calls": [
+     {
+      "after_token": [
+       "="
+      ],
+      "x": 120,
+      "y": 54,
+      "op": 2,
+      "results": 66
+     }
+    ]
+   },
+   {
+    "prompt": "subtract 54 from 120 =",
+    "temperature": 0.8,
+    "text": "subtract 54 from 120 = 66.\n\n",
+    "calls": [
+     {
+      "after_token": [
+       "="
+      ],
+      "x": 120,
+      "y": 54,
+      "op": 2,
+      "results": 66
+     }
+    ]
+   },
+   {
+    "prompt": "sam had 3 apples . sum of 60 and 97 =",
+    "temperature": 0.0,
+    "text": "sam had 3 apples. sum of 60 and 97 = 157. he was very happy and he was able to eat the apples. he was so happy that he could eat them all.\n\n",
+    "calls": [
+     {
+      "after_token": [
+       "="
+      ],
+      "x": 60,
+      "y": 97,
+      "op": 1,
+      "results": 157
+     }
+    ]
+   },
+   {
+    "prompt": "sam had 3 apples . sum of 60 and 97 =",
+    "temperature": 0.8,
+    "text": "sam had 3 apples. sum of 60 and 97 = 157. he was very smart and loved it very much. he wanted to have one more. he decided to do something new and fun. so, he decided to go to the top of the tree",
+    "calls": [
+     {
+      "after_token": [
+       "="
+      ],
+      "x": 60,
+      "y": 97,
+      "op": 1,
+      "results": 157
+     }
+    ]
+   }
+  ],
+  "story GPT": [
+   {
+    "prompt": "once upon a time",
+    "temperature": 0.0,
+    "text": "once upon a time, there was a little girl named lily. she loved to play with her toys and her favorite toy was a little girl named lily. one day, lily's mom asked her to help her clean",
+    "calls": []
+   },
+   {
+    "prompt": "once upon a time",
+    "temperature": 0.8,
+    "text": "once upon a time, there was a little girl named lily. she loved to play with her toys and her favorite toy car. one day, her mom gave her a big, red car. lily loved the toy,",
+    "calls": []
+   },
+   {
+    "prompt": "tom had a red ball .",
+    "temperature": 0.0,
+    "text": "tom had a red ball. he liked to play with his ball. he would run and jump and jump and jump. he would run and jump and jump and jump. one day, tim saw a big dog. the dog was",
+    "calls": []
+   },
+   {
+    "prompt": "tom had a red ball .",
+    "temperature": 0.8,
+    "text": "tom had a red ball. he liked to play with it. he saw big red, red ball and big green. tim wanted to play with his ball. tim got up a lot of fun. tim had an idea. he",
+    "calls": []
+   },
+   {
+    "prompt": "lily went to the park with her mom . what is 14 times 12 ?",
+    "temperature": 0.0,
+    "text": "lily went to the park with her mom. what is 14 times 12? 144. they played on the swings and the swings. lily saw a big slide and ran to the slide. she saw a big slide and wanted to play with it. she ran to the slide and",
+    "calls": []
+   },
+   {
+    "prompt": "lily went to the park with her mom . what is 14 times 12 ?",
+    "temperature": 0.8,
+    "text": "lily went to the park with her mom. what is 14 times 12? 84. she saw that a big tree, and it was so nice. lily wanted to explore and climb on the slide. she went over to the top of the tree and found a little bird.",
+    "calls": []
+   },
+   {
+    "prompt": "the cat was hungry . 60 + 117 =",
+    "temperature": 0.0,
+    "text": "the cat was hungry. 60 + 117 = 180. the cat was very happy and thanked the cat for the cat. the cat was happy and thanked the cat for the cat. the cat was happy and thanked the cat for the cat. the",
+    "calls": []
+   },
+   {
+    "prompt": "the cat was hungry . 60 + 117 =",
+    "temperature": 0.8,
+    "text": "the cat was hungry. 60 + 117 = 180. she ran up to the cat and tried to grab the cat, but it was too late. but the cat did not move. the cat felt sad and alone. it hurt its fur and",
+    "calls": []
+   },
+   {
+    "prompt": "subtract 54 from 120 =",
+    "temperature": 0.0,
+    "text": "subtract 54 from 120 = 30. she was so excited to see the bird fly. she ran over to the bird and said, \"hello, little bird!\" the bird said, \"hello, little bird!\" the",
+    "calls": []
+   },
+   {
+    "prompt": "subtract 54 from 120 =",
+    "temperature": 0.8,
+    "text": "subtract 54 from 120 = 48. they were both very happy because they both loved to play!\n\n",
+    "calls": []
+   },
+   {
+    "prompt": "sam had 3 apples . sum of 60 and 97 =",
+    "temperature": 0.0,
+    "text": "sam had 3 apples. sum of 60 and 97 = 121. he was very happy and thanked sam for his help. he was so happy and thanked sam for his help. he was so happy to have a new friend.\n\n",
+    "calls": []
+   },
+   {
+    "prompt": "sam had 3 apples . sum of 60 and 97 =",
+    "temperature": 0.8,
+    "text": "sam had 3 apples. sum of 60 and 97 = 129. mia and sam laughed and had so much fun. the end.\n\n",
+    "calls": []
+   }
+  ]
+ },
+ "best": "story GPT + CPU head | seed 1",
+ "live_analog_check": {
+  "model": "story GPT + CPU head | seed 1",
+  "calls": 300,
+  "results_differing_from_table": 0,
+  "seconds": 21.2,
+  "worst_signal_dev": 0.030282230427511214
+ },
+ "runtime_s": 42.8
+}

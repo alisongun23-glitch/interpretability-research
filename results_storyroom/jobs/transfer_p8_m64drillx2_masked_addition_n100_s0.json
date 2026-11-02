@@ -1,0 +1,12 @@
+{
+ "cond": "masked",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drillx2",
+ "task": "addition",
+ "n": 100,
+ "tag": "transfer_p8_m64drillx2_masked_addition_n100_s0",
+ "answer_right": 0.02,
+ "story_loss": 3.871100902557373,
+ "seconds": 41.35452580451965
+}

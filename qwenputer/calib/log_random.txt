@@ -1,0 +1,13 @@
+layer  0: live  1793 scored   361 active   257 ( 71.2 %) | M2 recall all 0.712 active 1.000 | M1 r@k 0.455 prec 0.228 rec 0.396 | varying dims 161 | 16s
+layer  1: live  1766 scored  1740 active  1527 ( 87.8 %) | M2 recall all 0.304 active 0.347 | M1 r@k 0.799 prec 0.611 rec 0.273 | varying dims 236 | 53s
+layer  2: live    21 scored    21 active    12 ( 57.1 %) | M2 recall all 0.452 active 0.792 | M1 r@k 0.375 prec 0.283 rec 0.375 | varying dims 355 | 68s
+layer  3: live  4165 scored  4165 active  4163 (100.0 %) | M2 recall all 0.773 active 0.774 | M1 r@k 0.139 prec 0.115 rec 0.670 | varying dims 355 | 90s
+layer  4: live  9216 scored  9216 active  7956 ( 86.3 %) | M2 recall all 0.725 active 0.840 | M1 r@k 0.306 prec 0.613 rec 0.202 | varying dims 653 | 142s
+layer  5: live  8424 scored  8424 active  7642 ( 90.7 %) | M2 recall all 0.875 active 0.965 | M1 r@k 0.308 prec 0.222 rec 0.284 | varying dims 1221 | 191s
+layer  6: live  3924 scored  3924 active  3137 ( 79.9 %) | M2 recall all 0.636 active 0.795 | M1 r@k 0.261 prec 0.203 rec 0.281 | varying dims 1459 | 248s
+layer  7: live  8307 scored  8307 active  8298 ( 99.9 %) | M2 recall all 0.618 active 0.619 | M1 r@k 0.131 prec 0.070 rec 0.243 | varying dims 1461 | 357s
+layer  8: live  8691 scored  8691 active  8691 (100.0 %) | M2 recall all 0.871 active 0.871 | M1 r@k 0.327 prec 0.150 rec 0.376 | varying dims 1474 | 384s
+layer  9: live  1687 scored  1687 active  1679 ( 99.5 %) | M2 recall all 0.873 active 0.877 | M1 r@k 0.175 prec 0.068 rec 0.359 | varying dims 1506 | 397s
+layer 10: live    19 scored    19 active    19 (100.0 %) | M2 recall all 1.000 active 1.000 | M1 r@k 0.430 prec 0.081 rec 0.588 | varying dims 1514 | 409s
+layer 11: live  3248 scored  3248 active  2975 ( 91.6 %) | M2 recall all 0.827 active 0.903 | M1 r@k 0.310 prec 0.164 rec 0.362 | varying dims 1514 | 424s
+summary {"scored_units": 49803, "active_units": 46356, "m2_recall_all": 0.7519438581781398, "m2_recall_active": 0.8078578818026986, "m1_recall_at_k_active": 0.2734991811090456, "m1_precision_active": 0.24107747351508493, "m1_recall_active": 0.3224531974686142}

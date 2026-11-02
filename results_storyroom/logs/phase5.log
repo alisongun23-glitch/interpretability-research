@@ -1,0 +1,81 @@
+streams (2.0, 256, 'all') {'tool': (6336068, 0.685), 'plain': (5673742, 0.765), 'stories': (4341816, 1.0)} [12s]
+streams (6.0, 64, 'add') {'tool': (7470453, 0.581), 'plain': (6270597, 0.692), 'stories': (4341816, 1.0)} [26s]
+phase 5: 4 jobs at recipe m64drillx3 {'p5_tool_d128_s0_m64drillx3': 24760, 'p5_masked_d128_s0_m64drillx3': 20783, 'p5_stories_d128_s0_m64drillx3': 14390, 'p5_computes_d128_s0_basewd': 6268} [26s]
+p5_masked_d128_s0_m64drillx3 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.397, 'add_heldout': 0.0} 14s
+p5_stories_d128_s0_m64drillx3 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.397, 'add_heldout': 0.0} 14s
+p5_computes_d128_s0_basewd {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.397, 'add_heldout': 0.0} 15s
+p5_tool_d128_s0_m64drillx3 {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.397, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 18s
+p5_computes_d128_s0_basewd {'step': 1000, 'story_tokens': 1567226.562, 'story_loss': 3.459, 'add_heldout': 0.0} 206s
+p5_masked_d128_s0_m64drillx3 {'step': 1000, 'story_tokens': 1418053.045, 'story_loss': 3.519, 'add_heldout': 0.0} 208s
+p5_stories_d128_s0_m64drillx3 {'step': 1000, 'story_tokens': 2048000.0, 'story_loss': 3.321, 'add_heldout': 0.0} 208s
+p5_tool_d128_s0_m64drillx3 {'step': 1000, 'story_tokens': 1190294.507, 'story_loss': 3.588, 'add_heldout': 0.487, 'add_heldout_off': 0.0} 211s
+p5_computes_d128_s0_basewd {'step': 2000, 'story_tokens': 3134453.124, 'story_loss': 3.148, 'add_heldout': 0.0} 387s
+p5_stories_d128_s0_m64drillx3 {'step': 2000, 'story_tokens': 4096000.0, 'story_loss': 3.021, 'add_heldout': 0.0} 390s
+p5_masked_d128_s0_m64drillx3 {'step': 2000, 'story_tokens': 2836106.089, 'story_loss': 3.222, 'add_heldout': 0.013} 392s
+p5_tool_d128_s0_m64drillx3 {'step': 2000, 'story_tokens': 2380589.013, 'story_loss': 3.267, 'add_heldout': 0.78, 'add_heldout_off': 0.0} 396s
+p5_computes_d128_s0_basewd {'step': 3000, 'story_tokens': 4701679.686, 'story_loss': 3.005, 'add_heldout': 0.0} 584s
+p5_stories_d128_s0_m64drillx3 {'step': 3000, 'story_tokens': 6144000.0, 'story_loss': 2.884, 'add_heldout': 0.0} 589s
+p5_masked_d128_s0_m64drillx3 {'step': 3000, 'story_tokens': 4254159.134, 'story_loss': 3.075, 'add_heldout': 0.0} 593s
+p5_tool_d128_s0_m64drillx3 {'step': 3000, 'story_tokens': 3570883.52, 'story_loss': 3.148, 'add_heldout': 0.953, 'add_heldout_off': 0.0} 596s
+p5_computes_d128_s0_basewd {'step': 4000, 'story_tokens': 6268906.248, 'story_loss': 2.907, 'add_heldout': 0.0} 776s
+p5_stories_d128_s0_m64drillx3 {'step': 4000, 'story_tokens': 8192000.0, 'story_loss': 2.785, 'add_heldout': 0.0} 784s
+p5_masked_d128_s0_m64drillx3 {'step': 4000, 'story_tokens': 5672212.179, 'story_loss': 2.966, 'add_heldout': 0.0} 786s
+p5_tool_d128_s0_m64drillx3 {'step': 4000, 'story_tokens': 4761178.027, 'story_loss': 3.057, 'add_heldout': 0.96, 'add_heldout_off': 0.0} 793s
+p5_computes_d128_s0_basewd {'step': 5000, 'story_tokens': 7836132.81, 'story_loss': 2.829, 'add_heldout': 0.0} 958s
+p5_masked_d128_s0_m64drillx3 {'step': 5000, 'story_tokens': 7090265.224, 'story_loss': 2.917, 'add_heldout': 0.0} 969s
+p5_stories_d128_s0_m64drillx3 {'step': 5000, 'story_tokens': 10240000.0, 'story_loss': 2.733, 'add_heldout': 0.0} 970s
+p5_tool_d128_s0_m64drillx3 {'step': 5000, 'story_tokens': 5951472.533, 'story_loss': 2.99, 'add_heldout': 0.98, 'add_heldout_off': 0.0} 976s
+p5_computes_d128_s0_basewd {'step': 6000, 'story_tokens': 9403359.372, 'story_loss': 2.795, 'add_heldout': 0.0} 1136s
+p5_masked_d128_s0_m64drillx3 {'step': 6000, 'story_tokens': 8508318.268, 'story_loss': 2.857, 'add_heldout': 0.0} 1150s
+p5_stories_d128_s0_m64drillx3 {'step': 6000, 'story_tokens': 12288000.0, 'story_loss': 2.679, 'add_heldout': 0.0} 1152s
+p5_tool_d128_s0_m64drillx3 {'step': 6000, 'story_tokens': 7141767.04, 'story_loss': 2.931, 'add_heldout': 0.98, 'add_heldout_off': 0.0} 1159s
+p5_computes_d128_s0_basewd {'step': 6268, 'story_tokens': 9823376.09, 'story_loss': 2.79, 'add_heldout': 0.0} 1192s
+done p5_computes_d128_s0_basewd story loss 2.7901 add own 0.0 1218s [1244s]
+p5_masked_d128_s0_m64drillx3 {'step': 7000, 'story_tokens': 9926371.313, 'story_loss': 2.831, 'add_heldout': 0.0} 1310s
+p5_stories_d128_s0_m64drillx3 {'step': 7000, 'story_tokens': 14336000.0, 'story_loss': 2.637, 'add_heldout': 0.0} 1314s
+p5_tool_d128_s0_m64drillx3 {'step': 7000, 'story_tokens': 8332061.546, 'story_loss': 2.891, 'add_heldout': 0.98, 'add_heldout_off': 0.0} 1318s
+p5_masked_d128_s0_m64drillx3 {'step': 8000, 'story_tokens': 11344424.358, 'story_loss': 2.79, 'add_heldout': 0.0} 1450s
+p5_stories_d128_s0_m64drillx3 {'step': 8000, 'story_tokens': 16384000.0, 'story_loss': 2.606, 'add_heldout': 0.0} 1454s
+p5_tool_d128_s0_m64drillx3 {'step': 8000, 'story_tokens': 9522356.053, 'story_loss': 2.86, 'add_heldout': 0.967, 'add_heldout_off': 0.0} 1460s
+p5_masked_d128_s0_m64drillx3 {'step': 9000, 'story_tokens': 12762477.402, 'story_loss': 2.757, 'add_heldout': 0.0} 1588s
+p5_stories_d128_s0_m64drillx3 {'step': 9000, 'story_tokens': 18432000.0, 'story_loss': 2.575, 'add_heldout': 0.0} 1595s
+p5_tool_d128_s0_m64drillx3 {'step': 9000, 'story_tokens': 10712650.56, 'story_loss': 2.832, 'add_heldout': 0.987, 'add_heldout_off': 0.0} 1600s
+p5_masked_d128_s0_m64drillx3 {'step': 10000, 'story_tokens': 14180530.447, 'story_loss': 2.746, 'add_heldout': 0.0} 1727s
+p5_stories_d128_s0_m64drillx3 {'step': 10000, 'story_tokens': 20480000.0, 'story_loss': 2.547, 'add_heldout': 0.0} 1736s
+p5_tool_d128_s0_m64drillx3 {'step': 10000, 'story_tokens': 11902945.066, 'story_loss': 2.811, 'add_heldout': 0.973, 'add_heldout_off': 0.0} 1740s
+p5_masked_d128_s0_m64drillx3 {'step': 11000, 'story_tokens': 15598583.492, 'story_loss': 2.712, 'add_heldout': 0.0} 1890s
+p5_stories_d128_s0_m64drillx3 {'step': 11000, 'story_tokens': 22528000.0, 'story_loss': 2.527, 'add_heldout': 0.0} 1899s
+p5_tool_d128_s0_m64drillx3 {'step': 11000, 'story_tokens': 13093239.573, 'story_loss': 2.775, 'add_heldout': 0.993, 'add_heldout_off': 0.0} 1906s
+p5_masked_d128_s0_m64drillx3 {'step': 12000, 'story_tokens': 17016636.537, 'story_loss': 2.685, 'add_heldout': 0.0} 2389s
+p5_stories_d128_s0_m64drillx3 {'step': 12000, 'story_tokens': 24576000.0, 'story_loss': 2.509, 'add_heldout': 0.0} 2397s
+p5_tool_d128_s0_m64drillx3 {'step': 12000, 'story_tokens': 14283534.08, 'story_loss': 2.754, 'add_heldout': 0.98, 'add_heldout_off': 0.0} 2407s
+p5_masked_d128_s0_m64drillx3 {'step': 13000, 'story_tokens': 18434689.581, 'story_loss': 2.664, 'add_heldout': 0.0} 2742s
+p5_stories_d128_s0_m64drillx3 {'step': 13000, 'story_tokens': 26624000.0, 'story_loss': 2.497, 'add_heldout': 0.0} 2763s
+p5_tool_d128_s0_m64drillx3 {'step': 13000, 'story_tokens': 15473828.586, 'story_loss': 2.735, 'add_heldout': 0.98, 'add_heldout_off': 0.0} 2790s
+p5_masked_d128_s0_m64drillx3 {'step': 14000, 'story_tokens': 19852742.626, 'story_loss': 2.651, 'add_heldout': 0.0} 3509s
+p5_stories_d128_s0_m64drillx3 {'step': 14000, 'story_tokens': 28672000.0, 'story_loss': 2.488, 'add_heldout': 0.0} 3532s
+p5_tool_d128_s0_m64drillx3 {'step': 14000, 'story_tokens': 16664123.093, 'story_loss': 2.714, 'add_heldout': 0.98, 'add_heldout_off': 0.0} 3570s
+p5_stories_d128_s0_m64drillx3 {'step': 14390, 'story_tokens': 29470720.0, 'story_loss': 2.486, 'add_heldout': 0.0} 3913s
+done p5_stories_d128_s0_m64drillx3 story loss 2.4864 add own 0.0 4079s [4104s]
+p5_masked_d128_s0_m64drillx3 {'step': 15000, 'story_tokens': 21270795.671, 'story_loss': 2.62, 'add_heldout': 0.0} 4148s
+p5_tool_d128_s0_m64drillx3 {'step': 15000, 'story_tokens': 17854417.6, 'story_loss': 2.684, 'add_heldout': 0.94, 'add_heldout_off': 0.0} 4177s
+p5_masked_d128_s0_m64drillx3 {'step': 16000, 'story_tokens': 22688848.715, 'story_loss': 2.61, 'add_heldout': 0.0} 4405s
+p5_tool_d128_s0_m64drillx3 {'step': 16000, 'story_tokens': 19044712.106, 'story_loss': 2.667, 'add_heldout': 0.98, 'add_heldout_off': 0.0} 4428s
+p5_masked_d128_s0_m64drillx3 {'step': 17000, 'story_tokens': 24106901.76, 'story_loss': 2.593, 'add_heldout': 0.0} 4749s
+p5_tool_d128_s0_m64drillx3 {'step': 17000, 'story_tokens': 20235006.613, 'story_loss': 2.655, 'add_heldout': 0.973, 'add_heldout_off': 0.0} 4780s
+p5_masked_d128_s0_m64drillx3 {'step': 18000, 'story_tokens': 25524954.805, 'story_loss': 2.581, 'add_heldout': 0.0} 4960s
+p5_tool_d128_s0_m64drillx3 {'step': 18000, 'story_tokens': 21425301.119, 'story_loss': 2.642, 'add_heldout': 0.947, 'add_heldout_off': 0.0} 5002s
+p5_masked_d128_s0_m64drillx3 {'step': 19000, 'story_tokens': 26943007.849, 'story_loss': 2.581, 'add_heldout': 0.0} 5212s
+p5_tool_d128_s0_m64drillx3 {'step': 19000, 'story_tokens': 22615595.626, 'story_loss': 2.629, 'add_heldout': 1.0, 'add_heldout_off': 0.0} 5273s
+p5_masked_d128_s0_m64drillx3 {'step': 20000, 'story_tokens': 28361060.894, 'story_loss': 2.569, 'add_heldout': 0.0} 5552s
+p5_tool_d128_s0_m64drillx3 {'step': 20000, 'story_tokens': 23805890.133, 'story_loss': 2.606, 'add_heldout': 0.993, 'add_heldout_off': 0.0} 5606s
+p5_masked_d128_s0_m64drillx3 {'step': 20783, 'story_tokens': 29471396.428, 'story_loss': 2.563, 'add_heldout': 0.0} 5987s
+done p5_masked_d128_s0_m64drillx3 story loss 2.563 add own 0.0 6018s [6044s]
+p5_tool_d128_s0_m64drillx3 {'step': 21000, 'story_tokens': 24996184.639, 'story_loss': 2.606, 'add_heldout': 0.993, 'add_heldout_off': 0.0} 6037s
+p5_tool_d128_s0_m64drillx3 {'step': 22000, 'story_tokens': 26186479.146, 'story_loss': 2.593, 'add_heldout': 0.987, 'add_heldout_off': 0.0} 6135s
+p5_tool_d128_s0_m64drillx3 {'step': 23000, 'story_tokens': 27376773.653, 'story_loss': 2.592, 'add_heldout': 0.993, 'add_heldout_off': 0.0} 6239s
+p5_tool_d128_s0_m64drillx3 {'step': 24000, 'story_tokens': 28567068.159, 'story_loss': 2.583, 'add_heldout': 0.987, 'add_heldout_off': 0.0} 6353s
+p5_tool_d128_s0_m64drillx3 {'step': 24760, 'story_tokens': 29471691.984, 'story_loss': 2.584, 'add_heldout': 0.993, 'add_heldout_off': 0.0} 6443s
+done p5_tool_d128_s0_m64drillx3 story loss 2.5838 add own 0.0 6475s [6501s]
+phase 5 contrasts {'tool - computes': -0.023258447647094727, 'computes - masked': 0.044037580490112305, 'tool - masked': 0.020779132843017578, 'stories - computes': -0.12067413330078125} wd control {'basewd': 2.7900803089141846, 'base': 2.7854347229003906, 'basewd - base': 0.004645586013793945} [6501s]
+done [6501s]

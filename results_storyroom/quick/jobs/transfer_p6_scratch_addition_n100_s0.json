@@ -1,0 +1,12 @@
+{
+ "cond": "scratch",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "addition",
+ "n": 100,
+ "tag": "transfer_p6_scratch_addition_n100_s0",
+ "answer_right": 0.0,
+ "story_loss": 8.247031211853027,
+ "seconds": 12.445930004119873
+}

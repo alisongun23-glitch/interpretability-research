@@ -1,0 +1,1044 @@
+{
+ "library_margin": 4.0,
+ "size": {
+  "minimal": {
+   "comb_gates": 1919,
+   "gates_by_type": {
+    "OR": 629,
+    "NOT": 62,
+    "AND": 1183,
+    "XNOR": 5,
+    "NAND": 8,
+    "XOR": 32
+   },
+   "registers": 304,
+   "dff_gates": 2433,
+   "logic_depth": 29,
+   "inputs": 16,
+   "output_wires": 23,
+   "total_gates": 4352,
+   "neurons": 4389,
+   "neurons_comb": 1956,
+   "params": 13141,
+   "params_comb": 5843,
+   "macs": 8752,
+   "macs_comb": 3887,
+   "neuron_depth_comb": 32,
+   "macs_per_tick_simulated": 62255
+  },
+  "NAND-only": {
+   "comb_gates": 2481,
+   "gates_by_type": {
+    "NOT": 535,
+    "NAND": 1946
+   },
+   "registers": 304,
+   "dff_gates": 2433,
+   "logic_depth": 41,
+   "inputs": 16,
+   "output_wires": 23,
+   "total_gates": 4914,
+   "neurons": 4914,
+   "neurons_comb": 2481,
+   "params": 14742,
+   "params_comb": 7443,
+   "macs": 9828,
+   "macs_comb": 4962,
+   "neuron_depth_comb": 41,
+   "macs_per_tick_simulated": 63330
+  },
+  "baseline": {
+   "comb_gates": 1919,
+   "gates_by_type": {
+    "OR": 629,
+    "NOT": 62,
+    "AND": 1183,
+    "XNOR": 5,
+    "NAND": 8,
+    "XOR": 32
+   },
+   "registers": 304,
+   "dff_gates": 2433,
+   "logic_depth": 29,
+   "inputs": 16,
+   "output_wires": 23,
+   "total_gates": 4352,
+   "neurons": 21508,
+   "neurons_comb": 9347,
+   "params": 73039,
+   "params_comb": 31693,
+   "macs": 51531,
+   "macs_comb": 22346,
+   "neuron_depth_comb": 56,
+   "macs_per_tick_simulated": 372554
+  }
+ },
+ "breakdown": {
+  "control": {
+   "comb": 151,
+   "dff": 136
+  },
+  "memory": {
+   "comb": 1463,
+   "dff": 2088
+  },
+  "ALU": {
+   "comb": 132,
+   "dff": 80
+  },
+  "registers": {
+   "comb": 70,
+   "dff": 128
+  },
+  "program port": {
+   "comb": 43,
+   "dff": 0
+  },
+  "bus": {
+   "comb": 60,
+   "dff": 0
+  }
+ },
+ "gates_by_type": {
+  "OR": 629,
+  "NOT": 62,
+  "AND": 1183,
+  "XNOR": 5,
+  "NAND": 8,
+  "XOR": 32
+ },
+ "unique_trained_weights": 224,
+ "verify": {
+  "Boolean gates, ideal flip-flops | Fibonacci": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "instructions": 125,
+   "ms_per_tick": 0.12301683139686538,
+   "worst_signal_dev": 0.0,
+   "halted": true,
+   "expected_outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "outputs_correct": true
+  },
+  "Boolean gates, ideal flip-flops | Multiply": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    42
+   ],
+   "instructions": 50,
+   "ms_per_tick": 0.12048610261365289,
+   "worst_signal_dev": 0.0,
+   "halted": true,
+   "expected_outputs": [
+    42
+   ],
+   "outputs_correct": true
+  },
+  "Boolean gates, ideal flip-flops | Countdown": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "instructions": 62,
+   "ms_per_tick": 0.11851721737278896,
+   "worst_signal_dev": 0.0,
+   "halted": true,
+   "expected_outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "outputs_correct": true
+  },
+  "Boolean gates, ideal flip-flops | XOR from NAND": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    108
+   ],
+   "instructions": 10,
+   "ms_per_tick": 0.11973707329611533,
+   "worst_signal_dev": 0.0,
+   "halted": true,
+   "expected_outputs": [
+    108
+   ],
+   "outputs_correct": true
+  },
+  "Boolean gates, ideal flip-flops | random programs 0": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [
+    139,
+    139,
+    132,
+    223,
+    133,
+    139,
+    139,
+    131,
+    37,
+    49
+   ],
+   "instructions": 714,
+   "ms_per_tick": 0.12303948402404787,
+   "worst_signal_dev": 0.0,
+   "halted": false
+  },
+  "Boolean gates, ideal flip-flops | random programs 1": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1043,
+   "ms_per_tick": 0.12324976921081543,
+   "worst_signal_dev": 0.0,
+   "halted": false
+  },
+  "Boolean gates, ideal flip-flops | random programs 2": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1067,
+   "ms_per_tick": 0.12304550409317015,
+   "worst_signal_dev": 0.0,
+   "halted": false
+  },
+  "Boolean gates, NAND flip-flops | Fibonacci": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "instructions": 125,
+   "ms_per_tick": 0.3240878413132831,
+   "worst_signal_dev": 0.0,
+   "halted": true,
+   "expected_outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "outputs_correct": true
+  },
+  "Boolean gates, NAND flip-flops | Multiply": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    42
+   ],
+   "instructions": 50,
+   "ms_per_tick": 0.3255472606828376,
+   "worst_signal_dev": 0.0,
+   "halted": true,
+   "expected_outputs": [
+    42
+   ],
+   "outputs_correct": true
+  },
+  "Boolean gates, NAND flip-flops | Countdown": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "instructions": 62,
+   "ms_per_tick": 0.32565430575916887,
+   "worst_signal_dev": 0.0,
+   "halted": true,
+   "expected_outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "outputs_correct": true
+  },
+  "Boolean gates, NAND flip-flops | XOR from NAND": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    108
+   ],
+   "instructions": 10,
+   "ms_per_tick": 0.32789309342511413,
+   "worst_signal_dev": 0.0,
+   "halted": true,
+   "expected_outputs": [
+    108
+   ],
+   "outputs_correct": true
+  },
+  "Boolean gates, NAND flip-flops | random programs 0": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [
+    139,
+    139,
+    132,
+    223,
+    133,
+    139,
+    139,
+    131,
+    37,
+    49
+   ],
+   "instructions": 714,
+   "ms_per_tick": 0.33067500591278076,
+   "worst_signal_dev": 0.0,
+   "halted": false
+  },
+  "Boolean gates, NAND flip-flops | random programs 1": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1043,
+   "ms_per_tick": 0.33196401596069336,
+   "worst_signal_dev": 0.0,
+   "halted": false
+  },
+  "Boolean gates, NAND flip-flops | random programs 2": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1067,
+   "ms_per_tick": 0.33207374811172485,
+   "worst_signal_dev": 0.0,
+   "halted": false
+  },
+  "neural gates, ideal flip-flops | Fibonacci": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "instructions": 125,
+   "ms_per_tick": 0.3008630667843309,
+   "worst_signal_dev": 0.03006713784709336,
+   "halted": true,
+   "expected_outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "outputs_correct": true
+  },
+  "neural gates, ideal flip-flops | Multiply": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    42
+   ],
+   "instructions": 50,
+   "ms_per_tick": 0.3005977438277557,
+   "worst_signal_dev": 0.030040131103078793,
+   "halted": true,
+   "expected_outputs": [
+    42
+   ],
+   "outputs_correct": true
+  },
+  "neural gates, ideal flip-flops | Countdown": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "instructions": 62,
+   "ms_per_tick": 0.3017122719754406,
+   "worst_signal_dev": 0.030035771297087233,
+   "halted": true,
+   "expected_outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "outputs_correct": true
+  },
+  "neural gates, ideal flip-flops | XOR from NAND": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    108
+   ],
+   "instructions": 10,
+   "ms_per_tick": 0.30032125841669677,
+   "worst_signal_dev": 0.030049121818841285,
+   "halted": true,
+   "expected_outputs": [
+    108
+   ],
+   "outputs_correct": true
+  },
+  "neural gates, ideal flip-flops | random programs 0": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [
+    139,
+    139,
+    132,
+    223,
+    133,
+    139,
+    139,
+    131,
+    37,
+    49
+   ],
+   "instructions": 714,
+   "ms_per_tick": 0.30560004711151123,
+   "worst_signal_dev": 0.03020186590981655,
+   "halted": false
+  },
+  "neural gates, ideal flip-flops | random programs 1": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1043,
+   "ms_per_tick": 0.3093298077583313,
+   "worst_signal_dev": 0.030197006162472118,
+   "halted": false
+  },
+  "neural gates, ideal flip-flops | random programs 2": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1067,
+   "ms_per_tick": 0.308510959148407,
+   "worst_signal_dev": 0.030198638174994685,
+   "halted": false
+  },
+  "neural gates, neural NAND flip-flops (fully analog) | Fibonacci": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "instructions": 125,
+   "ms_per_tick": 0.7203959044860619,
+   "worst_signal_dev": 0.03007102732904532,
+   "halted": true,
+   "expected_outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "outputs_correct": true
+  },
+  "neural gates, neural NAND flip-flops (fully analog) | Multiply": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    42
+   ],
+   "instructions": 50,
+   "ms_per_tick": 0.7246920183783964,
+   "worst_signal_dev": 0.030041026660233228,
+   "halted": true,
+   "expected_outputs": [
+    42
+   ],
+   "outputs_correct": true
+  },
+  "neural gates, neural NAND flip-flops (fully analog) | Countdown": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "instructions": 62,
+   "ms_per_tick": 0.7210384611608316,
+   "worst_signal_dev": 0.030037001289257015,
+   "halted": true,
+   "expected_outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "outputs_correct": true
+  },
+  "neural gates, neural NAND flip-flops (fully analog) | XOR from NAND": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    108
+   ],
+   "instructions": 10,
+   "ms_per_tick": 0.72216586906369,
+   "worst_signal_dev": 0.030051426332338982,
+   "halted": true,
+   "expected_outputs": [
+    108
+   ],
+   "outputs_correct": true
+  },
+  "neural gates, neural NAND flip-flops (fully analog) | random programs 0": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [
+    139,
+    139,
+    132,
+    223,
+    133,
+    139,
+    139,
+    131,
+    37,
+    49
+   ],
+   "instructions": 714,
+   "ms_per_tick": 0.7260904908180237,
+   "worst_signal_dev": 0.030218090615242388,
+   "halted": false
+  },
+  "neural gates, neural NAND flip-flops (fully analog) | random programs 1": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1043,
+   "ms_per_tick": 0.7254682183265686,
+   "worst_signal_dev": 0.030213102977609263,
+   "halted": false
+  },
+  "neural gates, neural NAND flip-flops (fully analog) | random programs 2": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1067,
+   "ms_per_tick": 0.7267475128173828,
+   "worst_signal_dev": 0.030213286328637512,
+   "halted": false
+  },
+  "NAND-only, fully analog | Fibonacci": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "instructions": 125,
+   "ms_per_tick": 0.6603141363356866,
+   "worst_signal_dev": 0.025853383660202622,
+   "halted": true,
+   "expected_outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "outputs_correct": true
+  },
+  "NAND-only, fully analog | Multiply": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    42
+   ],
+   "instructions": 50,
+   "ms_per_tick": 0.6579577135724896,
+   "worst_signal_dev": 0.025853383660202622,
+   "halted": true,
+   "expected_outputs": [
+    42
+   ],
+   "outputs_correct": true
+  },
+  "NAND-only, fully analog | Countdown": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "instructions": 62,
+   "ms_per_tick": 0.6586085705339265,
+   "worst_signal_dev": 0.025853383660202622,
+   "halted": true,
+   "expected_outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "outputs_correct": true
+  },
+  "NAND-only, fully analog | XOR from NAND": {
+   "ticks": 833,
+   "first_error": null,
+   "outputs": [
+    108
+   ],
+   "instructions": 10,
+   "ms_per_tick": 0.6626925977910696,
+   "worst_signal_dev": 0.025853383660202622,
+   "halted": true,
+   "expected_outputs": [
+    108
+   ],
+   "outputs_correct": true
+  },
+  "NAND-only, fully analog | random programs 0": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [
+    139,
+    139,
+    132,
+    223,
+    133,
+    139,
+    139,
+    131,
+    37,
+    49
+   ],
+   "instructions": 714,
+   "ms_per_tick": 0.665249764919281,
+   "worst_signal_dev": 0.025853383660202622,
+   "halted": false
+  },
+  "NAND-only, fully analog | random programs 1": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1043,
+   "ms_per_tick": 0.668719470500946,
+   "worst_signal_dev": 0.025853383660202622,
+   "halted": false
+  },
+  "NAND-only, fully analog | random programs 2": {
+   "ticks": 4000,
+   "first_error": null,
+   "outputs": [],
+   "instructions": 1067,
+   "ms_per_tick": 0.6751107573509216,
+   "worst_signal_dev": 0.025853383660202622,
+   "halted": false
+  }
+ },
+ "demo_isa": {
+  "Fibonacci": {
+   "outputs": [
+    0,
+    1,
+    1,
+    2,
+    3,
+    5,
+    8,
+    13,
+    21,
+    34,
+    55,
+    89,
+    144
+   ],
+   "halted": true,
+   "instructions": 125
+  },
+  "Multiply": {
+   "outputs": [
+    42
+   ],
+   "halted": true,
+   "instructions": 50
+  },
+  "Countdown": {
+   "outputs": [
+    10,
+    9,
+    8,
+    7,
+    6,
+    5,
+    4,
+    3,
+    2,
+    1,
+    0
+   ],
+   "halted": true,
+   "instructions": 62
+  },
+  "XOR from NAND": {
+   "outputs": [
+    108
+   ],
+   "halted": true,
+   "instructions": 10
+  }
+ },
+ "python_reference_ms_per_tick": 0.0029595494270324707,
+ "ticks_per_instruction": 4.992510582872029,
+ "margin_survival": {
+  "2.0": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "worst_signal_dev": 0.4999497095917823,
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ]
+  },
+  "2.5": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "worst_signal_dev": 0.45295343952923517,
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ]
+  },
+  "3.0": {
+   "first_errors": [
+    34,
+    34,
+    34
+   ],
+   "worst_signal_dev": 0.49880476726283146,
+   "ticks_ok": [
+    33,
+    33,
+    33
+   ]
+  },
+  "3.25": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "worst_signal_dev": 0.3266843788546345,
+   "ticks_ok": [
+    3000,
+    3000,
+    3000
+   ]
+  },
+  "3.5": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "worst_signal_dev": 0.0961646006524941,
+   "ticks_ok": [
+    3000,
+    3000,
+    3000
+   ]
+  },
+  "4.0": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "worst_signal_dev": 0.030336062632618566,
+   "ticks_ok": [
+    3000,
+    3000,
+    3000
+   ]
+  }
+ },
+ "noise_survival": {
+  "0.0": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    3000,
+    3000,
+    3000
+   ]
+  },
+  "0.02": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    3000,
+    3000,
+    3000
+   ]
+  },
+  "0.03": {
+   "first_errors": [
+    null,
+    null,
+    null
+   ],
+   "ticks_ok": [
+    3000,
+    3000,
+    3000
+   ]
+  },
+  "0.04": {
+   "first_errors": [
+    null,
+    null,
+    257
+   ],
+   "ticks_ok": [
+    3000,
+    3000,
+    256
+   ]
+  },
+  "0.05": {
+   "first_errors": [
+    53,
+    225,
+    62
+   ],
+   "ticks_ok": [
+    52,
+    224,
+    61
+   ]
+  },
+  "0.075": {
+   "first_errors": [
+    34,
+    34,
+    19
+   ],
+   "ticks_ok": [
+    33,
+    33,
+    18
+   ]
+  },
+  "0.1": {
+   "first_errors": [
+    1,
+    1,
+    1
+   ],
+   "ticks_ok": [
+    0,
+    0,
+    0
+   ]
+  }
+ },
+ "runtime_s": 91.1
+}

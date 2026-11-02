@@ -1,0 +1,12 @@
+{
+ "cond": "scratch",
+ "d": 64,
+ "seed": 1,
+ "recipe": "k8",
+ "task": "newskill",
+ "n": 100,
+ "tag": "transfer_p4_scratch_newskill_n100_s1",
+ "answer_right": 0.0,
+ "story_loss": 7.781819820404053,
+ "seconds": 2.770296096801758
+}

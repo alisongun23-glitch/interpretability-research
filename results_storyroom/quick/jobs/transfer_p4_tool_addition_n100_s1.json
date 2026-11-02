@@ -1,0 +1,12 @@
+{
+ "cond": "tool",
+ "d": 64,
+ "seed": 1,
+ "recipe": "k8",
+ "task": "addition",
+ "n": 100,
+ "tag": "transfer_p4_tool_addition_n100_s1",
+ "answer_right": 0.0,
+ "story_loss": 6.557133674621582,
+ "seconds": 3.168292760848999
+}

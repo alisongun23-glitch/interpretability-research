@@ -1,0 +1,12 @@
+{
+ "cond": "computes",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "newskill",
+ "n": 25,
+ "tag": "transfer_p6_computes_newskill_n25_s0",
+ "answer_right": 0.025,
+ "story_loss": 4.840678691864014,
+ "seconds": 11.265099048614502
+}

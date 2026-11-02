@@ -1,0 +1,12 @@
+{
+ "cond": "scratch",
+ "d": 64,
+ "seed": 0,
+ "recipe": "k8",
+ "task": "addition",
+ "n": 100,
+ "tag": "transfer_p4_scratch_addition_n100_s0",
+ "answer_right": 0.0,
+ "story_loss": 8.303114891052246,
+ "seconds": 3.3945560455322266
+}

@@ -1,0 +1,22 @@
+{
+ "runs": {
+  "w16-s100": {
+   "learned_at": 8000,
+   "final_exact": 1.0
+  },
+  "w16-s101": {
+   "learned_at": 26000,
+   "final_exact": 1.0
+  },
+  "w4-s100": {
+   "learned_at": null,
+   "final_exact": 0.493
+  },
+  "w4-s101": {
+   "learned_at": null,
+   "final_exact": 0.006
+  }
+ },
+ "S": 40000,
+ "rule": "S = min(40000, max(10000, ceil(2 max L / 5000) * 5000)); 40000 if no pilot run learns"
+}

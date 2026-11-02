@@ -1,0 +1,16 @@
+tee: calib/log_zero.txt: No such file or directory
+layer  0: live  1793 scored   348 active   244 ( 70.1 %) | M2 recall all 0.701 active 1.000 | M1 r@k 0.422 prec 0.187 rec 0.364 | varying dims 158 | 16s
+layer  1: live  1766 scored  1457 active  1031 ( 70.8 %) | M2 recall all 0.708 active 1.000 | M1 r@k 0.872 prec 0.427 rec 0.133 | varying dims 175 | 49s
+layer  2: live    21 scored     0 active     0 (  0.0 %) | M2 recall all 0.000 active 0.000 | M1 r@k 0.000 prec 0.000 rec 0.000 | varying dims 141 | 63s
+layer  3: live  4165 scored   272 active    16 (  5.9 %) | M2 recall all 0.059 active 1.000 | M1 r@k 0.938 prec 0.562 rec 1.000 | varying dims 141 | 79s
+layer  4: live  9216 scored  1740 active     1 (  0.1 %) | M2 recall all 0.001 active 1.000 | M1 r@k 0.214 prec 0.333 rec 0.143 | varying dims 157 | 98s
+layer  5: live  8424 scored  1354 active   122 (  9.0 %) | M2 recall all 0.090 active 1.000 | M1 r@k 0.984 prec 0.364 rec 1.000 | varying dims 158 | 115s
+layer  6: live  3924 scored   464 active     0 (  0.0 %) | M2 recall all 0.000 active 0.000 | M1 r@k 0.000 prec 0.000 rec 0.000 | varying dims 100 | 131s
+layer  7: live  8307 scored    20 active    20 (100.0 %) | M2 recall all 1.000 active 1.000 | M1 r@k 1.000 prec 0.452 rec 1.000 | varying dims 100 | 147s
+layer  8: live  8691 scored  1888 active     0 (  0.0 %) | M2 recall all 0.000 active 0.000 | M1 r@k 0.000 prec 0.000 rec 0.000 | varying dims 80 | 162s
+layer  9: live  1687 scored    46 active     0 (  0.0 %) | M2 recall all 0.000 active 0.000 | M1 r@k 0.000 prec 0.000 rec 0.000 | varying dims 80 | 175s
+layer 10: live    19 scored     0 active     0 (  0.0 %) | M2 recall all 0.000 active 0.000 | M1 r@k 0.000 prec 0.000 rec 0.000 | varying dims 80 | 210s
+layer 11: live  3248 scored   529 active   139 ( 26.3 %) | M2 recall all 0.263 active 1.000 | M1 r@k 0.820 prec 0.594 rec 0.749 | varying dims 80 | 243s
+summary {"scored_units": 8118, "active_units": 1573, "m2_recall_all": 0.1937669376693767, "m2_recall_active": 1.0, "m1_recall_at_k_active": 0.8083187038355567, "m1_precision_active": 0.40140766790553006, "m1_recall_active": 0.31018245491623764}
+
+[exited with code 0]

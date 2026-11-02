@@ -1,0 +1,12 @@
+{
+ "cond": "stories",
+ "d": 64,
+ "seed": 0,
+ "recipe": "k8",
+ "task": "addition",
+ "n": 100,
+ "tag": "transfer_p4_stories_addition_n100_s0",
+ "answer_right": 0.0,
+ "story_loss": 7.150272369384766,
+ "seconds": 3.333244800567627
+}

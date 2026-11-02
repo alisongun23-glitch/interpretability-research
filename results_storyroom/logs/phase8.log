@@ -1,0 +1,64 @@
+streams (2.0, 256, 'all') {'tool': (6314121, 0.688), 'plain': (5658690, 0.767), 'stories': (4341816, 1.0)} [12s]
+streams (6.0, 64, 'add') {'tool': (7460594, 0.582), 'plain': (6261564, 0.693), 'stories': (4341816, 1.0)} [26s]
+phase 8: 6 jobs at recipe m64drill {'p7_tool_d128_s0_m64drill_pairsplit': 8271, 'p7_computes_d128_s0_m64drill_pairsplit': 6942, 'p7_masked_d128_s0_m64drill_pairsplit': 6942, 'p7_stories_d128_s0_m64drill_pairsplit': 4813, 'p7_computes_d128_s1_m64drill_pairsplit': 6942, 'p7_computes_d128_s0_m64drillx2_pairsplit': 13883} [26s]
+p7_stories_d128_s0_m64drill_pairsplit {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.397, 'add_heldout': 0.0} 19s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.397, 'add_heldout': 0.0} 19s
+p7_masked_d128_s0_m64drill_pairsplit {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.397, 'add_heldout': 0.0} 19s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.397, 'add_heldout': 0.0, 'add_heldout_off': 0.0} 23s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 1000, 'story_tokens': 1420098.743, 'story_loss': 3.596, 'add_heldout': 0.1} 282s
+p7_masked_d128_s0_m64drill_pairsplit {'step': 1000, 'story_tokens': 1420098.743, 'story_loss': 3.521, 'add_heldout': 0.0} 285s
+p7_stories_d128_s0_m64drill_pairsplit {'step': 1000, 'story_tokens': 2048000.0, 'story_loss': 3.321, 'add_heldout': 0.0} 287s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 1000, 'story_tokens': 1191867.453, 'story_loss': 3.587, 'add_heldout': 0.56, 'add_heldout_off': 0.0} 290s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 2000, 'story_tokens': 2840197.487, 'story_loss': 3.296, 'add_heldout': 0.233} 459s
+p7_masked_d128_s0_m64drill_pairsplit {'step': 2000, 'story_tokens': 2840197.487, 'story_loss': 3.212, 'add_heldout': 0.0} 466s
+p7_stories_d128_s0_m64drill_pairsplit {'step': 2000, 'story_tokens': 4096000.0, 'story_loss': 3.019, 'add_heldout': 0.0} 470s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 2000, 'story_tokens': 2383734.906, 'story_loss': 3.283, 'add_heldout': 0.94, 'add_heldout_off': 0.0} 477s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 3000, 'story_tokens': 4260296.23, 'story_loss': 3.148, 'add_heldout': 0.293} 651s
+p7_masked_d128_s0_m64drill_pairsplit {'step': 3000, 'story_tokens': 4260296.23, 'story_loss': 3.046, 'add_heldout': 0.0} 662s
+p7_stories_d128_s0_m64drill_pairsplit {'step': 3000, 'story_tokens': 6144000.0, 'story_loss': 2.864, 'add_heldout': 0.0} 664s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 3000, 'story_tokens': 3575602.359, 'story_loss': 3.124, 'add_heldout': 0.94, 'add_heldout_off': 0.0} 672s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 4000, 'story_tokens': 5680394.974, 'story_loss': 3.044, 'add_heldout': 0.36} 813s
+p7_masked_d128_s0_m64drill_pairsplit {'step': 4000, 'story_tokens': 5680394.974, 'story_loss': 2.947, 'add_heldout': 0.0} 825s
+p7_stories_d128_s0_m64drill_pairsplit {'step': 4000, 'story_tokens': 8192000.0, 'story_loss': 2.773, 'add_heldout': 0.0} 827s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 4000, 'story_tokens': 4767469.812, 'story_loss': 3.017, 'add_heldout': 0.973, 'add_heldout_off': 0.007} 834s
+p7_stories_d128_s0_m64drill_pairsplit {'step': 4813, 'story_tokens': 9857024.0, 'story_loss': 2.743, 'add_heldout': 0.0} 977s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 5000, 'story_tokens': 7100493.717, 'story_loss': 2.993, 'add_heldout': 0.46} 989s
+p7_masked_d128_s0_m64drill_pairsplit {'step': 5000, 'story_tokens': 7100493.717, 'story_loss': 2.876, 'add_heldout': 0.007} 1007s
+done p7_stories_d128_s0_m64drill_pairsplit story loss 2.7428 add own 0.0 1017s [1043s]
+p7_tool_d128_s0_m64drill_pairsplit {'step': 5000, 'story_tokens': 5959337.265, 'story_loss': 2.953, 'add_heldout': 0.967, 'add_heldout_off': 0.007} 1018s
+p7_computes_d128_s1_m64drill_pairsplit {'step': 0, 'story_tokens': 0.0, 'story_loss': 8.395, 'add_heldout': 0.013} 8s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 6000, 'story_tokens': 8520592.46, 'story_loss': 2.912, 'add_heldout': 0.5} 1153s
+p7_masked_d128_s0_m64drill_pairsplit {'step': 6000, 'story_tokens': 8520592.46, 'story_loss': 2.826, 'add_heldout': 0.007} 1175s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 6000, 'story_tokens': 7151204.717, 'story_loss': 2.886, 'add_heldout': 0.98, 'add_heldout_off': 0.0} 1188s
+p7_computes_d128_s1_m64drill_pairsplit {'step': 1000, 'story_tokens': 1420098.743, 'story_loss': 3.574, 'add_heldout': 0.147} 173s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 7000, 'story_tokens': 9940691.204, 'story_loss': 2.865, 'add_heldout': 0.593} 1319s
+p7_masked_d128_s0_m64drill_pairsplit {'step': 6942, 'story_tokens': 9858325.477, 'story_loss': 2.799, 'add_heldout': 0.007} 1335s
+p7_computes_d128_s1_m64drill_pairsplit {'step': 2000, 'story_tokens': 2840197.487, 'story_loss': 3.259, 'add_heldout': 0.32} 341s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 7000, 'story_tokens': 8343072.17, 'story_loss': 2.838, 'add_heldout': 0.993, 'add_heldout_off': 0.0} 1363s
+done p7_masked_d128_s0_m64drill_pairsplit story loss 2.7986 add own 0.006 1371s [1397s]
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 8000, 'story_tokens': 11360789.947, 'story_loss': 2.827, 'add_heldout': 0.773} 1458s
+p7_computes_d128_s1_m64drill_pairsplit {'step': 3000, 'story_tokens': 4260296.23, 'story_loss': 3.111, 'add_heldout': 0.42} 470s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 8000, 'story_tokens': 9534939.623, 'story_loss': 2.817, 'add_heldout': 0.993, 'add_heldout_off': 0.0} 1494s
+p7_tool_d128_s0_m64drill_pairsplit {'step': 8271, 'story_tokens': 9857935.703, 'story_loss': 2.806, 'add_heldout': 0.993, 'add_heldout_off': 0.0} 1534s
+done p7_tool_d128_s0_m64drill_pairsplit story loss 2.806 add own 0.0 1563s [1589s]
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 9000, 'story_tokens': 12780888.69, 'story_loss': 2.791, 'add_heldout': 0.72} 1579s
+p7_computes_d128_s1_m64drill_pairsplit {'step': 4000, 'story_tokens': 5680394.974, 'story_loss': 3.002, 'add_heldout': 0.6} 585s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 10000, 'story_tokens': 14200987.434, 'story_loss': 2.762, 'add_heldout': 0.867} 1674s
+p7_computes_d128_s1_m64drill_pairsplit {'step': 5000, 'story_tokens': 7100493.717, 'story_loss': 2.941, 'add_heldout': 0.707} 680s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 11000, 'story_tokens': 15621086.177, 'story_loss': 2.739, 'add_heldout': 0.9} 1768s
+p7_computes_d128_s1_m64drill_pairsplit {'step': 6000, 'story_tokens': 8520592.46, 'story_loss': 2.891, 'add_heldout': 0.727} 774s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 12000, 'story_tokens': 17041184.921, 'story_loss': 2.713, 'add_heldout': 0.907} 1863s
+p7_computes_d128_s1_m64drill_pairsplit {'step': 6942, 'story_tokens': 9858325.477, 'story_loss': 2.868, 'add_heldout': 0.813} 864s
+done p7_computes_d128_s1_m64drill_pairsplit story loss 2.8676 add own 0.784 876s [1920s]
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 13000, 'story_tokens': 18461283.664, 'story_loss': 2.699, 'add_heldout': 0.907} 1933s
+p7_computes_d128_s0_m64drillx2_pairsplit {'step': 13883, 'story_tokens': 19715230.854, 'story_loss': 2.701, 'add_heldout': 0.873} 1982s
+done p7_computes_d128_s0_m64drillx2_pairsplit story loss 2.7009 add own 0.882 1992s [2018s]
+phase 8 contrasts {'tool - computes': -0.04786181449890137, 'computes - masked': 0.05529451370239258, 'tool - masked': 0.007432699203491211, 'stories - computes': -0.1111142635345459} bracket {'p7_computes_d128_s1_m64drill_pairsplit': 0.784, 'p7_computes_d128_s0_m64drillx2_pairsplit': 0.882} [2018s]
+phase 8 inside: 4 models [2018s]
+inside p7_tool_d128_s0_m64drill_pairsplit best probe r2 0.88 915s [2933s]
+inside p7_stories_d128_s0_m64drill_pairsplit best probe r2 -0.023 915s [2933s]
+inside p7_computes_d128_s0_m64drill_pairsplit best probe r2 0.954 916s [2934s]
+inside p7_masked_d128_s0_m64drill_pairsplit best probe r2 0.684 917s [2935s]
+phase 8 fine-tunes: 70 [2935s]
+phase 8 done {'p7_tool_d128_s0_m64drill_pairsplit': {'probe_r2': 0.8798325340828241, 'units': {'head': {'arith_only': 0, 'story_only': 1, 'both': 1, 'n': 16}, 'neuron': {'arith_only': 0, 'story_only': 0, 'both': 0, 'n': 2048}}}, 'p7_stories_d128_s0_m64drill_pairsplit': {'probe_r2': -0.022859567928330105, 'units': {'head': {'arith_only': 0, 'story_only': 3, 'both': 0, 'n': 16}, 'neuron': {'arith_only': 30, 'story_only': 0, 'both': 0, 'n': 2048}}}, 'p7_computes_d128_s0_m64drill_pairsplit': {'probe_r2': 0.9539350974061325, 'units': {'head': {'arith_only': 0, 'story_only': 1, 'both': 2, 'n': 16}, 'neuron': {'arith_only': 58, 'story_only': 0, 'both': 0, 'n': 2048}}}, 'p7_masked_d128_s0_m64drill_pairsplit': {'probe_r2': 0.6838767631695002, 'units': {'head': {'arith_only': 0, 'story_only': 1, 'both': 1, 'n': 16}, 'neuron': {'arith_only': 40, 'story_only': 0, 'both': 0, 'n': 2048}}}} [3501s]
+done [3501s]

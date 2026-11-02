@@ -1,0 +1,12 @@
+{
+ "cond": "computes",
+ "d": 64,
+ "seed": 0,
+ "recipe": "k8",
+ "task": "addition",
+ "n": 25,
+ "tag": "transfer_p4_computes_addition_n25_s0",
+ "answer_right": 0.0,
+ "story_loss": 6.617082118988037,
+ "seconds": 3.5891342163085938
+}

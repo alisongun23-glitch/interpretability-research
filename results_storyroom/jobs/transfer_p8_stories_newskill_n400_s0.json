@@ -1,0 +1,12 @@
+{
+ "cond": "stories",
+ "d": 128,
+ "seed": 0,
+ "recipe": "m64drill",
+ "task": "newskill",
+ "n": 400,
+ "tag": "transfer_p8_stories_newskill_n400_s0",
+ "answer_right": 0.44333333333333336,
+ "story_loss": 5.459405422210693,
+ "seconds": 30.738587856292725
+}

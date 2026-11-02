@@ -1,0 +1,12 @@
+{
+ "cond": "masked",
+ "d": 64,
+ "seed": 0,
+ "recipe": "grok_wd1",
+ "task": "addition",
+ "n": 100,
+ "tag": "transfer_p6_masked_addition_n100_s0",
+ "answer_right": 0.0,
+ "story_loss": 5.124932289123535,
+ "seconds": 10.789185047149658
+}

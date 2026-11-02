@@ -1,0 +1,28 @@
+{
+  "seeds": 30,
+  "seed_offset": 0,
+  "baseline": "tanh-4",
+  "architectures": [
+    {"name": "tanh-4", "activation": "tanh", "hidden": 4},
+    {"name": "relu-4", "activation": "relu", "hidden": 4},
+    {"name": "tanh-2", "activation": "tanh", "hidden": 2},
+    {"name": "tanh-8", "activation": "tanh", "hidden": 8},
+    {"name": "relu-8", "activation": "relu", "hidden": 8}
+  ],
+  "training": {
+    "optimizer": "adam",
+    "lr": 0.05,
+    "betas": [0.9, 0.999],
+    "max_steps": 20000,
+    "margin": 2.0,
+    "log_every": 50,
+    "init_std": 1.0
+  },
+  "interventions": {
+    "ablation": "mean",
+    "purity_threshold": 0.9,
+    "reference_logit_scale": 8.0
+  },
+  "discovery_fraction": 0.5,
+  "output_dir": "results"
+}

@@ -1,0 +1,487 @@
+<title>GPT with a Gate CPU</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Doto:wght@600;900&family=B612:wght@400;700&family=B612+Mono:wght@400;700&display=swap">
+<style>
+/* Layout: one problem flows down the page: tokens -> the CPU head's three pointers -> the computer running -> the answer. Controls on the right; stacks on phones. */
+:root {
+  --bg: #e9ece7; --panel: #f6f7f4; --ink: #141917; --ink-2: #4a524e; --muted: #7b8580; --line: #d3d8d2;
+  --accent: #c8372b; --good: #1d8a4c; --bad: #c22f26; --chip-bg: #e3e7e1; --led-off: #cfd5ce;
+  --led: 214, 52, 40; --amber: 214, 140, 20; --blue: 42, 120, 214;
+  --font-display: "Doto", "B612 Mono", ui-monospace, monospace;
+  --font-ui: "B612", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-data: "B612 Mono", ui-monospace, "SF Mono", Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0f1312; --panel: #161b19; --ink: #e7ebe8; --ink-2: #aab3ae; --muted: #78827d; --line: #29302d;
+    --accent: #ff5a48; --good: #3cc47a; --bad: #ff6a5c; --chip-bg: #212825; --led-off: #2a312e;
+    --led: 255, 74, 58; --amber: 255, 181, 46; --blue: 90, 160, 240; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0f1312; --panel: #161b19; --ink: #e7ebe8; --ink-2: #aab3ae; --muted: #78827d; --line: #29302d;
+  --accent: #ff5a48; --good: #3cc47a; --bad: #ff6a5c; --chip-bg: #212825; --led-off: #2a312e;
+  --led: 255, 74, 58; --amber: 255, 181, 46; --blue: 90, 160, 240; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { background: var(--bg); color: var(--ink); }
+body { font-family: var(--font-ui); font-size: 14px; line-height: 1.5; padding-inline: 16px; padding-block: 20px 40px; }
+.wrap { max-width: 1120px; margin: 0 auto; display: grid; gap: 20px; }
+h1 { font-family: var(--font-display); font-weight: 900; font-size: clamp(34px, 6vw, 56px); line-height: 0.95; margin: 0; text-wrap: balance; }
+.lede { margin: 6px 0 0; max-width: 74ch; color: var(--ink-2); font-size: 15px; text-wrap: pretty; }
+.ask { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+.ask input { flex: 1 1 260px; min-width: 0; font: inherit; font-family: var(--font-data); font-size: 16px; padding: 9px 12px; border: 1px solid var(--line); border-radius: 8px; background: var(--panel); color: var(--ink); }
+button { font: inherit; font-size: 13px; color: var(--ink); background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+button.primary { background: var(--ink); color: var(--panel); border-color: var(--ink); }
+button:hover { border-color: var(--muted); }
+button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.examples { display: flex; flex-wrap: wrap; gap: 6px; }
+.examples button { font-family: var(--font-data); font-size: 12px; padding: 3px 9px; border-radius: 999px; background: var(--chip-bg); border-color: transparent; color: var(--ink-2); }
+#msg { font-size: 12.5px; color: var(--bad); min-height: 1em; }
+.bench { display: grid; grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr); gap: 20px; align-items: start; }
+@media (max-width: 880px) { .bench { grid-template-columns: minmax(0, 1fr); } }
+.card { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 14px 16px; display: grid; gap: 10px; min-width: 0; }
+.card h2 { margin: 0; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 700; display: flex; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.card h2 span { text-transform: none; letter-spacing: 0.02em; font-weight: 400; }
+.col { display: grid; gap: 16px; min-width: 0; }
+.ptr { display: grid; grid-template-columns: 2.6em minmax(0, 1fr); gap: 6px 10px; align-items: end; }
+.ptr .lab { font-family: var(--font-data); font-size: 12px; color: var(--ink-2); padding-bottom: 4px; }
+.toks { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr); gap: 4px; }
+.tok { display: grid; gap: 3px; justify-items: stretch; text-align: center; min-width: 0; }
+.tok .bar { height: 34px; background: var(--chip-bg); border-radius: 4px; position: relative; overflow: hidden; }
+.tok .bar i { position: absolute; left: 0; right: 0; bottom: 0; background: rgb(var(--blue)); opacity: 0.85; }
+.tok .bar.pick { outline: 2px solid rgb(var(--amber)); outline-offset: 1px; }
+.tok .t { font-family: var(--font-data); font-size: 13px; padding: 3px 2px; border-radius: 5px; background: var(--chip-bg); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.send { font-family: var(--font-data); font-size: 13px; color: var(--ink-2); }
+.send b { color: var(--ink); }
+.gate { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 10px; align-items: center; font-size: 13px; }
+.meter { height: 8px; background: var(--chip-bg); border-radius: 999px; position: relative; overflow: hidden; }
+.meter i { position: absolute; inset: 0 auto 0 0; background: rgb(var(--amber)); border-radius: 999px; }
+.meter::after { content: ""; position: absolute; left: 50%; top: -2px; bottom: -2px; width: 1px; background: var(--muted); }
+.panel-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.ro { display: grid; gap: 2px; min-width: 0; }
+.ro .v { font-family: var(--font-data); font-size: 17px; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ro .k { font-size: 11.5px; color: var(--muted); }
+.leds { display: inline-flex; gap: 4px; }
+.led { width: 12px; height: 12px; border-radius: 50%; background: var(--led-off); position: relative; }
+.led::after { content: ""; position: absolute; inset: 0; border-radius: 50%; background: rgb(var(--led)); opacity: var(--v, 0); box-shadow: 0 0 calc(8px * var(--v, 0)) rgba(var(--led), 0.7); }
+.answer { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 4px 18px; align-items: end; }
+.big { font-family: var(--font-display); font-weight: 900; font-size: 64px; line-height: 0.9; font-variant-numeric: tabular-nums; }
+.verdict { font-size: 13px; }
+.verdict.ok { color: var(--good); } .verdict.no { color: var(--bad); }
+.top { font-family: var(--font-data); font-size: 12px; color: var(--ink-2); }
+table.cmp { width: 100%; border-collapse: collapse; font-size: 13px; }
+table.cmp td, table.cmp th { padding: 5px 0; border-bottom: 1px solid var(--line); text-align: left; vertical-align: baseline; }
+table.cmp th { font-size: 11px; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+table.cmp td.n, table.cmp th.n { font-family: var(--font-data); text-align: right; font-variant-numeric: tabular-nums; padding-left: 12px; white-space: nowrap; }
+table.cmp tr:last-child td { border-bottom: 0; }
+.ctl { display: grid; grid-template-columns: 7.5em minmax(0, 1fr); gap: 8px 12px; align-items: center; font-size: 12.5px; color: var(--ink-2); }
+.seg { display: inline-flex; flex-wrap: wrap; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; width: max-content; max-width: 100%; }
+.seg button { border: 0; border-radius: 0; padding: 5px 10px; background: transparent; color: var(--ink-2); font-size: 12.5px; }
+.seg button + button { border-left: 1px solid var(--line); }
+.seg button[aria-pressed="true"] { background: var(--ink); color: var(--panel); }
+.note { font-size: 12.5px; color: var(--ink-2); margin: 0; max-width: 62ch; }
+.note b { color: var(--ink); }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
+</style>
+
+<div class="wrap">
+  <header>
+    <h1>GPT with a Gate CPU</h1>
+    <p class="lede">A two-layer GPT whose second layer has three ordinary attention heads and one that is a computer:
+      the 8-bit CPU built from trained neuron gates, frozen. The model learned on its own where to point the computer,
+      which operation to send, when to call it, and how to read the answer back.</p>
+  </header>
+
+  <div class="card">
+    <div class="ask">
+      <input id="q" aria-label="Problem" value="what is 14 times 12 ?" autocomplete="off" spellcheck="false">
+      <button id="go" class="primary">Solve</button>
+    </div>
+    <div class="examples" id="examples"></div>
+    <div id="msg"></div>
+  </div>
+
+  <div class="bench">
+    <div class="col">
+      <section class="card" aria-label="CPU head pointers">
+        <h2>1 &middot; The CPU head points <span>bars = where each pointer looks; outlined = picked</span></h2>
+        <div id="ptrs"></div>
+        <div class="send" id="send"></div>
+        <div class="gate"><span>Call the computer?</span><div class="meter"><i id="gateBar"></i></div><span id="gateVal" class="send"></span></div>
+      </section>
+      <section class="card" aria-label="Computer">
+        <h2>2 &middot; The computer runs <span id="cpuNote">calculator program, 31 bytes in RAM</span></h2>
+        <div class="panel-row">
+          <div class="ro"><span class="v" id="cPC">0</span><span class="k">PC</span></div>
+          <div class="ro"><span class="v" id="cA">0</span><span class="k">A</span></div>
+          <div class="ro"><span class="v" id="cOUT">0</span><span class="k">OUT</span></div>
+          <div class="ro"><span class="v" id="cT">0</span><span class="k">clock ticks</span></div>
+        </div>
+        <div><span class="leds" id="outLeds"></span> <span class="send" id="cpuState">idle</span></div>
+      </section>
+      <section class="card" aria-label="Answer">
+        <h2>3 &middot; The GPT answers</h2>
+        <div class="answer"><div class="big" id="ans">&ndash;</div><div><div class="verdict" id="verdict"></div><div class="top" id="top"></div></div></div>
+      </section>
+    </div>
+    <div class="col">
+      <section class="card" aria-label="Settings">
+        <h2>Settings</h2>
+        <div class="ctl">
+          <span>CPU head</span>
+          <div class="seg" id="segHead" role="group"><button data-v="on" aria-pressed="true">On</button><button data-v="off" aria-pressed="false">Off</button></div>
+          <span>Show the run</span>
+          <div class="seg" id="segAnim" role="group"><button data-v="anim" aria-pressed="true">Animated</button><button data-v="fast" aria-pressed="false">Instant</button></div>
+        </div>
+      </section>
+      <section class="card" aria-label="Comparison">
+        <h2>Same problem, other models</h2>
+        <table class="cmp"><tbody id="cmp"></tbody></table>
+      </section>
+      <section class="card" aria-label="Results">
+        <h2>Held-out accuracy <span>from run_cpugpt.py, pairs never seen in training</span></h2>
+        <table class="cmp"><thead><tr><th>model</th><th class="n">a + b</th><th class="n">a &minus; b</th><th class="n">a &times; b</th></tr></thead><tbody id="res"></tbody></table>
+        <p class="note">Numbers are single tokens 0&ndash;255. Words the model knows: <span id="words"></span>.</p>
+      </section>
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+const $ = (id) => document.getElementById(id);
+const sig = (z) => 1 / (1 + Math.exp(-z));
+/* ---------------- the gate computer (same engine as cpu_ui) ---------------- */
+class Machine {
+  constructor(net) {
+    this.net = net;
+    const g = net.gates;
+    this.nG = g.out.length;
+    this.out = Int32Array.from(g.out); this.a = Int32Array.from(g.a); this.b = Int32Array.from(g.b);
+    this.type = Int32Array.from(g.type); this.pick = Int32Array.from(g.pick);
+    this.cone = Int32Array.from(net.out_cone);
+    const TTN = { NOT: [1, 1, 0, 0], AND: [0, 0, 0, 1], OR: [0, 1, 1, 1], NAND: [1, 1, 1, 0], NOR: [1, 0, 0, 0], XOR: [0, 1, 1, 0], XNOR: [1, 0, 0, 1] };
+    this.tt = net.types.map((t) => TTN[t]);
+    this.V = new Float64Array(net.n_wires);
+    this.E = new Uint8Array(net.n_wires);
+    this.nR = net.regs.q.length;
+    this.rq = Int32Array.from(net.regs.q); this.rd = Int32Array.from(net.regs.d);
+    this.iters = net.latch_iters || 6;
+    this.inW = net.inputs;
+    const n = this.nR;
+    this.Q = Float64Array.from(net.regs.init);
+    this.L = {};
+    for (const k of ["m1", "m2", "M", "Mb", "s1", "s2", "Q", "Qb"]) this.L[k] = new Float64Array(n);
+    for (let r = 0; r < n; r++) {
+      const v = net.regs.init[r];
+      this.L.m1[r] = 1; this.L.m2[r] = 1; this.L.M[r] = v; this.L.Mb[r] = 1 - v;
+      this.L.s1[r] = 1 - v; this.L.s2[r] = v; this.L.Q[r] = v; this.L.Qb[r] = 1 - v;
+    }
+    this.noise = 0; this.mode = "neural"; this.worst = 0;
+    this.setPool(net.default_pool);
+    this.settle(1, null);
+    this.Q.set(this.L.Q);
+  }
+  setPool(tag) {
+    const pools = this.net.pools[tag], n = this.nG, T = this.net.types;
+    this.w0 = new Float64Array(n); this.w1 = new Float64Array(n); this.bo = new Float64Array(n);
+    this.H = new Uint8Array(n); this.u0 = new Float64Array(n); this.u1 = new Float64Array(n); this.c = new Float64Array(n); this.v = new Float64Array(n);
+    for (let i = 0; i < n; i++) {
+      const p = pools[T[this.type[i]]][this.pick[i]];
+      this.w0[i] = p.w[0]; this.w1[i] = p.w[1]; this.bo[i] = p.bo;
+      if (p.v.length) { this.H[i] = 1; this.u0[i] = p.U[0][0]; this.u1[i] = p.U[1][0]; this.c[i] = p.c[0]; this.v[i] = p.v[0]; }
+      else { this.H[i] = 0; }
+    }
+    const m = this.nR * 8, nand = pools.NAND;
+    this.f0 = new Float64Array(m); this.f1 = new Float64Array(m); this.fb = new Float64Array(m);
+    for (let j = 0; j < m; j++) { const p = nand[this.net.dff_pick[j]]; this.f0[j] = p.w[0]; this.f1[j] = p.w[1]; this.fb[j] = p.bo; }
+    const inv = pools.NOT[0]; this.cw = inv.w[0] + inv.w[1]; this.cb = inv.bo;
+  }
+  gauss() { let u = 0; while (u === 0) u = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * Math.random()); }
+  loadSources(V, inputs, Q) {
+    V[0] = 0; V[1] = 1;
+    for (const k in this.inW) V[this.inW[k]] = inputs[k] || 0;
+    for (let r = 0; r < this.nR; r++) V[this.rq[r]] = Q[r];
+  }
+  evalGates(list, count) {
+    const V = this.V, out = this.out, A = this.a, B = this.b, nz = this.noise;
+    let worst = 0;
+    if (this.mode === "logic") {
+      const ty = this.type, tt = this.tt;
+      for (let j = 0; j < count; j++) { const i = list ? list[j] : j; V[out[i]] = tt[ty[i]][(V[A[i]] > 0.5 ? 2 : 0) + (V[B[i]] > 0.5 ? 1 : 0)]; }
+      return 0;
+    }
+    const w0 = this.w0, w1 = this.w1, bo = this.bo, H = this.H, u0 = this.u0, u1 = this.u1, c = this.c, v = this.v;
+    for (let j = 0; j < count; j++) {
+      const i = list ? list[j] : j;
+      const x = V[A[i]], y = V[B[i]];
+      let z = w0[i] * x + w1[i] * y + bo[i];
+      if (H[i]) z += v[i] * sig(u0[i] * x + u1[i] * y + c[i]);
+      let o = sig(z);
+      if (nz) { o += nz * this.gauss(); o = o < 0 ? 0 : o > 1 ? 1 : o; }
+      V[out[i]] = o;
+      const d = o < 0.5 ? o : 1 - o; if (d > worst) worst = d;
+    }
+    return worst;
+  }
+  settle(clk, D) {
+    const L = this.L, n = this.nR, it = this.iters, nz = this.noise, f0 = this.f0, f1 = this.f1, fb = this.fb;
+    const E = sig(this.cw * clk + this.cb), C = clk;
+    const nand = (j, x, y) => { let o = sig(f0[j] * x + f1[j] * y + fb[j]); if (nz) { o += nz * this.gauss(); o = o < 0 ? 0 : o > 1 ? 1 : o; } return o; };
+    let worst = 0;
+    for (let r = 0; r < n; r++) {
+      let m1 = L.m1[r], m2 = L.m2[r], M = L.M[r], Mb = L.Mb[r], s1 = L.s1[r], s2 = L.s2[r], Q = L.Q[r], Qb = L.Qb[r];
+      const d = D ? D[r] : M, j = r * 8;
+      for (let k = 0; k < it; k++) {
+        const n1 = nand(j, d, E), n2 = nand(j + 1, m1, E), n3 = nand(j + 2, m1, Mb), n4 = nand(j + 3, m2, M);
+        const n5 = nand(j + 4, M, C), n6 = nand(j + 5, s1, C), n7 = nand(j + 6, s1, Qb), n8 = nand(j + 7, s2, Q);
+        m1 = n1; m2 = n2; M = n3; Mb = n4; s1 = n5; s2 = n6; Q = n7; Qb = n8;
+      }
+      L.m1[r] = m1; L.m2[r] = m2; L.M[r] = M; L.Mb[r] = Mb; L.s1[r] = s1; L.s2[r] = s2; L.Q[r] = Q; L.Qb[r] = Qb;
+      for (const x of [m1, m2, M, Mb, s1, s2, Q, Qb]) { const dd = x < 0.5 ? x : 1 - x; if (dd > worst) worst = dd; }
+    }
+    return worst;
+  }
+  exactNext(inputs) {
+    const E = this.E, out = this.out, A = this.a, B = this.b, ty = this.type, tt = this.tt;
+    E[0] = 0; E[1] = 1;
+    for (const k in this.inW) E[this.inW[k]] = inputs[k] ? 1 : 0;
+    for (let r = 0; r < this.nR; r++) E[this.rq[r]] = this.Q[r] > 0.5 ? 1 : 0;
+    for (let i = 0; i < this.nG; i++) E[out[i]] = tt[ty[i]][E[A[i]] * 2 + E[B[i]]];
+    const D = new Uint8Array(this.nR);
+    for (let r = 0; r < this.nR; r++) D[r] = E[this.rd[r]];
+    return D;
+  }
+  step(inputs, checkExact) {
+    const expect = checkExact && this.mode === "neural" ? this.exactNext(inputs) : null;
+    this.loadSources(this.V, inputs, this.Q);
+    let worst = this.evalGates(null, this.nG);
+    const D = new Float64Array(this.nR);
+    for (let r = 0; r < this.nR; r++) D[r] = this.V[this.rd[r]];
+    if (this.mode === "logic") {
+      this.Q.set(D);
+      const L = this.L;
+      for (let r = 0; r < this.nR; r++) { const v = D[r]; L.M[r] = v; L.Mb[r] = 1 - v; L.s1[r] = 1 - v; L.s2[r] = v; L.Q[r] = v; L.Qb[r] = 1 - v; L.m1[r] = 1; L.m2[r] = 1; }
+    } else {
+      worst = Math.max(worst, this.settle(0, D), this.settle(1, D));
+      this.Q.set(this.L.Q);
+    }
+    this.worst = worst;
+    let wrong = 0;
+    if (expect) for (let r = 0; r < this.nR; r++) if ((this.Q[r] > 0.5 ? 1 : 0) !== expect[r]) wrong++;
+    return wrong;
+  }
+  display() {
+    this.loadSources(this.V, {}, this.Q);
+    this.evalGates(this.cone, this.cone.length);
+    const o = this.net.outputs, V = this.V, f = {};
+    for (const k in o) f[k] = o[k].map((w) => V[w]);
+    return f;
+  }
+  hash() {
+    let h = 0;
+    for (let r = 0; r < this.nR; r++) h = (h * 31 + (this.Q[r] > 0.5 ? 1 : 0)) >>> 0;
+    return h;
+  }
+}
+
+/* ---------------- the GPT forward pass (mirrors cpugpt/model.py) ---------------- */
+let G = null, CPUNET = null, cpu = null;
+function lin(W, b, x) { const o = new Float64Array(W.length); for (let i = 0; i < W.length; i++) { let s = b ? b[i] : 0; const r = W[i]; for (let j = 0; j < x.length; j++) s += r[j] * x[j]; o[i] = s; } return o; }
+function ln(x, w, b) { let m = 0; for (const v of x) m += v; m /= x.length; let s = 0; for (const v of x) s += (v - m) * (v - m); s = 1 / Math.sqrt(s / x.length + 1e-5); return x.map((v, i) => (v - m) * s * w[i] + b[i]); }
+const add = (a, b) => a.map((v, i) => v + b[i]);
+function attn(P, pre, H, hs, dh) {
+  const T = hs.length, q = [], k = [], v = [];
+  for (const h of hs) { const o = lin(P[pre + ".qkv.weight"], P[pre + ".qkv.bias"], h); q.push(o.slice(0, H * dh)); k.push(o.slice(H * dh, 2 * H * dh)); v.push(o.slice(2 * H * dh)); }
+  const outs = [];
+  for (let t = 0; t < T; t++) {
+    const cat = new Float64Array(H * dh);
+    for (let hh = 0; hh < H; hh++) {
+      const sc = []; for (let s = 0; s <= t; s++) { let d = 0; for (let i = 0; i < dh; i++) d += q[t][hh * dh + i] * k[s][hh * dh + i]; sc.push(d / Math.sqrt(dh)); }
+      const mx = Math.max(...sc), e = sc.map((x) => Math.exp(x - mx)), Z = e.reduce((a, b) => a + b, 0);
+      for (let s = 0; s <= t; s++) for (let i = 0; i < dh; i++) cat[hh * dh + i] += e[s] / Z * v[s][hh * dh + i];
+    }
+    outs.push(lin(P[pre + ".o.weight"], P[pre + ".o.bias"], cat));
+  }
+  return outs;
+}
+function mlp(P, i, x) { const h = lin(P[`mlp.${i}.0.weight`], P[`mlp.${i}.0.bias`], x).map((v) => Math.max(v, 0)); return lin(P[`mlp.${i}.2.weight`], P[`mlp.${i}.2.bias`], h); }
+/* runs up to the CPU head; returns state for finishing */
+function front(P, ids) {
+  const d = G.d, dh = d / G.heads, T = ids.length;
+  let x = ids.map((t, i) => add(Float64Array.from(P["emb.weight"][t]), P["pos.weight"][i]));
+  const a0 = attn(P, "attn0", G.heads, x.map((v) => ln(v, P["ln.0.weight"], P["ln.0.bias"])), dh);
+  x = x.map((v, i) => add(v, a0[i]));
+  x = x.map((v) => add(v, mlp(P, 0, ln(v, P["ln.1.weight"], P["ln.1.bias"]))));
+  const h = x.map((v) => ln(v, P["ln.2.weight"], P["ln.2.bias"]));
+  const nH = P["attn1.qkv.weight"].length / (3 * dh);
+  const a1 = attn(P, "attn1", nH, h, dh);
+  const xl = add(x[T - 1], a1[T - 1]);
+  const st = { xl, h, T };
+  if (P["cpuhead.q.weight"]) {
+    const q = lin(P["cpuhead.q.weight"], P["cpuhead.q.bias"], h[T - 1]);
+    st.ptr = [0, 1, 2].map((s) => {
+      const sc = h.map((hj) => { const kk = lin(P["cpuhead.k.weight"], P["cpuhead.k.bias"], hj); let dd = 0; for (let i = 0; i < dh; i++) dd += q[s * dh + i] * kk[s * dh + i]; return dd / Math.sqrt(dh); });
+      const mx = Math.max(...sc), e = sc.map((v) => Math.exp(v - mx)), Z = e.reduce((a, b) => a + b, 0);
+      return e.map((v) => v / Z);
+    });
+    st.gate = sig(lin(P["cpuhead.gate.weight"], P["cpuhead.gate.bias"], h[T - 1])[0]);
+  }
+  return st;
+}
+function finish(P, st, result) {
+  let x = st.xl;
+  if (result !== null && P["cpuhead.read.weight"]) {
+    const bits = Array.from({ length: 8 }, (_, i) => (result >> i) & 1);
+    const r = lin(P["cpuhead.read.weight"], P["cpuhead.read.bias"], bits);
+    x = x.map((v, i) => v + r[i]);
+  }
+  x = add(x, mlp(P, 1, ln(x, P["ln.3.weight"], P["ln.3.bias"])));
+  const lg = lin(P["unembed.weight"], P["unembed.bias"], ln(x, P["lnf.weight"], P["lnf.bias"]));
+  const mx = Math.max(...lg), e = Array.from(lg, (v) => Math.exp(v - mx)), Z = e.reduce((a, b) => a + b, 0);
+  return e.map((v) => v / Z);
+}
+
+/* ---------------- tokenizer and truth (mirror cpugpt/data.py) ---------------- */
+function tokenize(text) {
+  const ids = [G.vocab.indexOf("<bos>")];
+  for (const w of text.replace(/\?/g, " ? ").replace(/=/g, " = ").replace(/;/g, " ; ").trim().split(/\s+/)) {
+    const i = G.vocab.indexOf(w);
+    if (i < 0 || w.startsWith("<")) throw new Error(`The model has no token for "${w}". Use numbers 0-255 and the listed words.`);
+    ids.push(i);
+  }
+  return ids;
+}
+function truth(ids) {
+  const w = ids.slice(1).map((i) => G.vocab[i]);
+  const s = w.join(" "), nums = w.filter((t) => /^\d+$/.test(t)).map(Number);
+  for (const t of G.templates) {
+    const pat = t.words.split(" ");
+    if (pat.length !== w.length) continue;
+    const vals = {}; let ok = true;
+    pat.forEach((p, i) => { if ("ABC".includes(p)) { if (!/^\d+$/.test(w[i])) ok = false; vals[p] = Number(w[i]); } else if (p !== w[i]) ok = false; });
+    if (!ok) continue;
+    const a = vals.A, b = vals.B ?? 0;
+    const v = { 1: a + b, 2: a - b, 3: a * b }[t.kind] ?? ({ "copy a": a, "first of a and b": a, "last of a and b": b }[t.name]);
+    const k = t.kind || 4;                                   // same split rule as cpugpt/data.py is_test
+    const heldOut = (a * 7919 + b * 104729 + k * 31337) % 5 === 0;
+    return v >= 0 && v <= 255 ? { v, heldOut, math: t.kind > 0 } : null;
+  }
+  return null;
+}
+
+/* ---------------- the computer ---------------- */
+const portIn = (o = {}) => { const d = { rst: o.rst || 0, prog: o.prog || 0, prog_we: o.we || 0 };
+  for (let i = 0; i < 5; i++) d[`prog_addr${i}`] = ((o.addr || 0) >> i) & 1;
+  for (let i = 0; i < 8; i++) d[`prog_data${i}`] = ((o.data || 0) >> i) & 1; return d; };
+let idx = {};
+const reg = (name, n) => { let v = 0; for (let i = 0; i < n; i++) if (cpu.Q[idx[`${name}[${i}]`]] > 0.5) v |= 1 << i; return v; };
+function cpuShow(t, state) {
+  $("cPC").textContent = reg("pc", 5); $("cA").textContent = reg("a", 8); $("cOUT").textContent = reg("out", 8); $("cT").textContent = t;
+  Array.from($("outLeds").children).reverse().forEach((el, i) => el.style.setProperty("--v", Math.max(0, Math.min(1, cpu.Q[idx[`out[${i}]`]])).toFixed(3)));
+  $("cpuState").textContent = state;
+}
+async function cpuCall(x, y, op, animate) {
+  for (const [k, v] of [["x", x], ["y", y], ["op", op], ["prod", 0]]) cpu.step(portIn({ prog: 1, we: 1, addr: G.addr[k], data: v }), false);
+  let t = 0, last = performance.now();
+  const RATE = 400;                                   // clock ticks per second when animated
+  while (t < G.cap && !(cpu.Q[idx["halt"]] > 0.5)) {
+    const now = performance.now();
+    const budget = animate ? Math.max(1, Math.round((now - last) * RATE / 1000)) : G.cap;
+    last = now;
+    for (let i = 0; i < budget && t < G.cap; i++) {
+      cpu.step(portIn(), false); t++;
+      if (cpu.Q[idx["halt"]] > 0.5) break;
+    }
+    if (animate) { cpuShow(t, "running"); await new Promise((r) => setTimeout(r, 16)); }
+  }
+  const halted = cpu.Q[idx["halt"]] > 0.5;
+  cpuShow(t, halted ? "halted: answer in OUT" : `stopped at ${G.cap} ticks (timeout)`);
+  return reg("out", 8);
+}
+
+/* ---------------- page ---------------- */
+const OPN = ["none", "ADD", "SUB", "MUL"];
+const S = { head: "on", anim: "anim", busy: false };
+function setPressed(g, v) { document.querySelectorAll(`#${g} button`).forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === v))); }
+function seg(g, fn) { document.querySelectorAll(`#${g} button`).forEach((b) => b.addEventListener("click", () => { setPressed(g, b.dataset.v); fn(b.dataset.v); })); }
+seg("segHead", (v) => { S.head = v; solve(); });
+seg("segAnim", (v) => { S.anim = v; });
+
+function drawPointers(ids, st) {
+  const words = ids.map((i) => G.vocab[i].replace("<bos>", "\u00b7"));
+  if (!st.ptr) { $("ptrs").innerHTML = ""; return []; }
+  const picks = st.ptr.map((p) => p.indexOf(Math.max(...p)));
+  $("ptrs").innerHTML = ["A", "B", "OP"].map((lab, s) => `<div class="ptr"><span class="lab">${lab}</span><div class="toks">${
+    st.ptr[s].map((p, j) => `<div class="tok"><div class="bar${j === picks[s] ? " pick" : ""}"><i style="height:${(p * 100).toFixed(1)}%"></i></div>${s === 2 ? `<span class="t">${words[j]}</span>` : ""}</div>`).join("")
+  }</div></div>`).join("");
+  return picks;
+}
+
+async function solve() {
+  if (S.busy || !G) return;
+  $("msg").textContent = "";
+  let ids;
+  try { ids = tokenize($("q").value); } catch (e) { $("msg").textContent = e.message; return; }
+  if (ids.length > G.t_max) { $("msg").textContent = `Too long: the model reads at most ${G.t_max - 1} words.`; return; }
+  S.busy = true;
+  const tr = truth(ids), want = tr ? tr.v : null;
+  const P = G.models.cpu.weights;
+  const st = front(P, ids);
+  const picks = drawPointers(ids, st);
+  const x = G.numval[ids[picks[0]]], y = G.numval[ids[picks[1]]], op = G.opval[ids[picks[2]]];
+  $("send").innerHTML = `sends x = <b>${x}</b>, y = <b>${y}</b>, op = <b>${OPN[op]}</b>`;
+  $("gateBar").style.width = `${(st.gate * 100).toFixed(1)}%`;
+  const calls = S.head === "on" && st.gate >= 0.5;
+  $("gateVal").textContent = `${st.gate.toFixed(2)} \u2192 ${S.head === "off" ? "head switched off" : calls ? "calls" : "does not call"}`;
+  let result = null;
+  if (calls) result = await cpuCall(x, y, op, S.anim === "anim");
+  else cpuShow(0, S.head === "off" ? "head switched off" : "not called");
+  const probs = finish(P, st, result);
+  const order = probs.map((p, i) => [p, i]).sort((a, b) => b[0] - a[0]).slice(0, 4);
+  const ans = G.vocab[order[0][1]];
+  $("ans").textContent = ans;
+  $("verdict").className = "verdict" + (want === null ? "" : String(want) === ans ? " ok" : " no");
+  $("verdict").textContent = want === null ? "" : (String(want) === ans ? "correct" : `wrong; the answer is ${want}`) +
+    (tr.math ? (tr.heldOut ? " \u00b7 these numbers were never seen in training" : " \u00b7 this pair was in the training data") : "");
+  $("top").textContent = order.map(([p, i]) => `${G.vocab[i]} ${(p * 100).toFixed(1)}%`).join("  \u00b7  ");
+  // comparison rows
+  const rows = [];
+  const pb = finish(G.models.baseline.weights, front(G.models.baseline.weights, ids), null);
+  const bAns = G.vocab[pb.indexOf(Math.max(...pb))];
+  const off = finish(P, st, null);
+  const oAns = G.vocab[off.indexOf(Math.max(...off))];
+  const mark = (a) => want === null ? "" : String(want) === a ? " \u2713" : " \u2717";
+  rows.push(["GPT + CPU head", ans + mark(ans)], ["same GPT, CPU head off", oAns + mark(oAns)], ["baseline GPT (4 ordinary heads)", bAns + mark(bAns)]);
+  if (want !== null) rows.push(["true answer", String(want)]);
+  $("cmp").innerHTML = rows.map(([k, v]) => `<tr><td>${k}</td><td class="n">${v}</td></tr>`).join("");
+  S.busy = false;
+}
+$("go").addEventListener("click", solve);
+$("q").addEventListener("keydown", (e) => { if (e.key === "Enter") solve(); });
+
+async function start() {
+  try {
+    const [a, b] = await Promise.all([fetch("model.json"), fetch("cpu.json")]);
+    if (!a.ok || !b.ok) throw new Error("HTTP");
+    G = await a.json(); CPUNET = await b.json();
+  } catch (e) { $("msg").textContent = "Could not load model.json / cpu.json. Serve this folder over HTTP (python3 -m http.server)."; return; }
+  cpu = new Machine(CPUNET);
+  CPUNET.regs.name.forEach((n, i) => (idx[n] = i));
+  $("outLeds").innerHTML = "<span class=\"led\"></span>".repeat(8);
+  for (let i = 0; i < 32; i++) cpu.step(portIn({ prog: 1, we: 1, addr: i, data: G.program[i] || 0 }), false);
+  cpuShow(0, "calculator program loaded");
+  const ex = ["what is 14 times 12 ?", "60 + 117 =", "subtract 54 from 120 =", "sum of 60 and 97 =", "7 ; 120 - 89 =", "12 * 14 =", "first of 8 and 9 =", "copy 42 ="];
+  $("examples").innerHTML = ex.map((t) => `<button>${t}</button>`).join("");
+  document.querySelectorAll("#examples button").forEach((b) => b.addEventListener("click", () => { $("q").value = b.textContent; solve(); }));
+  $("words").textContent = G.vocab.filter((w) => !/^\d+$/.test(w) && !w.startsWith("<")).join(" ");
+  const pick = (re) => Object.entries(G.results).filter(([k]) => re.test(k));
+  const avg = (rows, k) => rows.reduce((s, [, v]) => s + v[k], 0) / rows.length;
+  $("res").innerHTML = [["baseline", /^baseline/], ["CPU head, answer reward", /^CPU head \|/], ["CPU head + result check", /^CPU head \+ check \|/], ["same, pricier calls", /^CPU head \+ check, pricier/]]
+    .map(([lab, re]) => { const r = pick(re); return r.length ? `<tr><td>${lab} (${r.length} seeds)</td>${["add", "sub", "mul"].map((k) => `<td class="n">${Math.round(avg(r, k) * 100)}%</td>`).join("")}</tr>` : ""; }).join("");
+  solve();
+}
+start();
+</script>
