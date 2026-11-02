@@ -4,6 +4,25 @@ Trains many small networks on XOR, finds the internal circuits they use, tests
 whether those circuits are causal, and transplants circuits between independently
 trained networks without retraining.
 
+## Headline result
+
+Accuracy on held-out data does not show how a network computed its answer.
+Two-hidden-layer networks trained on 4-bit addition (205 of 256 problems) generalize
+well: on the 51 held-out problems, 9 of 10 networks scored 100% and one scored 96%
+([`results_adder/ADDER_REPORT.md`](results_adder/ADDER_REPORT.md)). But they do not contain
+the parts of a hand-built ripple-carry adder:
+
+- A carry direction exists, but the network does not use it. Swapping in the opposite
+  carry changes only 0-5% of answers, and pushing 10x harder changes 0-6%.
+- Knocking out the units most tied to each carry costs at most 9% accuracy on one bit.
+- Instead, by layer 2 the networks partly organize problems by their total a + b
+  (eta-squared 0.52-0.73, against about 0.11-0.14 for untrained networks).
+
+Probing for the carry is not enough evidence: a carry is a straight-line function of the
+inputs, so it reads out at 100% even from the raw inputs. The reports separate probes
+from interventions for this reason. Later experiments extend the question to 16-bit
+addition, logic-gate networks, and small GPTs that call a CPU circuit for word problems.
+
 ## Run
 
     pip install numpy matplotlib
